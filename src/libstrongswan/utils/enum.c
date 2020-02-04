@@ -70,7 +70,7 @@ static int find_flag_pos(u_int val, u_int first)
 {
 	int offset = 0;
 
-	while (val != 0x01)
+	while (val != 0xFF)
 	{
 		val = val >> 1;
 		offset++;

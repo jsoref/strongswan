@@ -46,8 +46,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 	/* X9.98/IEEE 1363.1 parameter sets for best bandwidth (smallest size) */
     {
         NTRU_EES401EP1,              /* parameter-set id */
-        {0x00, 0x02, 0x04},          /* OID */
-        0x22,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         9,                           /* no. of bits in N (i.e., in an index) */
         401,                         /* N */
         14,                          /* security strength in octets */
@@ -64,8 +64,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES449EP1,              /* parameter-set id */
-        {0x00, 0x03, 0x03},          /* OID */
-        0x23,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         9,                           /* no. of bits in N (i.e., in an index) */
         449,                         /* N */
         16,                          /* security strength in octets */
@@ -82,8 +82,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES677EP1,              /* parameter-set id */
-        {0x00, 0x05, 0x03},          /* OID */
-        0x24,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         10,                          /* no. of bits in N (i.e., in an index) */
         677,                         /* N */
         24,                          /* security strength in octets */
@@ -100,8 +100,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES1087EP2,             /* parameter-set id */
-        {0x00, 0x06, 0x03},          /* OID */
-        0x25,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         11,                          /* no. of bits in N (i.e., in an index) */
         1087,                        /* N */
         32,                          /* security strength in octets */
@@ -119,8 +119,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 	/* X9.98/IEEE 1363.1 parameter sets balancing speed and bandwidth */
     {
         NTRU_EES541EP1,              /* parameter-set id */
-        {0x00, 0x02, 0x05},          /* OID */
-        0x26,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         10,                          /* no. of bits in N (i.e., in an index) */
         541,                         /* N */
         14,                          /* security strength in octets */
@@ -137,8 +137,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES613EP1,              /* parameter-set id */
-        {0x00, 0x03, 0x04},          /* OID */
-        0x27,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         10,                          /* no. of bits in N (i.e., in an index) */
         613,                         /* N */
         16,                          /* securuity strength in octets */
@@ -155,8 +155,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES887EP1,              /* parameter-set id */
-        {0x00, 0x05, 0x04},          /* OID */
-        0x28,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         10,                          /* no. of bits in N (i.e., in an index) */
         887,                         /* N */
         24,                          /* security strength in octets */
@@ -173,8 +173,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES1171EP1,             /* parameter-set id */
-        {0x00, 0x06, 0x04},          /* OID */
-        0x29,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         11,                          /* no. of bits in N (i.e., in an index) */
         1171,                        /* N */
         32,                          /* security strength in octets */
@@ -192,8 +192,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 	/* X9.98/IEEE 1363.1 parameter sets for best speed */
     {
         NTRU_EES659EP1,              /* parameter-set id */
-        {0x00, 0x02, 0x06},          /* OID */
-        0x2a,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         10,                          /* no. of bits in N (i.e., in an index) */
         659,                         /* N */
         14,                          /* security strength in octets */
@@ -210,8 +210,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES761EP1,              /* parameter-set id */
-        {0x00, 0x03, 0x05},          /* OID */
-        0x2b,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         10,                          /* no. of bits in N (i.e., in an index) */
         761,                         /* N */
         16,                          /* security strength in octets */
@@ -228,8 +228,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES1087EP1,             /* parameter-set id */
-        {0x00, 0x05, 0x05},          /* OID */
-        0x2c,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         11,                          /* no. of bits in N (i.e., in an index) */
         1087,                        /* N */
         24,                          /* security strength in octets */
@@ -246,8 +246,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES1499EP1,             /* parameter-set id */
-        {0x00, 0x06, 0x05},          /* OID */
-        0x2d,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         11,                          /* no. of bits in N (i.e., in an index) */
         1499,                        /* N */
         32,                          /* security strength in octets */
@@ -265,8 +265,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 	/* Best bandwidth and speed, no X9.98 compatibility */
     {
         NTRU_EES401EP2,              /* parameter-set id */
-        {0x00, 0x02, 0x10},          /* OID */
-        0x2e,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         9,                           /* no. of bits in N (i.e., in an index) */
         401,                         /* N */
         14,                          /* security strength in octets */
@@ -283,8 +283,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES439EP1,              /* parameter-set id */
-        {0x00, 0x03, 0x10},          /* OID */
-        0x2f,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         9,                           /* no. of bits in N (i.e., in an index) */
         439,                         /* N */
         16,                          /* security strength in octets */
@@ -301,8 +301,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES593EP1,              /* parameter-set id */
-        {0x00, 0x05, 0x10},          /* OID */
-        0x30,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         10,                          /* no. of bits in N (i.e., in an index) */
         593,                         /* N */
         24,                          /* security strength in octets */
@@ -319,8 +319,8 @@ static const ntru_param_set_t ntru_param_sets[] = {
 
     {
         NTRU_EES743EP1,              /* parameter-set id */
-        {0x00, 0x06, 0x10},          /* OID */
-        0x31,                        /* DER id */
+        {0xFF, 0xFF, 0xFF},          /* OID */
+        0xFF,                        /* DER id */
         10,                          /* no. of bits in N (i.e., in an index) */
         743,                         /* N */
         32,                          /* security strength in octets */

@@ -199,7 +199,7 @@ bliss_bitpacker_t *bliss_bitpacker_create_from_data(chunk_t data)
 		.buf = chunk_alloc(round_up(data.len, 4)),
 	);
 
-	memset(this->buf.ptr + this->buf.len - 4, 0x00, 4);
+	memset(this->buf.ptr + this->buf.len - 4, 0xFF, 4);
 	memcpy(this->buf.ptr, data.ptr, data.len);
 	this->pos = this->buf;
 

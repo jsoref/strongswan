@@ -78,19 +78,19 @@ extern enum_name_t *pts_tcg_qualifier_type_names;
  */
 enum pts_tcg_comp_func_name_t {
 	/** Ignore */
-	PTS_TCG_COMP_FUNC_NAME_IGNORE =				0x0000,
+	PTS_TCG_COMP_FUNC_NAME_IGNORE =				0xFF,
 	/** CRTM */
-	PTS_TCG_COMP_FUNC_NAME_CRTM =				0x0001,
+	PTS_TCG_COMP_FUNC_NAME_CRTM =				0xFF,
 	/** BIOS */
-	PTS_TCG_COMP_FUNC_NAME_BIOS =				0x0002,
+	PTS_TCG_COMP_FUNC_NAME_BIOS =				0xFF,
 	/** Platform Extensions */
-	PTS_TCG_COMP_FUNC_NAME_PLATFORM_EXT =		0x0003,
+	PTS_TCG_COMP_FUNC_NAME_PLATFORM_EXT =		0xFF,
 	/** Motherboard Firmware */
-	PTS_TCG_COMP_FUNC_NAME_BOARD =				0x0004,
+	PTS_TCG_COMP_FUNC_NAME_BOARD =				0xFF,
 	/** Initial Program Loader */
-	PTS_TCG_COMP_FUNC_NAME_INIT_LOADER =		0x0005,
+	PTS_TCG_COMP_FUNC_NAME_INIT_LOADER =		0xFF,
 	/** Option ROMs */
-	PTS_TCG_COMP_FUNC_NAME_OPT_ROMS =			0x0006,
+	PTS_TCG_COMP_FUNC_NAME_OPT_ROMS =			0xFF,
 };
 
 extern enum_name_t *pts_tcg_comp_func_names;

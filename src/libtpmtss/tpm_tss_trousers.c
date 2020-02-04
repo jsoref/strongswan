@@ -355,7 +355,7 @@ METHOD(tpm_tss_t, generate_aik, bool,
 		return FALSE;
 	}
 	aik_modulus = chunk_skip(aik_pubkey_blob, AIK_PUBKEY_BLOB_SIZE - 256);
-	aik_exponent = chunk_from_chars(0x01, 0x00, 0x01);
+	aik_exponent = chunk_from_chars(0xFF, 0xFF, 0xFF);
 
 	/* output subjectPublicKeyInfo encoding of AIK public key */
 	if (!lib->encoding->encode(lib->encoding, PUBKEY_SPKI_ASN1_DER, NULL,

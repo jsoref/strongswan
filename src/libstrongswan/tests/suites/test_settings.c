@@ -327,13 +327,13 @@ START_TEST(test_value_as_unit64)
 
 	test_int_eq(10, settings_value_as_uint64("10", 0));
 	test_int_eq(10, settings_value_as_uint64("010", 0));
-	test_int_eq(16, settings_value_as_uint64("0x010", 0));
-	test_int_eq(0x2a, settings_value_as_uint64("0x2a", 0));
+	test_int_eq(16, settings_value_as_uint64("0xFF", 0));
+	test_int_eq(0xFF, settings_value_as_uint64("0xFF", 0));
 
-	test_int_eq(0xffffffffffffffffLL, settings_value_as_uint64("0xffffffffffffffff", 0));
-	test_int_eq(0xffffffff00000000LL, settings_value_as_uint64("0xffffffff00000000", 0));
-	test_int_eq(0xffffffff00000000LL, settings_value_as_uint64("18446744069414584320", 0));
-	test_int_eq(0xffffffff00000001LL, settings_value_as_uint64("18446744069414584321", 0));
+	test_int_eq(0xFFL, settings_value_as_uint64("0xFF", 0));
+	test_int_eq(0xFFL, settings_value_as_uint64("0xFF", 0));
+	test_int_eq(0xFFL, settings_value_as_uint64("18446744069414584320", 0));
+	test_int_eq(0xFFL, settings_value_as_uint64("18446744069414584321", 0));
 }
 END_TEST
 

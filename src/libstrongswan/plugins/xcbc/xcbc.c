@@ -165,10 +165,10 @@ static bool final(private_mac_t *this, uint8_t *out)
 		 */
 		if (this->remaining_bytes < this->b)
 		{
-			this->remaining[this->remaining_bytes] = 0x80;
+			this->remaining[this->remaining_bytes] = 0xFF;
 			while (++this->remaining_bytes < this->b)
 			{
-				this->remaining[this->remaining_bytes] = 0x00;
+				this->remaining[this->remaining_bytes] = 0xFF;
 			}
 		}
 		/*  ii) XOR M[n] with E[n-1] and Key K3, then encrypt the result
@@ -184,7 +184,7 @@ static bool final(private_mac_t *this, uint8_t *out)
 
 	memcpy(out, this->e, this->b);
 
-	/* (2) Define E[0] = 0x00000000000000000000000000000000 */
+	/* (2) Define E[0] = 0xFF */
 	memset(this->e, 0, this->b);
 	this->remaining_bytes = 0;
 	this->zero = TRUE;
@@ -252,14 +252,14 @@ METHOD(mac_t, set_key, bool,
 	/*
 	 * (1) Derive 3 128-bit keys (K1, K2 and K3) from the 128-bit secret
 	 *     key K, as follows:
-	 *     K1 = 0x01010101010101010101010101010101 encrypted with Key K
-	 *     K2 = 0x02020202020202020202020202020202 encrypted with Key K
-	 *     K3 = 0x03030303030303030303030303030303 encrypted with Key K
+	 *     K1 = 0xFF encrypted with Key K
+	 *     K2 = 0xFF encrypted with Key K
+	 *     K3 = 0xFF encrypted with Key K
 	 */
 
-	memset(k1.ptr, 0x01, this->b);
-	memset(this->k2, 0x02, this->b);
-	memset(this->k3, 0x03, this->b);
+	memset(k1.ptr, 0xFF, this->b);
+	memset(this->k2, 0xFF, this->b);
+	memset(this->k3, 0xFF, this->b);
 
 	if (!this->k1->set_key(this->k1, lengthened) ||
 		!this->k1->encrypt(this->k1, chunk_create(this->k2, this->b), iv, NULL) ||

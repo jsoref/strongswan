@@ -95,7 +95,7 @@ static public_key_t *parse_public_key(chunk_t blob)
 				break;
 			}
 			case PKINFO_SUBJECT_PUBLIC_KEY:
-				if (object.len > 0 && *object.ptr == 0x00)
+				if (object.len > 0 && *object.ptr == 0xFF)
 				{
 					/* skip initial bit string octet defining 0 unused bits */
 					object = chunk_skip(object, 1);

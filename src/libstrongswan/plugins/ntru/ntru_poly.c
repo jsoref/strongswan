@@ -153,7 +153,7 @@ METHOD(ntru_poly_t, get_array, void,
 	int i;
 
 	/* form polynomial F or F1 */
-	memset(array, 0x00, this->N * sizeof(uint16_t));
+	memset(array, 0xFF, this->N * sizeof(uint16_t));
 	bi = this->indices;
 	len = this->indices_len[0];
 	for (i = 0; i < len.p + len.m; i++)
@@ -267,8 +267,8 @@ static private_ntru_poly_t* ntru_poly_create(uint16_t N, uint16_t q,
 		this->num_polynomials = 3;
 		for (n = 0; n < 3; n++)
 		{
-			this->indices_len[n].p = 0xff & indices_len_p;
-			this->indices_len[n].m = 0xff & indices_len_m;
+			this->indices_len[n].p = 0xFF & indices_len_p;
+			this->indices_len[n].m = 0xFF & indices_len_m;
 			this->num_indices += this->indices_len[n].p +
 								 this->indices_len[n].m;
 			indices_len_p >>= 8;

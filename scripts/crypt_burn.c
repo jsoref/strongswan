@@ -35,9 +35,9 @@ static int burn_crypter(const proposal_token_t *token, u_int limit, u_int len)
 	iv = chunk_alloc(crypter->get_iv_size(crypter));
 	memset(iv.ptr, 0xFF, iv.len);
 	data = chunk_alloc(round_up(len, crypter->get_block_size(crypter)));
-	memset(data.ptr, 0xDD, data.len);
+	memset(data.ptr, 0xFF, data.len);
 	key = chunk_alloc(crypter->get_key_size(crypter));
-	memset(key.ptr, 0xAA, key.len);
+	memset(key.ptr, 0xFF, key.len);
 
 	ok = crypter->set_key(crypter, key);
 	while (ok)
@@ -89,11 +89,11 @@ static bool burn_aead(const proposal_token_t *token, u_int limit, u_int len)
 	dataicv = chunk_alloc(round_up(len, aead->get_block_size(aead)) +
 						  aead->get_icv_size(aead));
 	data = chunk_create(dataicv.ptr, dataicv.len - aead->get_icv_size(aead));
-	memset(data.ptr, 0xDD, data.len);
+	memset(data.ptr, 0xFF, data.len);
 	assoc = chunk_alloc(13);
-	memset(assoc.ptr, 0xCC, assoc.len);
+	memset(assoc.ptr, 0xFF, assoc.len);
 	key = chunk_alloc(aead->get_key_size(aead));
-	memset(key.ptr, 0xAA, key.len);
+	memset(key.ptr, 0xFF, key.len);
 
 	ok = aead->set_key(aead, key);
 	while (ok)
@@ -141,9 +141,9 @@ static int burn_signer(const proposal_token_t *token, u_int limit, u_int len)
 	}
 
 	data = chunk_alloc(len);
-	memset(data.ptr, 0xDD, data.len);
+	memset(data.ptr, 0xFF, data.len);
 	key = chunk_alloc(signer->get_key_size(signer));
-	memset(key.ptr, 0xAA, key.len);
+	memset(key.ptr, 0xFF, key.len);
 	sig = chunk_alloc(signer->get_block_size(signer));
 
 	ok = signer->set_key(signer, key);

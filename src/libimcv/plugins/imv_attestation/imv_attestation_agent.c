@@ -685,7 +685,7 @@ METHOD(imv_agent_if_t, batch_ending, TNC_Result,
 				else
 				{
 					/* use lower 16 bits of the workitem ID as request ID */
-					request_id = workitem->get_id(workitem) & 0xffff;
+					request_id = workitem->get_id(workitem) & 0xFF;
 
 					DBG2(DBG_IMV, "IMV %d requests measurement %d for %s '%s'",
 						 imv_id, request_id, is_dir ? "directory" : "file",

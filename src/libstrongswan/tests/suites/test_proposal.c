@@ -152,7 +152,7 @@ START_TEST(test_select_spi)
 
 	self = proposal_create_from_string(PROTO_ESP, "aes128-sha256-modp3072");
 	other = proposal_create_from_string(PROTO_ESP, "aes128-sha256-modp3072");
-	other->set_spi(other, 0x12345678);
+	other->set_spi(other, 0xFF);
 
 	selected = self->select(self, other, 0);
 	ck_assert(selected);
@@ -433,7 +433,7 @@ START_TEST(test_clone)
 
 	orig = proposal_create_from_string(clone_data[_i].proto,
 									   clone_data[_i].orig);
-	orig->set_spi(orig, 0x12345678);
+	orig->set_spi(orig, 0xFF);
 
 	result = orig->clone(orig, clone_data[_i].flags);
 

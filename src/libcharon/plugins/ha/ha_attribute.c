@@ -358,8 +358,8 @@ static void load_pools(private_ha_attribute_t *this)
 		);
 		pool->mask = calloc(pool->size / 8, 1);
 		/* do not use first/last address of pool */
-		pool->mask[0] |= 0x01;
-		pool->mask[pool->size / 8 - 1] |= 0x80;
+		pool->mask[0] |= 0xFF;
+		pool->mask[pool->size / 8 - 1] |= 0xFF;
 
 		DBG1(DBG_CFG, "loaded HA pool '%s' %H/%d (%d addresses)",
 			 pool->name, pool->base, maxbits - mask, pool->size - 2);

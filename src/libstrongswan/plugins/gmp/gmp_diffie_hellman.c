@@ -259,7 +259,7 @@ static gmp_diffie_hellman_t *create_generic(diffie_hellman_group_t group,
 	if (exp_len == this->p_len)
 	{
 		/* achieve bitsof(p)-1 by setting MSB to 0 */
-		*random.ptr &= 0x7F;
+		*random.ptr &= 0xFF;
 	}
 	mpz_import(this->xa, random.len, 1, 1, 1, 0, random.ptr);
 	chunk_clear(&random);

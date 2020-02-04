@@ -111,7 +111,7 @@ struct private_eap_sim_server_t {
 };
 
 /* version of SIM protocol we speak */
-static chunk_t version = chunk_from_chars(0x00,0x01);
+static chunk_t version = chunk_from_chars(0xFF,0xFF);
 
 /**
  * Generate a payload from a message, destroy message

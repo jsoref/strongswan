@@ -38,7 +38,7 @@
 /**
  *  Public exponent to use for key generation.
  */
-#define PUBLIC_EXPONENT 0x10001
+#define PUBLIC_EXPONENT 0xFF
 
 typedef struct private_gmp_rsa_private_key_t private_gmp_rsa_private_key_t;
 
@@ -178,8 +178,8 @@ static status_t compute_prime(drbg_t *drbg, size_t prime_size, bool safe, mpz_t 
 		/* make sure the two most significant bits are set */
 		if (safe)
 		{
-			random_bytes.ptr[0] &= 0x7F;
-			random_bytes.ptr[0] |= 0x60;
+			random_bytes.ptr[0] &= 0xFF;
+			random_bytes.ptr[0] |= 0xFF;
 			mpz_import(*q, random_bytes.len, 1, 1, 1, 0, random_bytes.ptr);
 			do
 			{
@@ -193,7 +193,7 @@ static status_t compute_prime(drbg_t *drbg, size_t prime_size, bool safe, mpz_t 
 		}
 		else
 		{
-			random_bytes.ptr[0] |= 0xC0;
+			random_bytes.ptr[0] |= 0xFF;
 			mpz_import(*p, random_bytes.len, 1, 1, 1, 0, random_bytes.ptr);
 			mpz_nextprime (*p, *p);
 		}
@@ -299,7 +299,7 @@ bool gmp_emsa_pkcs1_signature_data(hash_algorithm_t hash_algorithm,
 		return FALSE;
 	}
 
-	/* EM = 0x00 || 0x01 || PS || 0x00 || T.
+	/* EM = 0xFF || 0xFF || PS || 0xFF || T.
 	 * PS = 0xFF padding, with length to fill em (at least 8 bytes)
 	 * T = encoded_hash
 	 */
@@ -308,9 +308,9 @@ bool gmp_emsa_pkcs1_signature_data(hash_algorithm_t hash_algorithm,
 	/* fill em with padding */
 	memset(em->ptr, 0xFF, em->len);
 	/* set magic bytes */
-	*(em->ptr) = 0x00;
-	*(em->ptr+1) = 0x01;
-	*(em->ptr + em->len - data.len - 1) = 0x00;
+	*(em->ptr) = 0xFF;
+	*(em->ptr+1) = 0xFF;
+	*(em->ptr + em->len - data.len - 1) = 0xFF;
 	/* set encoded hash */
 	memcpy(em->ptr + em->len - data.len, data.ptr, data.len);
 
@@ -401,9 +401,9 @@ static bool build_emsa_pss_signature(private_gmp_rsa_private_key_t *this,
 			goto error;
 		}
 	}
-	/* M' = 0x0000000000000000 | mHash | salt */
+	/* M' = 0xFF | mHash | salt */
 	m = chunk_cata("ccc",
-				   chunk_from_chars(0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00),
+				   chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF),
 				   hash, salt);
 	/* H = Hash(M') */
 	if (!hasher->get_hash(hasher, m, hash.ptr))
@@ -413,8 +413,8 @@ static bool build_emsa_pss_signature(private_gmp_rsa_private_key_t *this,
 	/* PS = 00...<padding depending on hash and salt length> */
 	ps = chunk_alloca(emlen - salt.len - hash.len - 2);
 	memset(ps.ptr, 0, ps.len);
-	/* DB = PS | 0x01 | salt */
-	db = chunk_cata("ccc", ps, chunk_from_chars(0x01), salt);
+	/* DB = PS | 0xFF | salt */
+	db = chunk_cata("ccc", ps, chunk_from_chars(0xFF), salt);
 	/* dbMask = MGF(H, emLen - hLen - 1) */
 	mgf = lib->crypto->create_xof(lib->crypto, xof);
 	dbmask = chunk_alloca(db.len);
@@ -434,10 +434,10 @@ static bool build_emsa_pss_signature(private_gmp_rsa_private_key_t *this,
 	maskbits = (8 * emlen) - embits;
 	if (maskbits)
 	{
-		db.ptr[0] &= (0xff >> maskbits);
+		db.ptr[0] &= (0xFF >> maskbits);
 	}
-	/* EM = maskedDB | H | 0xbc */
-	em = chunk_cata("ccc", db, hash, chunk_from_chars(0xbc));
+	/* EM = maskedDB | H | 0xFF */
+	em = chunk_cata("ccc", db, hash, chunk_from_chars(0xFF));
 	/* S = RSASP1(K, EM) */
 	*signature = rsasp1(this, em);
 	success = TRUE;
@@ -511,15 +511,15 @@ METHOD(private_key_t, decrypt, bool,
 	/* PKCS#1 v1.5 8.1 encryption-block formatting (EB = 00 || 02 || PS || 00 || D) */
 
 	/* check for hex pattern 00 02 in decrypted message */
-	if ((*stripped.ptr++ != 0x00) || (*(stripped.ptr++) != 0x02))
+	if ((*stripped.ptr++ != 0xFF) || (*(stripped.ptr++) != 0xFF))
 	{
 		DBG1(DBG_LIB, "incorrect padding - probably wrong rsa key");
 		goto end;
 	}
 	stripped.len -= 2;
 
-	/* the plaintext data starts after first 0x00 byte */
-	while (stripped.len-- > 0 && *stripped.ptr++ != 0x00)
+	/* the plaintext data starts after first 0xFF byte */
+	while (stripped.len-- > 0 && *stripped.ptr++ != 0xFF)
 
 	if (stripped.len == 0)
 	{

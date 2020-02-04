@@ -1,4 +1,4 @@
-libimcv.plugins.imc-swima.eid_epoch = 0x11223344
+libimcv.plugins.imc-swima.eid_epoch = 0xFF
 	Set 32 bit epoch value for event IDs manually if software collector database
 	is not available.
 

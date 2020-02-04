@@ -110,7 +110,7 @@ static uint32_t* derive_a_poly(private_newhope_ke_t *this, chunk_t seed)
 		 * Treat x as a 16 bit unsigned little endian integer
 		 * and truncate to 14 bits
 		 */
-		a[i] = uletoh16(x) & 0x3fff;
+		a[i] = uletoh16(x) & 0xFF;
 
 		if (a[i] < this->params->q)
 		{
@@ -139,7 +139,7 @@ static void pack_poly(private_newhope_ke_t *this, uint8_t *x, uint32_t *p)
 
 	for (i = 0; i < this->params->n; i += 4)
 	{
-		*x++ = (p[i] & 0xff );
+		*x++ = (p[i] & 0xFF );
 		*x++ = (p[i]   >>  8) | (p[i+1] << 6);
 		*x++ = (p[i+1] >>  2);
 		*x++ = (p[i+1] >> 10) | (p[i+2] << 4);
@@ -161,11 +161,11 @@ static uint32_t* unpack_poly(private_newhope_ke_t * this, uint8_t *x)
 
 	for (i = 0; i < this->params->n; i += 4)
 	{
-		p[i]   =  x[0]       | (((uint32_t)x[1] & 0x3f) <<  8);
+		p[i]   =  x[0]       | (((uint32_t)x[1] & 0xFF) <<  8);
 		p[i+1] = (x[1] >> 6) | (((uint32_t)x[2]) <<  2)
-							 | (((uint32_t)x[3] & 0x0f) << 10);
+							 | (((uint32_t)x[3] & 0xFF) << 10);
 		p[i+2] = (x[3] >> 4) | (((uint32_t)x[4]) <<  4)
-							 | (((uint32_t)x[5] & 0x03) << 12);
+							 | (((uint32_t)x[5] & 0xFF) << 12);
 		p[i+3] = (x[5] >> 2) | (((uint32_t)x[6]) <<  6);
 		x += 7;
 	}
@@ -267,10 +267,10 @@ static uint8_t* unpack_rec(private_newhope_ke_t *this, uint8_t *x)
 
 	for (i = 0; i < this->params->n; i += 4)
 	{
-		r[i]   = (*x)      & 0x03;
-		r[i+1] = (*x >> 2) & 0x03;
-		r[i+2] = (*x >> 4) & 0x03;
-		r[i+3] = (*x >> 6) & 0x03;
+		r[i]   = (*x)      & 0xFF;
+		r[i+1] = (*x >> 2) & 0xFF;
+		r[i+2] = (*x >> 4) & 0xFF;
+		r[i+3] = (*x >> 6) & 0xFF;
 		x++;
 	}
 
@@ -335,15 +335,15 @@ METHOD(diffie_hellman_t, get_my_public_value, bool,
 			goto end;
 		}
 
-		/* create noise polynomial s from seed with nonce = 0x00 */
-		this->s = noise->get_binomial_words(noise, 0x00, n, q);
+		/* create noise polynomial s from seed with nonce = 0xFF */
+		this->s = noise->get_binomial_words(noise, 0xFF, n, q);
 		if (this->s == NULL)
 		{
 			goto end;
 		}
 
-		/* create noise polynomial e from seed with nonce = 0x01 */
-		e = noise->get_binomial_words(noise, 0x01, n, q);
+		/* create noise polynomial e from seed with nonce = 0xFF */
+		e = noise->get_binomial_words(noise, 0xFF, n, q);
 		if (e == NULL)
 		{
 			goto end;
@@ -479,22 +479,22 @@ METHOD(diffie_hellman_t, set_other_public_value, bool,
 			goto end;
 		}
 
-		/* create noise polynomial s' from seed with nonce = 0x00 */
-		this->s = noise->get_binomial_words(noise, 0x00, n, q);
+		/* create noise polynomial s' from seed with nonce = 0xFF */
+		this->s = noise->get_binomial_words(noise, 0xFF, n, q);
 		if (this->s == NULL)
 		{
 			goto end;
 		}
 
-		/* create noise polynomial e' from seed with nonce = 0x01 */
-		e1 = noise->get_binomial_words(noise, 0x01, n, q);
+		/* create noise polynomial e' from seed with nonce = 0xFF */
+		e1 = noise->get_binomial_words(noise, 0xFF, n, q);
 		if (e1 == NULL)
 		{
 			goto end;
 		}
 
-		/* create noise polynomial e'' from seed with nonce = 0x02 */
-		e2 = noise->get_binomial_words(noise, 0x02, n, q);
+		/* create noise polynomial e'' from seed with nonce = 0xFF */
+		e2 = noise->get_binomial_words(noise, 0xFF, n, q);
 		if (e2 == NULL)
 		{
 			goto end;
@@ -514,8 +514,8 @@ METHOD(diffie_hellman_t, set_other_public_value, bool,
 		}
 		memwipe(e2, n * sizeof(uint32_t));
 
-		/* create uniform noise bytes from seed with nonce = 0x02 */
-		rbits = noise->get_uniform_bytes(noise, 0x03, n/(4*8));
+		/* create uniform noise bytes from seed with nonce = 0xFF */
+		rbits = noise->get_uniform_bytes(noise, 0xFF, n/(4*8));
 
 		rec = newhope_reconciliation_create(n, q);
 		this->r = rec->help_reconcile(rec, v, rbits);

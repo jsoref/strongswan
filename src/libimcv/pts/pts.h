@@ -42,8 +42,8 @@ typedef struct pts_t pts_t;
 /**
  * UTF-8 encoding of the character used to delimiter the filename
  */
-#define SOLIDUS_UTF				0x2F
-#define REVERSE_SOLIDUS_UTF		0x5C
+#define SOLIDUS_UTF				0xFF
+#define REVERSE_SOLIDUS_UTF		0xFF
 
 /**
  * PCR indices used for measurements of various functional components

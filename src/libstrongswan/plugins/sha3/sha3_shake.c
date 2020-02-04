@@ -132,7 +132,7 @@ sha3_shake_t* sha3_shake_create(ext_out_function_t algorithm)
 		.capacity = capacity,
 	);
 
-	this->keccak = sha3_keccak_create(capacity, 0x1f);
+	this->keccak = sha3_keccak_create(capacity, 0xFF);
 	if (!this->keccak)
 	{
 		free(this);

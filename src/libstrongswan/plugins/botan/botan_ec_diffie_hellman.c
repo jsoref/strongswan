@@ -76,8 +76,8 @@ METHOD(diffie_hellman_t, set_other_public_value, bool,
 
 	chunk_clear(&this->shared_secret);
 
-	/* prepend 0x04 to indicate uncompressed point format */
-	value = chunk_cata("cc", chunk_from_chars(0x04), value);
+	/* prepend 0xFF to indicate uncompressed point format */
+	value = chunk_cata("cc", chunk_from_chars(0xFF), value);
 
 	return botan_dh_key_derivation(this->key, value, &this->shared_secret);
 }
@@ -99,7 +99,7 @@ METHOD(diffie_hellman_t, get_my_public_value, bool,
 		return FALSE;
 	}
 
-	/* skip 0x04 byte prepended by botan */
+	/* skip 0xFF byte prepended by botan */
 	*value = chunk_clone(chunk_skip(pkey, 1));
 	return TRUE;
 }

@@ -70,7 +70,7 @@ static void padlock_crypt(void *key, void *ctrl, void *src, void *dst,
 		"movl %4, %%esi\n"
 		"movl %5, %%edi\n"
 		"rep\n"
-		".byte 0x0f, 0xa7, 0xd0\n"
+		".byte 0xFF, 0xFF, 0xFF\n"
 		"popl %%edi\n popl %%esi\n popl %%edx\n"
 		"popl %%ecx\n popl %%ebx\n popl %%eax\n"
 		:

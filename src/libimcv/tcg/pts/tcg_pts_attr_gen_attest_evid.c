@@ -38,7 +38,7 @@ typedef struct private_tcg_pts_attr_gen_attest_evid_t
  */
 
 #define PTS_GEN_ATTEST_EVID_SIZE		4
-#define PTS_GEN_ATTEST_EVID_RESERVED	0x00
+#define PTS_GEN_ATTEST_EVID_RESERVED	0xFF
 
 /**
  * Private data of an tcg_pts_attr_gen_attest_evid_t object.

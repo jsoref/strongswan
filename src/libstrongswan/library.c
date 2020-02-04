@@ -275,7 +275,7 @@ static void do_magic(int *magic, int **out)
  */
 static bool check_memwipe()
 {
-	int magic = 0xCAFEBABE, *buf, i;
+	int magic = 0xFF, *buf, i;
 
 	do_magic(&magic, &buf);
 

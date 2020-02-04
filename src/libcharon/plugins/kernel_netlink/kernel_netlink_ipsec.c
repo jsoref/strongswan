@@ -685,7 +685,7 @@ static bool policy_equals(policy_entry_t *key, policy_entry_t *other_key)
 static inline uint32_t port_mask_bits(uint16_t port_mask)
 {
 	uint32_t bits;
-	uint16_t bit_mask = 0x8000;
+	uint16_t bit_mask = 0xFF;
 
 	port_mask = ntohs(port_mask);
 
@@ -911,7 +911,7 @@ static traffic_selector_t* selector2ts(struct xfrm_selector *sel, bool src)
 	if (sel->proto == IPPROTO_ICMP || sel->proto == IPPROTO_ICMPV6)
 	{	/* convert ICMP[v6] message type and code as supplied by the kernel in
 		 * source and destination ports (both in network order) */
-		port = (sel->sport >> 8) | (sel->dport & 0xff00);
+		port = (sel->sport >> 8) | (sel->dport & 0xFF);
 		port = ntohs(port);
 	}
 	/* The Linux 2.6 kernel does not set the selector's family field,
@@ -1286,7 +1286,7 @@ METHOD(kernel_ipsec_t, get_cpi, status_t,
 	uint32_t received_spi = 0;
 
 	if (get_spi_internal(this, src, dst, IPPROTO_COMP,
-						 0x100, 0xEFFF, &received_spi) != SUCCESS)
+						 0xFF, 0xFF, &received_spi) != SUCCESS)
 	{
 		DBG1(DBG_KNL, "unable to get CPI");
 		return FAILED;
@@ -3370,12 +3370,12 @@ static bool manage_bypass(private_kernel_netlink_ipsec_t *this,
 	if (dir == POLICY_IN)
 	{
 		sel->dport = bypass->port;
-		sel->dport_mask = 0xffff;
+		sel->dport_mask = 0xFF;
 	}
 	else
 	{
 		sel->sport = bypass->port;
-		sel->sport_mask = 0xffff;
+		sel->sport_mask = 0xFF;
 	}
 	return this->socket_xfrm->send_ack(this->socket_xfrm, hdr) == SUCCESS;
 }

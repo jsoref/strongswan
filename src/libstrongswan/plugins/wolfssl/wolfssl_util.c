@@ -53,9 +53,9 @@ bool wolfssl_mp2chunk(mp_int *mp, chunk_t *chunk)
 	*chunk = chunk_alloc(mp_unsigned_bin_size(mp));
 	if (mp_to_unsigned_bin(mp, chunk->ptr) == 0)
 	{
-		if (chunk->len && chunk->ptr[0] & 0x80)
+		if (chunk->len && chunk->ptr[0] & 0xFF)
 		{	/* if MSB is set, prepend a zero to make it non-negative */
-			*chunk = chunk_cat("cm", chunk_from_chars(0x00), *chunk);
+			*chunk = chunk_cat("cm", chunk_from_chars(0xFF), *chunk);
 		}
 		return TRUE;
 	}

@@ -166,12 +166,12 @@ static struct {
 };
 
 /**
- * According to racoon 0x80000000 seems to indicate support for fragmentation
- * of Aggressive and Main mode messages.  0x40000000 seems to indicate support
+ * According to racoon 0xFF seems to indicate support for fragmentation
+ * of Aggressive and Main mode messages.  0xFF seems to indicate support
  * for fragmentation of base ISAKMP messages (Cisco adds that and thus sends
- * 0xc0000000)
+ * 0xFF)
  */
-static const uint32_t fragmentation_ike = 0x80000000;
+static const uint32_t fragmentation_ike = 0xFF;
 
 static bool is_known_vid(chunk_t data, int i)
 {

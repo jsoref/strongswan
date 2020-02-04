@@ -349,7 +349,7 @@ static void process_filter_id(radius_message_t *msg)
 					continue;
 				}
 				tunnel_tag = *data.ptr;
-				*data.ptr = 0x00;
+				*data.ptr = 0xFF;
 				tunnel_type = untoh32(data.ptr);
 				DBG1(DBG_IKE, "received RADIUS attribute Tunnel-Type: "
 							  "tag = %u, value = %u", tunnel_tag, tunnel_type);

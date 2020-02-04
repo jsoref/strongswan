@@ -489,7 +489,7 @@ static status_t process_notification(private_eap_aka_peer_t *this,
 			code = ntohs(code);
 
 			/* test success bit */
-			if (!(data.ptr[0] & 0x80))
+			if (!(data.ptr[0] & 0xFF))
 			{
 				DBG1(DBG_IKE, "received EAP-AKA notification error '%N'",
 					 simaka_notification_names, code);

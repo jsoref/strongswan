@@ -40,7 +40,7 @@
 #define S34 15
 
 static uint8_t PADDING[64] = {
-  0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
@@ -65,11 +65,11 @@ static uint8_t PADDING[64] = {
     (a) = ROTATE_LEFT ((a), (s)); \
   }
 #define GG(a, b, c, d, x, s) { \
-    (a) += G ((b), (c), (d)) + (x) + (uint32_t)0x5a827999; \
+    (a) += G ((b), (c), (d)) + (x) + (uint32_t)0xFF; \
     (a) = ROTATE_LEFT ((a), (s)); \
   }
 #define HH(a, b, c, d, x, s) { \
-    (a) += H ((b), (c), (d)) + (x) + (uint32_t)0x6ed9eba1; \
+    (a) += H ((b), (c), (d)) + (x) + (uint32_t)0xFF; \
     (a) = ROTATE_LEFT ((a), (s)); \
   }
 
@@ -103,10 +103,10 @@ static void Encode (uint8_t *output, uint32_t *input, size_t len)
 
 	for (i = 0, j = 0; j < len; i++, j += 4)
 	{
-		output[j] = (uint8_t)(input[i] & 0xff);
-		output[j+1] = (uint8_t)((input[i] >> 8) & 0xff);
-		output[j+2] = (uint8_t)((input[i] >> 16) & 0xff);
-		output[j+3] = (uint8_t)((input[i] >> 24) & 0xff);
+		output[j] = (uint8_t)(input[i] & 0xFF);
+		output[j+1] = (uint8_t)((input[i] >> 8) & 0xFF);
+		output[j+2] = (uint8_t)((input[i] >> 16) & 0xFF);
+		output[j+3] = (uint8_t)((input[i] >> 24) & 0xFF);
 	}
 }
 
@@ -208,7 +208,7 @@ static void MD4Update(private_md4_hasher_t *this, uint8_t *input, size_t inputLe
 	size_t index, partLen;
 
 	/* Compute number of bytes mod 64 */
-	index = (uint8_t)((this->count[0] >> 3) & 0x3F);
+	index = (uint8_t)((this->count[0] >> 3) & 0xFF);
 
 	/* Update number of bits */
 	if ((this->count[0] += (inputLen << 3)) < (inputLen << 3))
@@ -252,7 +252,7 @@ static void MD4Final (private_md4_hasher_t *this, uint8_t digest[16])
 	Encode (bits, this->count, 8);
 
 	/* Pad out to 56 mod 64. */
-	index = (size_t)((this->count[0] >> 3) & 0x3f);
+	index = (size_t)((this->count[0] >> 3) & 0xFF);
 	padLen = (index < 56) ? (56 - index) : (120 - index);
 	MD4Update (this, PADDING, padLen);
 
@@ -269,10 +269,10 @@ static void MD4Final (private_md4_hasher_t *this, uint8_t digest[16])
 METHOD(hasher_t, reset, bool,
 	private_md4_hasher_t *this)
 {
-	this->state[0] = 0x67452301;
-	this->state[1] = 0xefcdab89;
-	this->state[2] = 0x98badcfe;
-	this->state[3] = 0x10325476;
+	this->state[0] = 0xFF;
+	this->state[1] = 0xFF;
+	this->state[2] = 0xFF;
+	this->state[3] = 0xFF;
 	this->count[0] = 0;
 	this->count[1] = 0;
 

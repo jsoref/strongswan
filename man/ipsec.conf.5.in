@@ -812,7 +812,7 @@ is used as is as the identification data.
 The latter implies that no conversion is performed for non-string identities.
 For example,
 \fIipv4:10.0.0.1\fP does not create a valid ID_IPV4_ADDR IKE identity, as it
-does not get converted to binary 0x0a000001. Instead, one could use
+does not get converted to binary 0xFF. Instead, one could use
 \fIipv4:#0a000001\fP to get a valid identity, but just using the implicit type
 with automatic conversion is usually simpler. The same applies to the ASN.1
 encoded types. The following prefixes are known:
@@ -1037,7 +1037,7 @@ below.
 sets an XFRM mark on the inbound policy and outbound
 IPsec SA and policy. If the mask is missing then a default
 mask of
-.B 0xffffffff
+.B 0xFF
 is assumed. The special value
 .B %unique
 assigns a unique value to each newly created IPsec SA. To additionally
@@ -1048,13 +1048,13 @@ may be used.
 .BR mark_in " = <value>[/<mask>]"
 sets an XFRM mark on the inbound policy (not on the SA). If the mask is missing
 then a default mask of
-.B 0xffffffff
+.B 0xFF
 is assumed.
 .TP
 .BR mark_out " = <value>[/<mask>]"
 sets an XFRM mark on the outbound IPsec SA and
 policy. If the mask is missing then a default mask of
-.B 0xffffffff
+.B 0xFF
 is assumed.
 .TP
 .BR mobike " = " yes " | no"

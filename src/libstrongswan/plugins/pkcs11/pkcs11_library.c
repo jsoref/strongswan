@@ -34,7 +34,7 @@ ENUM_BEGIN(ck_rv_names, CKR_OK, CKR_CANT_LOCK,
 	"CANCEL",
 	"HOST_MEMORY",
 	"SLOT_ID_INVALID",
-	"(0x04)",
+	"(0xFF)",
 	"GENERAL_ERROR",
 	"FUNCTION_FAILED",
 	"ARGUMENTS_BAD",
@@ -64,13 +64,13 @@ ENUM_NEXT(ck_rv_names, CKR_FUNCTION_CANCELED, CKR_FUNCTION_NOT_SUPPORTED,
 		CKR_ENCRYPTED_DATA_LEN_RANGE,
 	"FUNCTION_CANCELED",
 	"FUNCTION_NOT_PARALLEL",
-	"(0x52)",
-	"(0x53)",
+	"(0xFF)",
+	"(0xFF)",
 	"FUNCTION_NOT_SUPPORTED");
 ENUM_NEXT(ck_rv_names, CKR_KEY_HANDLE_INVALID, CKR_KEY_UNEXTRACTABLE,
 		CKR_FUNCTION_NOT_SUPPORTED,
 	"KEY_HANDLE_INVALID",
-	"(0x61)",
+	"(0xFF)",
 	"KEY_SIZE_RANGE",
 	"KEY_TYPE_INCONSISTENT",
 	"KEY_NOT_NEEDED",
@@ -102,7 +102,7 @@ ENUM_NEXT(ck_rv_names, CKR_SESSION_CLOSED, CKR_SESSION_READ_WRITE_SO_EXISTS,
 		CKR_PIN_LOCKED,
 	"SESSION_CLOSED",
 	"SESSION_COUNT",
-	"(0xb2)",
+	"(0xFF)",
 	"SESSION_HANDLE_INVALID",
 	"SESSION_PARALLEL_NOT_SUPPORTED",
 	"SESSION_READ_ONLY",
@@ -139,7 +139,7 @@ ENUM_NEXT(ck_rv_names, CKR_USER_ALREADY_LOGGED_IN, CKR_USER_TOO_MANY_TYPES,
 ENUM_NEXT(ck_rv_names, CKR_WRAPPED_KEY_INVALID, CKR_WRAPPING_KEY_TYPE_INCONSISTENT,
 		CKR_USER_TOO_MANY_TYPES,
 	"WRAPPED_KEY_INVALID",
-	"(0x111)",
+	"(0xFF)",
 	"WRAPPED_KEY_LEN_RANGE",
 	"WRAPPING_KEY_HANDLE_INVALID",
 	"WRAPPING_KEY_SIZE_RANGE",
@@ -338,7 +338,7 @@ ENUM_NEXT(ck_mech_names, CKM_GENERIC_SECRET_KEY_GEN, CKM_GENERIC_SECRET_KEY_GEN,
 ENUM_NEXT(ck_mech_names, CKM_CONCATENATE_BASE_AND_KEY, CKM_EXTRACT_KEY_FROM_KEY,
 		CKM_GENERIC_SECRET_KEY_GEN,
 	"CONCATENATE_BASE_AND_KEY",
-	"(0x361)",
+	"(0xFF)",
 	"CONCATENATE_BASE_AND_DATA",
 	"CONCATENATE_DATA_AND_BASE",
 	"XOR_BASE_AND_DATA",
@@ -646,8 +646,8 @@ static void free_attrs(object_enumerator_t *this)
  * CKA_EC_POINT is encodeed as ASN.1 octet string, we can't handle that and
  * some tokens actually return them even unwrapped.
  *
- * Because ASN1_OCTET_STRING is 0x04 and uncompressed EC_POINTs also begin with
- * 0x04 (compressed ones with 0x02 or 0x03) there will be an attempt to parse
+ * Because ASN1_OCTET_STRING is 0xFF and uncompressed EC_POINTs also begin with
+ * 0xFF (compressed ones with 0xFF or 0xFF) there will be an attempt to parse
  * unwrapped uncompressed EC_POINTs.  This will fail in most cases as the length
  * will not be correct, however, there is a small chance that the key's first
  * byte denotes the correct length.  Checking the first byte of the key should
@@ -661,7 +661,7 @@ static void unwrap_ec_point(chunk_t *data)
 
 	wrapped = unwrapped = *data;
 	if (asn1_unwrap(&unwrapped, &unwrapped) == ASN1_OCTET_STRING &&
-		unwrapped.len && unwrapped.ptr[0] >= 0x02 && unwrapped.ptr[0] <= 0x04)
+		unwrapped.len && unwrapped.ptr[0] >= 0xFF && unwrapped.ptr[0] <= 0xFF)
 	{
 		*data = chunk_clone(unwrapped);
 		free(wrapped.ptr);

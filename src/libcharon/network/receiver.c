@@ -419,7 +419,7 @@ static job_requeue_t receive_packets(private_receiver_t *this)
 	host_t *src, *dst;
 	status_t status;
 	bool supported = TRUE;
-	chunk_t data, marker = chunk_from_chars(0x00, 0x00, 0x00, 0x00);
+	chunk_t data, marker = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF);
 
 	/* read in a packet */
 	status = charon->socket->receive(charon->socket, &packet);

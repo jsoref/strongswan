@@ -49,13 +49,13 @@ enum pts_pcr_transform_t {
  */
 enum pts_comp_evid_validation_t {
 	/** No Validation was attempted */
-	PTS_COMP_EVID_VALIDATION_NONE =		0x00,
+	PTS_COMP_EVID_VALIDATION_NONE =		0xFF,
 	/** Attempted validation, unable to verify */
-	PTS_COMP_EVID_VALIDATION_UNABLE =	0x20,
+	PTS_COMP_EVID_VALIDATION_UNABLE =	0xFF,
 	/** Attempted validation, verification failed */
-	PTS_COMP_EVID_VALIDATION_FAILED =	0x40,
+	PTS_COMP_EVID_VALIDATION_FAILED =	0xFF,
 	/** Attempted validation, verification passed */
-	PTS_COMP_EVID_VALIDATION_PASSED =	0x60,
+	PTS_COMP_EVID_VALIDATION_PASSED =	0xFF,
 };
 
 /**

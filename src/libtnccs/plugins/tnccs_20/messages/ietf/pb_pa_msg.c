@@ -42,9 +42,9 @@ typedef struct private_pb_pa_msg_t private_pb_pa_msg_t;
  *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  */
 
-#define PA_FLAG_NONE			0x00
+#define PA_FLAG_NONE			0xFF
 #define PA_FLAG_EXCL			(1<<7)
-#define PA_RESERVED_SUBTYPE		0xffffffff
+#define PA_RESERVED_SUBTYPE		0xFF
 
 
 /**

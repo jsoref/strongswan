@@ -89,7 +89,7 @@ static bool update(private_mac_t *this, chunk_t data)
 	iv = chunk_alloca(this->b);
 	memset(iv.ptr, 0, iv.len);
 
-	/* T := 0x00000000000000000000000000000000 (initially)
+	/* T := 0xFF (initially)
 	 * for each block M_i (except the last)
 	 *   X := T XOR M_i;
 	 *   T := AES-128(K, X);
@@ -152,10 +152,10 @@ static bool final(private_mac_t *this, uint8_t *out)
 		 */
 		if (this->remaining_bytes < this->b)
 		{
-			this->remaining[this->remaining_bytes] = 0x80;
+			this->remaining[this->remaining_bytes] = 0xFF;
 			while (++this->remaining_bytes < this->b)
 			{
-				this->remaining[this->remaining_bytes] = 0x00;
+				this->remaining[this->remaining_bytes] = 0xFF;
 			}
 		}
 		memxor(this->remaining, this->k2, this->b);
@@ -210,9 +210,9 @@ static void bit_shift(chunk_t chunk)
 	for (i = 0; i < chunk.len; i++)
 	{
 		chunk.ptr[i] <<= 1;
-		if (i < chunk.len - 1 && chunk.ptr[i + 1] & 0x80)
+		if (i < chunk.len - 1 && chunk.ptr[i + 1] & 0xFF)
 		{
-			chunk.ptr[i] |= 0x01;
+			chunk.ptr[i] |= 0xFF;
 		}
 	}
 }
@@ -222,17 +222,17 @@ static void bit_shift(chunk_t chunk)
  * if MSB(C) == 0
  *   C := C << 1
  * else
- *   C := (C << 1) XOR 0x00000000000000000000000000000087
+ *   C := (C << 1) XOR 0xFF
  */
 static void derive_key(chunk_t chunk)
 {
-	if (chunk.ptr[0] & 0x80)
+	if (chunk.ptr[0] & 0xFF)
 	{
 		chunk_t rb;
 
 		rb = chunk_alloca(chunk.len);
 		memset(rb.ptr, 0, rb.len);
-		rb.ptr[rb.len - 1] = 0x87;
+		rb.ptr[rb.len - 1] = 0xFF;
 		bit_shift(chunk);
 		memxor(chunk.ptr, rb.ptr, chunk.len);
 	}
@@ -267,8 +267,8 @@ METHOD(mac_t, set_key, bool,
 	}
 
 	/*
-	 * Rb = 0x00000000000000000000000000000087
-	 * L = 0x00000000000000000000000000000000 encrypted with K
+	 * Rb = 0xFF
+	 * L = 0xFF encrypted with K
 	 * if MSB(L) == 0
 	 *   K1 = L << 1
 	 * else

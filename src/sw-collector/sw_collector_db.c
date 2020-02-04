@@ -394,7 +394,7 @@ sw_collector_db_t *sw_collector_db_create(char *uri)
 		rng->destroy(rng);
 
 		/* strongTNC workaround - limit epoch to 31 bit unsigned integer */
-		this->epoch &= 0x7fffffff;
+		this->epoch &= 0xFF;
 
 		/* Create first event when the OS was installed */
 		first_file = lib->settings->get_str(lib->settings,

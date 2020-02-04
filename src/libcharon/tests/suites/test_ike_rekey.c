@@ -236,10 +236,10 @@ START_TEST(test_collision)
 		/* SPIs of the kept IKE_SA */
 		uint32_t spi_i, spi_r;
 	} data[] = {
-		{ { 0x00, 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
-		{ { 0xFF, 0x00, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
-		{ { 0xFF, 0xFF, 0x00, 0xFF }, 3, 5, 1, 2, 4, 6 },
-		{ { 0xFF, 0xFF, 0xFF, 0x00 }, 1, 2, 4, 6, 3, 5 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
 	};
 	/* these should never get called as this results in a successful rekeying */
 	assert_hook_not_called(ike_updown);
@@ -410,10 +410,10 @@ START_TEST(test_collision_ke_invalid)
 		/* SPIs of the kept IKE_SA */
 		uint32_t spi_i, spi_r;
 	} data[] = {
-		{ { 0x00, 0xFF, 0xFF, 0xFF }, 3, 7, 1, 2, 4, 8 },
-		{ { 0xFF, 0x00, 0xFF, 0xFF }, 1, 2, 4, 8, 3, 7 },
-		{ { 0xFF, 0xFF, 0x00, 0xFF }, 3, 7, 1, 2, 4, 8 },
-		{ { 0xFF, 0xFF, 0xFF, 0x00 }, 1, 2, 4, 8, 3, 7 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 3, 7, 1, 2, 4, 8 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 1, 2, 4, 8, 3, 7 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 3, 7, 1, 2, 4, 8 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 1, 2, 4, 8, 3, 7 },
 	};
 	/* these should never get called as this results in a successful rekeying */
 	assert_hook_not_called(ike_updown);
@@ -618,9 +618,9 @@ START_TEST(test_collision_ke_invalid_delayed_retry)
 		/* Nonces used at each point */
 		u_char nonces[3];
 	} data[] = {
-		{ { 0x00, 0xFF, 0xFF } },
-		{ { 0xFF, 0x00, 0xFF } },
-		{ { 0xFF, 0xFF, 0x00 } },
+		{ { 0xFF, 0xFF, 0xFF } },
+		{ { 0xFF, 0xFF, 0xFF } },
+		{ { 0xFF, 0xFF, 0xFF } },
 	};
 	/* these should never get called as this results in a successful rekeying */
 	assert_hook_not_called(ike_updown);
@@ -786,10 +786,10 @@ START_TEST(test_collision_delayed_response)
 		/* SPIs of the kept IKE_SA */
 		uint32_t spi_i, spi_r;
 	} data[] = {
-		{ { 0x00, 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
-		{ { 0xFF, 0x00, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
-		{ { 0xFF, 0xFF, 0x00, 0xFF }, 3, 5, 1, 2, 4, 6 },
-		{ { 0xFF, 0xFF, 0xFF, 0x00 }, 1, 2, 4, 6, 3, 5 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
 	};
 	/* these should never get called as this results in a successful rekeying */
 	assert_hook_not_called(ike_updown);
@@ -987,9 +987,9 @@ START_TEST(test_collision_dropped_request)
 		/* SPIs of the kept IKE_SA */
 		uint32_t spi_i, spi_r;
 	} data[] = {
-		{ { 0x00, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
-		{ { 0xFF, 0x00, 0xFF }, 1, 2, 4, 6, 3, 5 },
-		{ { 0xFF, 0xFF, 0x00 }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
+		{ { 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
 		{ { 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
 	};
 	/* these should never get called as this results in a successful rekeying */
@@ -1092,9 +1092,9 @@ START_TEST(test_collision_delayed_request)
 		/* SPIs of the kept IKE_SA */
 		uint32_t spi_i, spi_r;
 	} data[] = {
-		{ { 0x00, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
-		{ { 0xFF, 0x00, 0xFF }, 1, 2, 4, 6, 3, 5 },
-		{ { 0xFF, 0xFF, 0x00 }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
+		{ { 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
 		{ { 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
 	};
 	/* these should never get called as this results in a successful rekeying */
@@ -1207,9 +1207,9 @@ START_TEST(test_collision_delayed_request_and_delete)
 		/* SPIs of the kept IKE_SA */
 		uint32_t spi_i, spi_r;
 	} data[] = {
-		{ { 0x00, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
-		{ { 0xFF, 0x00, 0xFF }, 1, 2, 4, 6, 3, 5 },
-		{ { 0xFF, 0xFF, 0x00 }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
+		{ { 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
+		{ { 0xFF, 0xFF, 0xFF }, 3, 5, 1, 2, 4, 6 },
 		{ { 0xFF, 0xFF, 0xFF }, 1, 2, 4, 6, 3, 5 },
 	};
 	/* these should never get called as this results in a successful rekeying */

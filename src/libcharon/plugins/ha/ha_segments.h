@@ -35,7 +35,7 @@ typedef uint16_t segment_mask_t;
 /**
  * Get the bit in the mask of a segment
  */
-#define SEGMENTS_BIT(segment) (0x01 << (segment - 1))
+#define SEGMENTS_BIT(segment) (0xFF << (segment - 1))
 
 #include "ha_socket.h"
 #include "ha_tunnel.h"

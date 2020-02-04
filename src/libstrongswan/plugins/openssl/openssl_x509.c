@@ -56,12 +56,12 @@
 #include <selectors/traffic_selector.h>
 
 /* IP Addr block extension support was introduced with 0.9.8e */
-#if OPENSSL_VERSION_NUMBER < 0x0090805fL
+#if OPENSSL_VERSION_NUMBER < 0xFF
 #define OPENSSL_NO_RFC3779
 #endif
 
 /* added with 1.0.2 */
-#if OPENSSL_VERSION_NUMBER < 0x10002000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 static inline void X509_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg, const X509 *x) {
 	if (psig) { *psig = x->signature; }
 	if (palg) { *palg = x->sig_alg; }
@@ -69,7 +69,7 @@ static inline void X509_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg
 #endif
 
 /* added with 1.1.0 when X509 etc. was made opaque */
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 #define X509_get0_extensions(x509) ({ (x509)->cert_info->extensions; })
 #define X509_get0_tbs_sigalg(x509) ({ (x509)->cert_info->signature; })
 #define X509_ALGOR_get0(oid, ppt, ppv, alg) ({ *(oid) = (alg)->algorithm; })
@@ -391,7 +391,7 @@ METHOD(certificate_t, issued_by, bool,
 	public_key_t *key;
 	bool valid;
 	x509_t *x509 = (x509_t*)issuer;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	const ASN1_BIT_STRING *sig;
 #else
 	ASN1_BIT_STRING *sig;
@@ -427,7 +427,7 @@ METHOD(certificate_t, issued_by, bool,
 		return FALSE;
 	}
 	/* i2d_re_X509_tbs() was added with 1.1.0 when X509 was made opaque */
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	tbs = openssl_i2chunk(re_X509_tbs, this->x509);
 #else
 	tbs = openssl_i2chunk(X509_CINF, this->x509->cert_info);
@@ -1083,7 +1083,7 @@ static bool parse_certificate(private_openssl_x509_t *this)
 	hasher_t *hasher;
 	chunk_t chunk, sig_scheme, sig_scheme_tbs;
 	ASN1_OBJECT *oid;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	const X509_ALGOR *alg;
 #else
 	X509_ALGOR *alg;

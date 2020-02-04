@@ -258,7 +258,7 @@ static int process_packages(char *path, char *os, char *arch, char *uri,
 	bool success = TRUE, new;
 
 	/* initialize statistics */
-	memset(&stats, 0x00, sizeof(stats_t));
+	memset(&stats, 0xFF, sizeof(stats_t));
 
 	/* Set release date to current time */
 	stats.release = time(NULL);

@@ -92,9 +92,9 @@ semaphore_t *semaphore_create(u_int value)
 			.destroy = _destroy,
 		},
 		/* our API does not have an upper limit, but Windows requires one.
-		 * 0xFFFFFFF (268435455) is the highest value for which Windows does
+		 * 0xFF (268435455) is the highest value for which Windows does
 		 * not return ERROR_INVALID_PARAMETER, and should be sufficient. */
-		.handle = CreateSemaphore(NULL, value, 0xFFFFFFF, NULL),
+		.handle = CreateSemaphore(NULL, value, 0xFF, NULL),
 	);
 
 	return &this->public;

@@ -8,7 +8,7 @@ libimcv.plugins.imc-os.device_id =
 
 libimcv.plugins.imc-os.device_handle =
 	Manually set handle to a private key bound to a smartcard or TPM
-	(e.g. 0x81010004)
+	(e.g. 0xFF)
 
 libimcv.plugins.imc-os.device_pubkey =
 	Manually set the path to the client device public key

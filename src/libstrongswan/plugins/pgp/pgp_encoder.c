@@ -37,11 +37,11 @@ static bool build_v3_fingerprint(chunk_t *encoding, va_list args)
 			return FALSE;
 		}
 		/* remove leading zero bytes before hashing modulus and exponent */
-		while (n.len > 0 && n.ptr[0] == 0x00)
+		while (n.len > 0 && n.ptr[0] == 0xFF)
 		{
 			n = chunk_skip(n, 1);
 		}
-		while (e.len > 0 && e.ptr[0] == 0x00)
+		while (e.len > 0 && e.ptr[0] == 0xFF)
 		{
 			e = chunk_skip(e, 1);
 		}

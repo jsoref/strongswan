@@ -20,11 +20,11 @@
 #include <tpm20.h>
 
 #ifndef TPM_ALG_ECMQV
-#define TPM_ALG_ECMQV		(TPM_ALG_ID)0x001D
+#define TPM_ALG_ECMQV		(TPM_ALG_ID)0xFF
 #endif
 
 #ifndef TPM_ALG_CAMELLIA
-#define TPM_ALG_CAMELLIA	(TPM_ALG_ID)0x0026
+#define TPM_ALG_CAMELLIA	(TPM_ALG_ID)0xFF
 #endif
 
 /**

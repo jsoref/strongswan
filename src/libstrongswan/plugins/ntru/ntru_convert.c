@@ -189,9 +189,9 @@ bool ntru_trits_2_bits(uint8_t const *trits, uint32_t num_trits, uint8_t *octets
 		num_trits -= 16;
 
 		/* output three octets */
-		*octets++ = (uint8_t)((bits24 >> 16) & 0xff);
-		*octets++ = (uint8_t)((bits24 >>  8) & 0xff);
-		*octets++ = (uint8_t)(bits24 & 0xff);
+		*octets++ = (uint8_t)((bits24 >> 16) & 0xFF);
+		*octets++ = (uint8_t)((bits24 >>  8) & 0xFF);
+		*octets++ = (uint8_t)(bits24 & 0xFF);
 	}
 
 	bits24 = 0;
@@ -215,9 +215,9 @@ bool ntru_trits_2_bits(uint8_t const *trits, uint32_t num_trits, uint8_t *octets
 	}
 
 	/* output three octets */
-	*octets++ = (uint8_t)((bits24 >> 16) & 0xff);
-	*octets++ = (uint8_t)((bits24 >>  8) & 0xff);
-	*octets++ = (uint8_t)(bits24 & 0xff);
+	*octets++ = (uint8_t)((bits24 >> 16) & 0xFF);
+	*octets++ = (uint8_t)((bits24 >>  8) & 0xFF);
+	*octets++ = (uint8_t)(bits24 & 0xFF);
 
 	return all_trits_valid;
 }
@@ -385,7 +385,7 @@ void ntru_elements_2_octets(uint16_t in_len, uint16_t const *in, uint8_t n_bits,
 	{
 		/* add bits to temp to fill an octet and output the octet */
 		temp |= in[i] >> shift;
-		*out++ = (uint8_t)(temp & 0xff);
+		*out++ = (uint8_t)(temp & 0xFF);
 		shift = 8 - shift;
 		if (shift < 1)
 		{
@@ -407,7 +407,7 @@ void ntru_elements_2_octets(uint16_t in_len, uint16_t const *in, uint8_t n_bits,
 	/* output any bits remaining in last input word */
 	if (shift != n_bits - 8)
 	{
-		*out++ = (uint8_t)(temp & 0xff);
+		*out++ = (uint8_t)(temp & 0xFF);
 	}
 }
 

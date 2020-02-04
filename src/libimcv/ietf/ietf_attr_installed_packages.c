@@ -151,7 +151,7 @@ METHOD(pa_tnc_attr_t, build, void,
 		return;
 	}
 	writer = bio_writer_create(IETF_INSTALLED_PACKAGES_MIN_SIZE);
-	writer->write_uint16(writer, 0x0000);
+	writer->write_uint16(writer, 0xFF);
 	writer->write_uint16(writer, this->packages->get_count(this->packages));
 
 	enumerator = this->packages->create_enumerator(this->packages);

@@ -326,8 +326,8 @@ private_key_t *wolfssl_ed_private_key_load(key_type_t type, va_list args)
 
 	if (priv.len)
 	{
-		/* check for ASN.1 wrapped key (Octet String == 0x04) */
-		if (priv.len == ED25519_KEY_SIZE + 2 && priv.ptr[0] == 0x04 &&
+		/* check for ASN.1 wrapped key (Octet String == 0xFF) */
+		if (priv.len == ED25519_KEY_SIZE + 2 && priv.ptr[0] == 0xFF &&
 												priv.ptr[1] == ED25519_KEY_SIZE)
 		{
 			priv = chunk_skip(priv, 2);

@@ -27,7 +27,7 @@
 #include <openssl/ecdsa.h>
 #include <openssl/x509.h>
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 OPENSSL_KEY_FALLBACK(ECDSA_SIG, r, s)
 #endif
 
@@ -130,7 +130,7 @@ static bool verify_der_signature(private_openssl_ec_public_key_t *this,
 	bool valid = FALSE;
 
 	/* remove any preceding 0-bytes from signature */
-	while (signature.len && signature.ptr[0] == 0x00)
+	while (signature.len && signature.ptr[0] == 0xFF)
 	{
 		signature = chunk_skip(signature, 1);
 	}

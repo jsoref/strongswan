@@ -313,7 +313,7 @@ static bool initialize_tcti_tabrmd_context(private_tpm_tss_tss2_t *this)
 
 	/* allocate and initialize memory for tcti context */
 	this->tcti_context = (TSS2_TCTI_CONTEXT*)malloc(tcti_context_size);
-	memset(this->tcti_context, 0x00, tcti_context_size);
+	memset(this->tcti_context, 0xFF, tcti_context_size);
 
 	/* initialize tcti context */
 	rval = tss2_tcti_tabrmd_init(this->tcti_context, &tcti_context_size);
@@ -494,7 +494,7 @@ METHOD(tpm_tss_t, get_public, chunk_t,
 		{
 			TPM2B_PUBLIC_KEY_RSA *rsa;
 			TPMT_RSA_SCHEME *scheme;
-			chunk_t aik_exponent = chunk_from_chars(0x01, 0x00, 0x01);
+			chunk_t aik_exponent = chunk_from_chars(0xFF, 0xFF, 0xFF);
 			chunk_t aik_modulus;
 			uint32_t exponent;
 
@@ -538,9 +538,9 @@ METHOD(tpm_tss_t, get_public, chunk_t,
 			pos = asn1_build_object(&ecc_point, ASN1_BIT_STRING,
 									2 + ecc->x.t.size + ecc->y.t.size);
 			/* bit string length is a multiple of octets */
-			*pos++ = 0x00;
+			*pos++ = 0xFF;
 			/* uncompressed ECC point format */
-			*pos++ = 0x04;
+			*pos++ = 0xFF;
 			/* copy x coordinate of ECC point */
 			memcpy(pos, ecc->x.t.buffer, ecc->x.t.size);
 			pos += ecc->x.t.size;
@@ -871,7 +871,7 @@ METHOD(tpm_tss_t, quote, bool,
 	memcpy(qualifying_data.t.buffer, data.ptr, data.len);
 
 	scheme.scheme = TPM_ALG_NULL;
-	memset(&sig, 0x00, sizeof(sig));
+	memset(&sig, 0xFF, sizeof(sig));
 
 	/* set Quote mode */
 	*quote_mode = TPM_QUOTE_TPM2;

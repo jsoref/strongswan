@@ -150,7 +150,7 @@ static bool parse_attributes(char *name, char *value, value_type_t *value_type,
 				blob_next = chunk_alloc(blob->len + UNITY_NETWORK_LEN);
 				memcpy(blob_next.ptr, blob->ptr, blob->len);
 				pos_addr = blob_next.ptr + blob->len;
-				memset(pos_addr, 0x00, UNITY_NETWORK_LEN);
+				memset(pos_addr, 0xFF, UNITY_NETWORK_LEN);
 				memcpy(pos_addr,     addr_chunk.ptr, 4);
 				memcpy(pos_addr + 4, mask_chunk.ptr, 4);
 				addr->destroy(addr);

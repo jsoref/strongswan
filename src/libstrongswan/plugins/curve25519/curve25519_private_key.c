@@ -260,9 +260,9 @@ static private_curve25519_private_key_t *curve25519_private_key_create(chunk_t k
 	}
 	hasher->destroy(hasher);
 
-	this->s[0]  &= 0xf8;
-	this->s[31] &= 0x3f;
-	this->s[31] |= 0x40;
+	this->s[0]  &= 0xFF;
+	this->s[31] &= 0xFF;
+	this->s[31] |= 0xFF;
 
 	/* derive public key */
 	ge_scalarmult_base(&A, this->s);

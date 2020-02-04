@@ -81,8 +81,8 @@ typedef struct private_pb_pdp_referral_msg_t private_pb_pdp_referral_msg_t;
 
 # define PDP_REFERRAL_HEADER_SIZE		8
 # define PDP_REFERRAL_ID_HEADER_SIZE	4
-# define PDP_REFERRAL_RESERVED			0x00
-# define PDP_REFERRAL_PROTOCOL			0x00
+# define PDP_REFERRAL_RESERVED			0xFF
+# define PDP_REFERRAL_PROTOCOL			0xFF
 
 /**
  * Private data of a pb_pdp_referral_msg_t object.

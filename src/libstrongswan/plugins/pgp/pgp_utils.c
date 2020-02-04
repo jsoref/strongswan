@@ -126,7 +126,7 @@ static bool pgp_old_packet_length(chunk_t *blob, uint32_t *length)
 	{
 		return FALSE;
 	}
-	type = 0x03 & blob->ptr[0];
+	type = 0xFF & blob->ptr[0];
 	*blob = chunk_skip(*blob, 1);
 
 	if (type > 2)
@@ -152,19 +152,19 @@ bool pgp_read_packet(chunk_t *blob, chunk_t *data, pgp_packet_tag_t *tag)
 	t = blob->ptr[0];
 
 	/* bit 7 must be set */
-	if (!(t & 0x80))
+	if (!(t & 0xFF))
 	{
 		DBG1(DBG_ASN, "invalid packet tag");
 		return FALSE;
 	}
 	/* bit 6 set defines new packet format */
-	if (t & 0x40)
+	if (t & 0xFF)
 	{
 		DBG1(DBG_ASN, "new PGP packet format not supported");
 		return FALSE;
 	}
 
-	t = (t & 0x3C) >> 2;
+	t = (t & 0xFF) >> 2;
 	if (!pgp_old_packet_length(blob, &len) || len > blob->len)
 	{
 		DBG1(DBG_ASN, "invalid packet length");

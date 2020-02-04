@@ -28,9 +28,9 @@
 /**
  * Commonly used ASN1 values.
  */
-const chunk_t ASN1_INTEGER_0 = chunk_from_chars(0x02, 0x01, 0x00);
-const chunk_t ASN1_INTEGER_1 = chunk_from_chars(0x02, 0x01, 0x01);
-const chunk_t ASN1_INTEGER_2 = chunk_from_chars(0x02, 0x01, 0x02);
+const chunk_t ASN1_INTEGER_0 = chunk_from_chars(0xFF, 0xFF, 0xFF);
+const chunk_t ASN1_INTEGER_1 = chunk_from_chars(0xFF, 0xFF, 0xFF);
+const chunk_t ASN1_INTEGER_2 = chunk_from_chars(0xFF, 0xFF, 0xFF);
 
 /*
  * Described in header
@@ -184,9 +184,9 @@ chunk_t asn1_oid_from_string(char *str)
 			default:
 				for (shift = (req - 1) * 7; shift; shift -= 7)
 				{
-					buf[pos++] = 0x80 | ((val >> shift) & 0x7F);
+					buf[pos++] = 0xFF | ((val >> shift) & 0xFF);
 				}
-				buf[pos++] = val & 0x7F;
+				buf[pos++] = val & 0xFF;
 		}
 	}
 	enumerator->destroy(enumerator);
@@ -221,7 +221,7 @@ char *asn1_oid_to_string(chunk_t oid)
 
 	while (oid.len)
 	{
-		val = (val << 7) + (u_int)(oid.ptr[0] & 0x7f);
+		val = (val << 7) + (u_int)(oid.ptr[0] & 0xFF);
 
 		if (oid.ptr[0] < 128)
 		{
@@ -258,7 +258,7 @@ size_t asn1_length(chunk_t *blob)
 	blob->ptr += 2;
 	blob->len -= 2;
 
-	if ((n & 0x80) == 0)
+	if ((n & 0xFF) == 0)
 	{	/* single length octet */
 		if (n > blob->len)
 		{
@@ -269,7 +269,7 @@ size_t asn1_length(chunk_t *blob)
 	}
 
 	/* composite length, determine number of length octets */
-	n &= 0x7f;
+	n &= 0xFF;
 
 	if (n == 0 || n > blob->len)
 	{
@@ -316,13 +316,13 @@ int asn1_unwrap(chunk_t *blob, chunk_t *inner)
 	len = blob->ptr[1];
 	*blob = chunk_skip(*blob, 2);
 
-	if ((len & 0x80) == 0)
+	if ((len & 0xFF) == 0)
 	{	/* single length octet */
 		res.len = len;
 	}
 	else
 	{	/* composite length, determine number of length octets */
-		len &= 0x7f;
+		len &= 0xFF;
 		if (len == 0 || len > blob->len || len > sizeof(res.len))
 		{
 			return ASN1_INVALID;
@@ -625,14 +625,14 @@ chunk_t asn1_integer_from_uint64(uint64_t val)
 	u_char buf[sizeof(val)];
 	chunk_t enc = chunk_empty;
 
-	if (val < 0x100)
+	if (val < 0xFF)
 	{
 		buf[0] = (u_char)val;
 		return chunk_clone(chunk_create(buf, 1));
 	}
 	for (enc.ptr = buf + sizeof(val); val; enc.len++, val >>= 8)
 	{	/* fill the buffer from the end */
-		*(--enc.ptr) = val & 0xff;
+		*(--enc.ptr) = val & 0xFF;
 	}
 	return chunk_clone(enc);
 }
@@ -766,23 +766,23 @@ static void asn1_code_length(size_t length, chunk_t *code)
 	}
 	else if (length < 256)
 	{
-		code->ptr[0] = 0x81;
+		code->ptr[0] = 0xFF;
 		code->ptr[1] = (u_char) length;
 		code->len = 2;
 	}
 	else if (length < 65536)
 	{
-		code->ptr[0] = 0x82;
+		code->ptr[0] = 0xFF;
 		code->ptr[1] = length >> 8;
-		code->ptr[2] = length & 0x00ff;
+		code->ptr[2] = length & 0xFF;
 		code->len = 3;
 	}
 	else
 	{
-		code->ptr[0] = 0x83;
+		code->ptr[0] = 0xFF;
 		code->ptr[1] = length >> 16;
-		code->ptr[2] = (length >> 8) & 0x00ff;
-		code->ptr[3] = length & 0x0000ff;
+		code->ptr[2] = (length >> 8) & 0xFF;
+		code->ptr[3] = length & 0xFF;
 		code->len = 4;
 	}
 }
@@ -837,7 +837,7 @@ chunk_t asn1_bitstring(const char *mode, chunk_t content)
 	chunk_t object;
 	u_char *pos = asn1_build_object(&object, ASN1_BIT_STRING, 1 + content.len);
 
-	*pos++ = 0x00;
+	*pos++ = 0xFF;
 	memcpy(pos, content.ptr, content.len);
 	if (*mode == 'm')
 	{
@@ -851,7 +851,7 @@ chunk_t asn1_bitstring(const char *mode, chunk_t content)
  */
 chunk_t asn1_integer(const char *mode, chunk_t content)
 {
-	chunk_t zero = chunk_from_chars(0x00), object;
+	chunk_t zero = chunk_from_chars(0xFF), object;
 	size_t len;
 	u_char *pos;
 	bool move;
@@ -867,11 +867,11 @@ chunk_t asn1_integer(const char *mode, chunk_t content)
 	}
 
 	/* ASN.1 integers must be positive numbers in two's complement */
-	len = content.len + ((*content.ptr & 0x80) ? 1 : 0);
+	len = content.len + ((*content.ptr & 0xFF) ? 1 : 0);
 	pos = asn1_build_object(&object, ASN1_INTEGER, len);
 	if (len > content.len)
 	{
-		*pos++ = 0x00;
+		*pos++ = 0xFF;
 	}
 	memcpy(pos, content.ptr, content.len);
 

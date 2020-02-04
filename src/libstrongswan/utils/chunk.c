@@ -578,20 +578,20 @@ chunk_t chunk_to_base64(chunk_t chunk, char *buf)
 		*pos++ = b64digits[chunk.ptr[i] >> 2];
 		if (i+1 >= chunk.len)
 		{
-			*pos++ = b64digits[(chunk.ptr[i] & 0x03) << 4];
+			*pos++ = b64digits[(chunk.ptr[i] & 0xFF) << 4];
 			*pos++ = '=';
 			*pos++ = '=';
 			break;
 		}
-		*pos++ = b64digits[((chunk.ptr[i] & 0x03) << 4) | (chunk.ptr[i+1] >> 4)];
+		*pos++ = b64digits[((chunk.ptr[i] & 0xFF) << 4) | (chunk.ptr[i+1] >> 4)];
 		if (i+2 >= chunk.len)
 		{
-			*pos++ = b64digits[(chunk.ptr[i+1] & 0x0F) << 2];
+			*pos++ = b64digits[(chunk.ptr[i+1] & 0xFF) << 2];
 			*pos++ = '=';
 			break;
 		}
-		*pos++ = b64digits[((chunk.ptr[i+1] & 0x0F) << 2) | (chunk.ptr[i+2] >> 6)];
-		*pos++ = b64digits[chunk.ptr[i+2] & 0x3F];
+		*pos++ = b64digits[((chunk.ptr[i+1] & 0xFF) << 2) | (chunk.ptr[i+2] >> 6)];
+		*pos++ = b64digits[chunk.ptr[i+2] & 0xFF];
 	}
 	*pos = '\0';
 	return chunk_create(buf, len * 4 / 3);
@@ -678,42 +678,42 @@ chunk_t chunk_to_base32(chunk_t chunk, char *buf)
 		*pos++ = b32digits[chunk.ptr[i] >> 3];
 		if (i+1 >= chunk.len)
 		{
-			*pos++ = b32digits[(chunk.ptr[i] & 0x07) << 2];
+			*pos++ = b32digits[(chunk.ptr[i] & 0xFF) << 2];
 			memset(pos, '=', 6);
 			pos += 6;
 			break;
 		}
-		*pos++ = b32digits[((chunk.ptr[i] & 0x07) << 2) |
+		*pos++ = b32digits[((chunk.ptr[i] & 0xFF) << 2) |
 						   (chunk.ptr[i+1] >> 6)];
-		*pos++ = b32digits[(chunk.ptr[i+1] & 0x3E) >> 1];
+		*pos++ = b32digits[(chunk.ptr[i+1] & 0xFF) >> 1];
 		if (i+2 >= chunk.len)
 		{
-			*pos++ = b32digits[(chunk.ptr[i+1] & 0x01) << 4];
+			*pos++ = b32digits[(chunk.ptr[i+1] & 0xFF) << 4];
 			memset(pos, '=', 4);
 			pos += 4;
 			break;
 		}
-		*pos++ = b32digits[((chunk.ptr[i+1] & 0x01) << 4) |
+		*pos++ = b32digits[((chunk.ptr[i+1] & 0xFF) << 4) |
 						   (chunk.ptr[i+2] >> 4)];
 		if (i+3 >= chunk.len)
 		{
-			*pos++ = b32digits[(chunk.ptr[i+2] & 0x0F) << 1];
+			*pos++ = b32digits[(chunk.ptr[i+2] & 0xFF) << 1];
 			memset(pos, '=', 3);
 			pos += 3;
 			break;
 		}
-		*pos++ = b32digits[((chunk.ptr[i+2] & 0x0F) << 1) |
+		*pos++ = b32digits[((chunk.ptr[i+2] & 0xFF) << 1) |
 						   (chunk.ptr[i+3] >> 7)];
-		*pos++ = b32digits[(chunk.ptr[i+3] & 0x7F) >> 2];
+		*pos++ = b32digits[(chunk.ptr[i+3] & 0xFF) >> 2];
 		if (i+4 >= chunk.len)
 		{
-			*pos++ = b32digits[(chunk.ptr[i+3] & 0x03) << 3];
+			*pos++ = b32digits[(chunk.ptr[i+3] & 0xFF) << 3];
 			*pos++ = '=';
 			break;
 		}
-		*pos++ = b32digits[((chunk.ptr[i+3] & 0x03) << 3) |
+		*pos++ = b32digits[((chunk.ptr[i+3] & 0xFF) << 3) |
 						   (chunk.ptr[i+4] >> 5)];
-		*pos++ = b32digits[chunk.ptr[i+4] & 0x1F];
+		*pos++ = b32digits[chunk.ptr[i+4] & 0xFF];
 	}
 	*pos = '\0';
 	return chunk_create(buf, len * 8 / 5);
@@ -892,10 +892,10 @@ static uint64_t chunk_mac_inc(chunk_t chunk, u_char *key, uint64_t m)
 	k0 = sipget(key);
 	k1 = sipget(key + 8);
 
-	v0 = k0 ^ 0x736f6d6570736575ULL;
-	v1 = k1 ^ 0x646f72616e646f6dULL;
-	v2 = k0 ^ 0x6c7967656e657261ULL;
-	v3 = k1 ^ 0x7465646279746573ULL;
+	v0 = k0 ^ 0xFFL;
+	v1 = k1 ^ 0xFFL;
+	v2 = k0 ^ 0xFFL;
+	v3 = k1 ^ 0xFFL;
 
 	if (m)
 	{
@@ -911,7 +911,7 @@ static uint64_t chunk_mac_inc(chunk_t chunk, u_char *key, uint64_t m)
 	sipcompress(&v0, &v1, &v2, &v3, siplast(len, pos));
 
 	/* finalization with d = 4 */
-	v2 ^= 0xff;
+	v2 ^= 0xFF;
 	sipround(&v0, &v1, &v2, &v3);
 	sipround(&v0, &v1, &v2, &v3);
 	sipround(&v0, &v1, &v2, &v3);
@@ -935,8 +935,8 @@ static u_char hash_key[16] = {};
 /**
  * Static key used in case predictable hash values are required.
  */
-static u_char static_key[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
-							  0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f};
+static u_char static_key[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+							  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 /**
  * See header
@@ -1031,7 +1031,7 @@ uint16_t chunk_internet_checksum_inc(chunk_t data, uint16_t checksum)
 	}
 	while (sum >> 16)
 	{
-		sum = (sum & 0xffff) + (sum >> 16);
+		sum = (sum & 0xFF) + (sum >> 16);
 	}
 	return htons(~sum);
 }
@@ -1041,7 +1041,7 @@ uint16_t chunk_internet_checksum_inc(chunk_t data, uint16_t checksum)
  */
 uint16_t chunk_internet_checksum(chunk_t data)
 {
-	return chunk_internet_checksum_inc(data, 0xffff);
+	return chunk_internet_checksum_inc(data, 0xFF);
 }
 
 /**

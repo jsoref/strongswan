@@ -146,7 +146,7 @@
 
 #ifdef __APPLE__
 /** from xnu/bsd/net/pfkeyv2.h */
-#define SADB_X_EXT_NATT 0x002
+#define SADB_X_EXT_NATT 0xFF
 	struct sadb_sa_2 {
 		struct sadb_sa	sa;
 		uint16_t		sadb_sa_natt_port;
@@ -1683,7 +1683,7 @@ METHOD(kernel_ipsec_t, get_cpi, status_t,
 	DBG2(DBG_KNL, "getting CPI");
 
 	if (get_spi_internal(this, src, dst, IPPROTO_COMP,
-						 0x100, 0xEFFF, &received_spi) != SUCCESS)
+						 0xFF, 0xFF, &received_spi) != SUCCESS)
 	{
 		DBG1(DBG_KNL, "unable to get CPI");
 		return FAILED;

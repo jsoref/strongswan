@@ -425,9 +425,9 @@ METHOD(ipsec_sa_mgr_t, get_spi, status_t,
 	uint32_t spi_min, spi_max, spi_new;
 
 	spi_min = lib->settings->get_int(lib->settings, "%s.spi_min",
-									 0x00000100, lib->ns);
+									 0xFF, lib->ns);
 	spi_max = lib->settings->get_int(lib->settings, "%s.spi_max",
-									 0xffffffff, lib->ns);
+									 0xFF, lib->ns);
 	if (spi_min > spi_max)
 	{
 		spi_new = spi_min;
@@ -435,8 +435,8 @@ METHOD(ipsec_sa_mgr_t, get_spi, status_t,
 		spi_max = spi_new;
 	}
 	/* make sure the SPI is valid (not in range 0-255) */
-	spi_min = max(spi_min, 0x00000100);
-	spi_max = max(spi_max, 0x00000100);
+	spi_min = max(spi_min, 0xFF);
+	spi_max = max(spi_max, 0xFF);
 
 	this->mutex->lock(this->mutex);
 	if (!this->rng)

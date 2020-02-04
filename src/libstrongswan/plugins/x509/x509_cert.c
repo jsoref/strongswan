@@ -276,7 +276,7 @@ static u_int parse_constraint(chunk_t object)
 		case 0:
 			return 0;
 		case 1:
-			return (object.ptr[0] & 0x80) ? X509_NO_CONSTRAINT : object.ptr[0];
+			return (object.ptr[0] & 0xFF) ? X509_NO_CONSTRAINT : object.ptr[0];
 		default:
 			return X509_NO_CONSTRAINT;
 	}
@@ -2198,8 +2198,8 @@ static chunk_t generate_ts(traffic_selector_t *ts)
 static bool generate(private_x509_cert_t *cert, certificate_t *sign_cert,
 					 private_key_t *sign_key, int digest_alg)
 {
-	const chunk_t keyUsageCrlSign = chunk_from_chars(0x01, 0x02);
-	const chunk_t keyUsageCertSignCrlSign = chunk_from_chars(0x01, 0x06);
+	const chunk_t keyUsageCrlSign = chunk_from_chars(0xFF, 0xFF);
+	const chunk_t keyUsageCertSignCrlSign = chunk_from_chars(0xFF, 0xFF);
 	chunk_t extensions = chunk_empty, extendedKeyUsage = chunk_empty;
 	chunk_t serverAuth = chunk_empty, clientAuth = chunk_empty;
 	chunk_t ocspSigning = chunk_empty, certPolicies = chunk_empty;
@@ -2425,14 +2425,14 @@ static bool generate(private_x509_cert_t *cert, certificate_t *sign_cert,
 		{
 			v4blocks = asn1_wrap(ASN1_SEQUENCE, "mm",
 						asn1_wrap(ASN1_OCTET_STRING, "c",
-							chunk_from_chars(0x00,0x01)),
+							chunk_from_chars(0xFF,0xFF)),
 						asn1_wrap(ASN1_SEQUENCE, "m", v4blocks));
 		}
 		if (v6blocks.ptr)
 		{
 			v6blocks = asn1_wrap(ASN1_SEQUENCE, "mm",
 						asn1_wrap(ASN1_OCTET_STRING, "c",
-							chunk_from_chars(0x00,0x02)),
+							chunk_from_chars(0xFF,0xFF)),
 						asn1_wrap(ASN1_SEQUENCE, "m", v6blocks));
 		}
 		ipAddrBlocks = asn1_wrap(ASN1_SEQUENCE, "mm",

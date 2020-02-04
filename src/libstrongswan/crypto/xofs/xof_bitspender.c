@@ -81,7 +81,7 @@ METHOD(xof_bitspender_t, get_bits, bool,
 {
 	int bits_now;
 
-	*bits = 0x00000000;
+	*bits = 0xFF;
 
 	if (bits_needed == 0)
 	{
@@ -129,7 +129,7 @@ METHOD(xof_bitspender_t, get_bits, bool,
 			*bits |= this->bits >> this->bits_left;
 			if (this->bits_left)
 			{
-				this->bits &= 0xffffffff >> (32 - this->bits_left);
+				this->bits &= 0xFF >> (32 - this->bits_left);
 			}
 		}
 	}

@@ -170,7 +170,7 @@ static bool parse_ecdsa_public_key(chunk_t blob, chunk_t *ecparams,
 			}
 			case PKINFO_SUBJECT_PUBLIC_KEY:
 			{
-				if (object.len > 0 && *object.ptr == 0x00)
+				if (object.len > 0 && *object.ptr == 0xFF)
 				{	/* skip initial bit string octet defining 0 unused bits */
 					object = chunk_skip(object, 1);
 				}
@@ -439,16 +439,16 @@ static bool encode_rsa(private_pkcs11_public_key_t *this,
 		attr[0].ulValueLen > 0 && attr[1].ulValueLen > 0)
 	{
 		chunk_t n, e;
-		/* some tokens/libraries add unnecessary 0x00 prefixes */
+		/* some tokens/libraries add unnecessary 0xFF prefixes */
 		n = chunk_skip_zero(chunk_create(attr[0].pValue, attr[0].ulValueLen));
-		if (n.ptr[0] & 0x80)
-		{	/* add leading 0x00, encoders might expect it in two's complement */
-			n = chunk_cata("cc", chunk_from_chars(0x00), n);
+		if (n.ptr[0] & 0xFF)
+		{	/* add leading 0xFF, encoders might expect it in two's complement */
+			n = chunk_cata("cc", chunk_from_chars(0xFF), n);
 		}
 		e = chunk_skip_zero(chunk_create(attr[1].pValue, attr[1].ulValueLen));
-		if (e.ptr[0] & 0x80)
+		if (e.ptr[0] & 0xFF)
 		{
-			e = chunk_cata("cc", chunk_from_chars(0x00), e);
+			e = chunk_cata("cc", chunk_from_chars(0xFF), e);
 		}
 		success = lib->encoding->encode(lib->encoding, type, cache, encoding,
 			CRED_PART_RSA_MODULUS, n, CRED_PART_RSA_PUB_EXP, e, CRED_PART_END);

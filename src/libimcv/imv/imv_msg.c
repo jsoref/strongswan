@@ -214,7 +214,7 @@ METHOD(imv_msg_t, send_, TNC_Result,
 		else if (this->agent->send_message)
 		{
 			msg_type = (this->msg_type.vendor_id << 8) |
-					   (this->msg_type.type & 0x000000ff);
+					   (this->msg_type.type & 0xFF);
 			result = this->agent->send_message(this->src_id, this->connection_id,
 											   msg.ptr, msg.len, msg_type);
 		}

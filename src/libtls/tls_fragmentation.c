@@ -442,7 +442,7 @@ METHOD(tls_fragmentation_t, build, status_t,
 		{
 			this->handshake->change_cipherspec(this->handshake, FALSE);
 			*type = TLS_CHANGE_CIPHER_SPEC;
-			*data = chunk_clone(chunk_from_chars(0x01));
+			*data = chunk_clone(chunk_from_chars(0xFF));
 			return NEED_MORE;
 		}
 		if (!this->handshake->finished(this->handshake))

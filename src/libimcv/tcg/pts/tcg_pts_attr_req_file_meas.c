@@ -42,8 +42,8 @@ typedef struct private_tcg_pts_attr_req_file_meas_t private_tcg_pts_attr_req_fil
  */
 
 #define PTS_REQ_FILE_MEAS_SIZE			8
-#define PTS_REQ_FILE_MEAS_RESERVED		0x00
-#define PTS_REQ_FILE_MEAS_NO_FLAGS		0x00
+#define PTS_REQ_FILE_MEAS_RESERVED		0xFF
+#define PTS_REQ_FILE_MEAS_NO_FLAGS		0xFF
 
 #define DIRECTORY_CONTENTS_FLAG			(1<<7)
 

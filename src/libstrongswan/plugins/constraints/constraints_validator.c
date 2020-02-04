@@ -309,7 +309,7 @@ static bool check_name_constraints(certificate_t *subject, x509_t *issuer)
 /**
  * Special OID for anyPolicy
  */
-static chunk_t any_policy = chunk_from_chars(0x55,0x1d,0x20,0x00);
+static chunk_t any_policy = chunk_from_chars(0xFF,0xFF,0xFF,0xFF);
 
 /**
  * Check if an issuer certificate has a given policy OID

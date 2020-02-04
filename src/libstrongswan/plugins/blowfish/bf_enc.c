@@ -105,8 +105,8 @@ void BF_encrypt(BF_LONG *data, const BF_KEY *key)
 #endif
 	r^=p[BF_ROUNDS+1];
 
-	data[1]=l&0xffffffffL;
-	data[0]=r&0xffffffffL;
+	data[1]=l&0xFF;
+	data[0]=r&0xFF;
 #else
 	BF_LONG l,r,t,*k;
 
@@ -139,8 +139,8 @@ void BF_encrypt(BF_LONG *data, const BF_KEY *key)
 #endif
 	r^=k[BF_ROUNDS+1];
 
-	data[1]=l&0xffffffffL;
-	data[0]=r&0xffffffffL;
+	data[1]=l&0xFF;
+	data[0]=r&0xFF;
 #endif
 }
 
@@ -182,8 +182,8 @@ void BF_decrypt(BF_LONG *data, const BF_KEY *key)
 	BF_ENC(l,r,s,p[ 1]);
 	r^=p[0];
 
-	data[1]=l&0xffffffffL;
-	data[0]=r&0xffffffffL;
+	data[1]=l&0xFF;
+	data[0]=r&0xFF;
 #else
 	BF_LONG l,r,t,*k;
 
@@ -216,8 +216,8 @@ void BF_decrypt(BF_LONG *data, const BF_KEY *key)
 	BF_ENC(l,r,k, 1);
 	r^=k[0];
 
-	data[1]=l&0xffffffffL;
-	data[0]=r&0xffffffffL;
+	data[1]=l&0xFF;
+	data[0]=r&0xFF;
 #endif
 }
 

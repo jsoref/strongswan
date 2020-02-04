@@ -252,7 +252,7 @@ bool imv_attestation_process(pa_tnc_attr_t *attr, imv_msg_t *out_msg,
 				while (enumerator->enumerate(enumerator, &workitem))
 				{
 					/* request ID consist of lower 16 bits of workitem ID */
-					if ((workitem->get_id(workitem) & 0xffff) == request_id)
+					if ((workitem->get_id(workitem) & 0xFF) == request_id)
 					{
 						found = workitem;
 						break;

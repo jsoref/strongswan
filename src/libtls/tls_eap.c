@@ -99,7 +99,7 @@ typedef enum {
 	EAP_TLS_LENGTH = (1<<7),		/* shared with EAP-TTLS/TNC/PEAP */
 	EAP_TLS_MORE_FRAGS = (1<<6),	/* shared with EAP-TTLS/TNC/PEAP */
 	EAP_TLS_START = (1<<5),			/* shared with EAP-TTLS/TNC/PEAP */
-	EAP_TTLS_VERSION = (0x07),		/* shared with EAP-TNC/PEAP/PT-EAP */
+	EAP_TTLS_VERSION = (0xFF),		/* shared with EAP-TNC/PEAP/PT-EAP */
 	EAP_PT_START = (1<<7)			/* PT-EAP only */
 } eap_tls_flags_t;
 

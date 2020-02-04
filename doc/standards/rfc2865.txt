@@ -1883,9 +1883,9 @@ RFC 2865                         RADIUS                        June 2000
 
    Address
 
-      The Address field is four octets.  The value 0xFFFFFFFF indicates
+      The Address field is four octets.  The value 0xFF indicates
       that the NAS Should allow the user to select an address (e.g.
-      Negotiated).  The value 0xFFFFFFFE indicates that the NAS should
+      Negotiated).  The value 0xFF indicates that the NAS should
       select an address for the user (e.g. Assigned from a pool of
       addresses kept by the NAS).  Other valid values indicate that the
       NAS should use that value as the user's IP address.
@@ -2150,7 +2150,7 @@ RFC 2865                         RADIUS                        June 2000
 
    Address
 
-      The Address field is four octets.  The value 0xFFFFFFFF indicates
+      The Address field is four octets.  The value 0xFF indicates
       that the NAS SHOULD allow the user to select an address.  The
       value 0 indicates that the NAS SHOULD select a host to connect the
       user to.  Other values indicate the address the NAS SHOULD connect
@@ -2478,7 +2478,7 @@ RFC 2865                         RADIUS                        June 2000
 
    Value
 
-      The Value field is four octets.  The value 0xFFFFFFFE indicates
+      The Value field is four octets.  The value 0xFF indicates
       that the NAS should select an IPX network for the user (e.g.
       assigned from a pool of one or more IPX networks kept by the NAS).
       Other values should be used as the IPX network for the link to the

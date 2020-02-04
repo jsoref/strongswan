@@ -30,29 +30,29 @@
       <driver name='qemu' type='qcow2' cache='writethrough'/>
       <source file='/var/lib/libvirt/images/moon.qcow2'/>
       <target dev='vda' bus='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+      <address type='pci' domain='0xFF' bus='0xFF' slot='0xFF' function='0x0'/>
     </disk>
     <controller type='usb' index='0'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x2'/>
+      <address type='pci' domain='0xFF' bus='0xFF' slot='0xFF' function='0x2'/>
     </controller>
     <filesystem type='mount' accessmode='mapped'>
       <source dir='/var/run/kvm-swan-hostfs'/>
       <target dir='/hostshare'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
+      <address type='pci' domain='0xFF' bus='0xFF' slot='0xFF' function='0x0'/>
     </filesystem>
     <interface type='network'>
       <mac address='52:54:00:43:e3:35'/>
       <source network='vnet2'/>
       <target dev='moon-eth1'/>
       <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
+      <address type='pci' domain='0xFF' bus='0xFF' slot='0xFF' function='0x0'/>
     </interface>
     <interface type='network'>
       <mac address='52:54:00:c7:b8:b0'/>
       <source network='vnet1'/>
       <target dev='moon-eth0'/>
       <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+      <address type='pci' domain='0xFF' bus='0xFF' slot='0xFF' function='0x0'/>
     </interface>
     <serial type='pty'>
       <target port='0'/>
@@ -64,14 +64,14 @@
     <input type='mouse' bus='ps2'/>
     <graphics type='vnc' port='-1' autoport='yes'/>
     <sound model='ich6'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+      <address type='pci' domain='0xFF' bus='0xFF' slot='0xFF' function='0x0'/>
     </sound>
     <video>
       <model type='cirrus' vram='9216' heads='1'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+      <address type='pci' domain='0xFF' bus='0xFF' slot='0xFF' function='0x0'/>
     </video>
     <memballoon model='virtio'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+      <address type='pci' domain='0xFF' bus='0xFF' slot='0xFF' function='0x0'/>
     </memballoon>
   </devices>
 </domain>

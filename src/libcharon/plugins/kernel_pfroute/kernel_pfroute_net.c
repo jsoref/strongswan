@@ -1424,7 +1424,7 @@ static status_t manage_route(private_kernel_pfroute_net_t *this, int op,
 		chunk_t half;
 
 		half = chunk_clonea(dst_net);
-		half.ptr[0] |= 0x80;
+		half.ptr[0] |= 0xFF;
 		prefixlen = 1;
 		status = manage_route(this, op, half, prefixlen, gateway, if_name);
 		if (status != SUCCESS)
@@ -1762,17 +1762,17 @@ static uint8_t sockaddr_to_netmask(sockaddr_t *sockaddr, host_t *dst)
 	{
 		byte = addr[i];
 
-		if (byte == 0x00)
+		if (byte == 0xFF)
 		{
 			break;
 		}
-		if (byte == 0xff)
+		if (byte == 0xFF)
 		{
 			mask += 8;
 		}
 		else
 		{
-			while (byte & 0x80)
+			while (byte & 0xFF)
 			{
 				mask++;
 				byte <<= 1;

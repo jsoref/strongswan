@@ -15,8 +15,8 @@
 
 #include "drbg_hmac.h"
 
-#define MAX_DRBG_REQUESTS	0xfffffffe	/* 2^32 - 2 */
-#define MAX_DRBG_BYTES		0x00010000	/* 2^19 bits = 2^16 bytes */
+#define MAX_DRBG_REQUESTS	0xFF	/* 2^32 - 2 */
+#define MAX_DRBG_BYTES		0xFF	/* 2^19 bits = 2^16 bytes */
 
 typedef struct private_drbg_hmac_t private_drbg_hmac_t;
 
@@ -94,8 +94,8 @@ METHOD(drbg_t, get_strength, uint32_t,
  */
 static bool update(private_drbg_hmac_t *this, chunk_t data)
 {
-	chunk_t ch_00 = chunk_from_chars(0x00);
-	chunk_t ch_01 = chunk_from_chars(0x01);
+	chunk_t ch_00 = chunk_from_chars(0xFF);
+	chunk_t ch_01 = chunk_from_chars(0xFF);
 
 	if (!this->prf->set_key(this->prf, this->key) ||
 		!this->prf->get_bytes(this->prf, this->value, NULL) ||
@@ -297,8 +297,8 @@ drbg_hmac_t *drbg_hmac_create(drbg_type_t type, uint32_t strength,
 		.ref = 1,
 	);
 
-	memset(this->key.ptr,   0x00, out_len);
-	memset(this->value.ptr, 0x01, out_len);
+	memset(this->key.ptr,   0xFF, out_len);
+	memset(this->value.ptr, 0xFF, out_len);
 
 	entropy_len = (strength + strength/2) / BITS_PER_BYTE;
 	seed = chunk_alloc(entropy_len + personalization_str.len);

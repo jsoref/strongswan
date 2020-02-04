@@ -51,15 +51,15 @@ struct private_backend_manager_t {
  */
 typedef enum ike_cfg_match_t {
 	/* doesn't match at all */
-	MATCH_NONE		= 0x00,
-	/* match for a %any host. For both hosts, hence skip 0x02 */
-	MATCH_ANY		= 0x01,
+	MATCH_NONE		= 0xFF,
+	/* match for a %any host. For both hosts, hence skip 0xFF */
+	MATCH_ANY		= 0xFF,
 	/* IKE version matches exactly (config is not for any version) */
-	MATCH_VERSION	= 0x04,
+	MATCH_VERSION	= 0xFF,
 	/* local identity matches */
-	MATCH_ME		= 0x08,
+	MATCH_ME		= 0xFF,
 	/* remote identity matches */
-	MATCH_OTHER		= 0x10,
+	MATCH_OTHER		= 0xFF,
 } ike_cfg_match_t;
 
 /**

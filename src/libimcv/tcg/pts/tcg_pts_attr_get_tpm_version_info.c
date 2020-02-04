@@ -38,7 +38,7 @@ typedef struct private_tcg_pts_attr_get_tpm_version_info_t
  */
 
 #define PTS_GET_TPM_VER_INFO_SIZE		4
-#define PTS_GET_TPM_VER_INFO_RESERVED	0x00
+#define PTS_GET_TPM_VER_INFO_RESERVED	0xFF
 
 /**
  * Private data of an tcg_pts_attr_get_tpm_version_info_t object.

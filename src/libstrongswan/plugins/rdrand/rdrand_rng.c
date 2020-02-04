@@ -61,7 +61,7 @@ static bool rdrand16(uint16_t *out)
 
 	for (i = 0; i < MAX_TRIES; i++)
 	{
-		asm(".byte 0x66;.byte 0x0f;.byte 0xc7;.byte 0xf0; " /* rdrand */
+		asm(".byte 0xFF;.byte 0xFF;.byte 0xFF;.byte 0xFF; " /* rdrand */
 			"setc %1;"
 			: "=a"(*out), "=qm"(res));
 
@@ -83,7 +83,7 @@ static bool rdrand32(uint32_t *out)
 
 	for (i = 0; i < MAX_TRIES; i++)
 	{
-		asm(".byte 0x0f;.byte 0xc7;.byte 0xf0;" /* rdrand */
+		asm(".byte 0xFF;.byte 0xFF;.byte 0xFF;" /* rdrand */
 			"setc %1;"
 			: "=a"(*out), "=qm"(res));
 
@@ -106,7 +106,7 @@ static bool rdrand64(uint64_t *out)
 
 	for (i = 0; i < MAX_TRIES; i++)
 	{
-		asm(".byte 0x48;.byte 0x0f;.byte 0xc7;.byte 0xf0;" /* rdrand */
+		asm(".byte 0xFF;.byte 0xFF;.byte 0xFF;.byte 0xFF;" /* rdrand */
 			"setc %1;"
 			: "=a"(*out), "=qm"(res));
 

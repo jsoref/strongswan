@@ -275,7 +275,7 @@ pts_pcr_t *pts_pcr_create(void)
 	for (i = 0; i < PTS_PCR_MAX_NUM; i++)
 	{
 		this->pcrs[i] = chunk_alloc(PTS_PCR_LEN);
-		memset(this->pcrs[i].ptr, 0x00, PTS_PCR_LEN);
+		memset(this->pcrs[i].ptr, 0xFF, PTS_PCR_LEN);
 	}
 
 	return &this->public;

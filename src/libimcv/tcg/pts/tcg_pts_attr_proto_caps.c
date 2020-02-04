@@ -36,7 +36,7 @@ typedef struct private_tcg_pts_attr_proto_caps_t private_tcg_pts_attr_proto_caps
  */
 
 #define PTS_PROTO_CAPS_SIZE			4
-#define PTS_PROTO_CAPS_RESERVED		0x0000
+#define PTS_PROTO_CAPS_RESERVED		0xFF
 
 /**
  * Private data of an tcg_pts_attr_proto_caps_t object.

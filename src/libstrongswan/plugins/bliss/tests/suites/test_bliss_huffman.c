@@ -17,7 +17,7 @@
 
 #include <bliss_huffman_coder.h>
 
-static chunk_t data = chunk_from_chars(0x5f, 0x71, 0x9e, 0x4c);
+static chunk_t data = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF);
 
 START_TEST(test_bliss_huffman_encode)
 {

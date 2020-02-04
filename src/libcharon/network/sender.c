@@ -125,7 +125,7 @@ METHOD(sender_t, send_, void,
 	if (dst->get_port(dst) != IKEV2_UDP_PORT &&
 		src->get_port(src) != IKEV2_UDP_PORT)
 	{
-		chunk_t data, marker = chunk_from_chars(0x00, 0x00, 0x00, 0x00);
+		chunk_t data, marker = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF);
 
 		data = chunk_cat("cc", marker, packet->get_data(packet));
 		packet->set_data(packet, data);

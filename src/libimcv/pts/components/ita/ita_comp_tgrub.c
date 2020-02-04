@@ -101,10 +101,10 @@ METHOD(pts_component_t, measure, status_t,
 	pcr_transform = pts_meas_algo_to_pcr_transform(hash_algo, pcr_len);
 
 	measurement = chunk_alloc(pcr_len);
-	memset(measurement.ptr, 0x00, measurement.len);
+	memset(measurement.ptr, 0xFF, measurement.len);
 
 	pcr_before = chunk_alloc(pcr_len);
-	memset(pcr_before.ptr, 0x00, pcr_before.len);
+	memset(pcr_before.ptr, 0xFF, pcr_before.len);
 
 	evid = *evidence = pts_comp_evidence_create(this->name->clone(this->name),
 								this->depth, extended_pcr,

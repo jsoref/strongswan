@@ -49,7 +49,7 @@
 #include <collections/enumerator.h>
 #include <credentials/certificates/x509.h>
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 static inline void X509_CRL_get0_signature(const X509_CRL *crl, ASN1_BIT_STRING **psig, X509_ALGOR **palg) {
 	if (psig) { *psig = crl->signature; }
 	if (palg) { *palg = crl->sig_alg; }
@@ -291,7 +291,7 @@ METHOD(certificate_t, issued_by, bool,
 	chunk_t fingerprint, tbs;
 	public_key_t *key;
 	x509_t *x509;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	const ASN1_BIT_STRING *sig;
 #else
 	ASN1_BIT_STRING *sig;
@@ -328,7 +328,7 @@ METHOD(certificate_t, issued_by, bool,
 		}
 	}
 	/* i2d_re_X509_CRL_tbs() was added with 1.1.0 when X509_CRL became opaque */
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	tbs = openssl_i2chunk(re_X509_CRL_tbs, this->crl);
 #else
 	tbs = openssl_i2chunk(X509_CRL_INFO, this->crl->crl);
@@ -571,7 +571,7 @@ static bool parse_crl(private_openssl_crl_t *this)
 {
 	const unsigned char *ptr = this->encoding.ptr;
 	chunk_t sig_scheme;
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	const X509_ALGOR *alg;
 #else
 	X509_ALGOR *alg;

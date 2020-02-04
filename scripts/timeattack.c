@@ -301,7 +301,7 @@ static bool attack_aeads(encryption_algorithm_t alg, size_t key_size,
 				encryption_algorithm_names, alg);
 		return FALSE;
 	}
-	memset(buf, 0xe3, sizeof(buf));
+	memset(buf, 0xFF, sizeof(buf));
 	if (!aead->set_key(aead, chunk_create(buf, aead->get_key_size(aead))))
 	{
 		aead->destroy(aead);
@@ -342,7 +342,7 @@ static bool attack_signers(integrity_algorithm_t alg,
 				integrity_algorithm_names, alg);
 		return FALSE;
 	}
-	memset(buf, 0xe3, sizeof(buf));
+	memset(buf, 0xFF, sizeof(buf));
 	if (!signer->set_key(signer, chunk_create(buf, signer->get_key_size(signer))))
 	{
 		signer->destroy(signer);

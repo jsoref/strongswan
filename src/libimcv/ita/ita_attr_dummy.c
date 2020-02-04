@@ -95,7 +95,7 @@ METHOD(pa_tnc_attr_t, build, void,
 		return;
 	}
 	this->value = chunk_alloc(this->length);
-	memset(this->value.ptr, 0xdd, this->value.len);
+	memset(this->value.ptr, 0xFF, this->value.len);
 }
 
 METHOD(pa_tnc_attr_t, process, status_t,

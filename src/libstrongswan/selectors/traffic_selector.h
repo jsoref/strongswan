@@ -263,7 +263,7 @@ static inline uint8_t traffic_selector_icmp_type(uint16_t port)
  */
 static inline uint8_t traffic_selector_icmp_code(uint16_t port)
 {
-	return port & 0xff;
+	return port & 0xFF;
 }
 
 /**

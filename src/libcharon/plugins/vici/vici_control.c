@@ -490,12 +490,12 @@ static traffic_selector_t *parse_peer_ip(char *ip)
 		}
 		ts = traffic_selector_create_from_bytes(0, type,
 												from->get_address(from), 0,
-												to->get_address(to), 0xFFFF);
+												to->get_address(to), 0xFF);
 		from->destroy(from);
 		to->destroy(to);
 		return ts;
 	}
-	return traffic_selector_create_from_cidr(ip, 0, 0, 0xFFFF);
+	return traffic_selector_create_from_cidr(ip, 0, 0, 0xFF);
 }
 
 CALLBACK(redirect, vici_message_t*,

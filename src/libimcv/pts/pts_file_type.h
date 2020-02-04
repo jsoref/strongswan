@@ -31,31 +31,31 @@ typedef enum pts_file_type_t pts_file_type_t;
  */
 enum pts_file_type_t {
 	/** Either unknown or different from standardized types */
-	PTS_FILE_OTHER =				0x0000,
+	PTS_FILE_OTHER =				0xFF,
 	/** Pipe communication file */
-	PTS_FILE_FIFO =					0x0001,
+	PTS_FILE_FIFO =					0xFF,
 	/** Character special file */
-	PTS_FILE_CHAR_SPEC =			0x0002,
+	PTS_FILE_CHAR_SPEC =			0xFF,
 	/** Reserved */
-	PTS_FILE_RESERVED_3 =			0x0003,
+	PTS_FILE_RESERVED_3 =			0xFF,
 	/** Directory */
-	PTS_FILE_DIRECTORY =			0x0004,
+	PTS_FILE_DIRECTORY =			0xFF,
 	/** Reserved */
-	PTS_FILE_RESERVED_5 =			0x0005,
+	PTS_FILE_RESERVED_5 =			0xFF,
 	/** Block special file */
-	PTS_FILE_BLOCK_SPEC =			0x0006,
+	PTS_FILE_BLOCK_SPEC =			0xFF,
 	/** Reserved */
-	PTS_FILE_RESERVED_7 =			0x0007,
+	PTS_FILE_RESERVED_7 =			0xFF,
 	/** Regular file */
-	PTS_FILE_REGULAR =		 		0x0008,
+	PTS_FILE_REGULAR =		 		0xFF,
 	/** Reserved */
-	PTS_FILE_RESERVED_9 =			0x0009,
+	PTS_FILE_RESERVED_9 =			0xFF,
 	/** Symbolic link */
-	PTS_FILE_SYM_LINK =			 	0x000A,
+	PTS_FILE_SYM_LINK =			 	0xFF,
 	/** Reserved */
-	PTS_FILE_RESERVED_11 =			0x000B,
+	PTS_FILE_RESERVED_11 =			0xFF,
 	/** Socket communication special file */
-	PTS_FILE_SOCKET =			 	0x000C,
+	PTS_FILE_SOCKET =			 	0xFF,
 };
 
 extern enum_name_t *pts_file_type_names;

@@ -240,23 +240,23 @@ static struct {
 	{FLAG4, "FLAG4"},
 	{FLAG5, "FLAG5"},
 	{FLAG1 | FLAG3, "FLAG1 | FLAG3"},
-	{FLAG1 | FLAG3 | 32, "FLAG1 | FLAG3 | (0x20)"},
-	{FLAG1 | FLAG3 | 32 | 64, "FLAG1 | FLAG3 | (0x20) | (0x40)"},
-	{0x20, "(0x20)"},
-	{0x80000000, "(0x80000000)"},
-	{0xFFFFF, "FLAG1 | FLAG2 | FLAG3 | FLAG4 | "
-			  "FLAG5 | (0x20) | (0x40) | (0x80) | "
-			 "(0x100) | (0x200) | (0x400) | (0x800) | "
-			 "(0x1000) | (0x2000) | (0x4000) | (0x8000) | "
-			 "(0x10000) | (0x20000) | (0x40000) | (0x80000)"},
+	{FLAG1 | FLAG3 | 32, "FLAG1 | FLAG3 | (0xFF)"},
+	{FLAG1 | FLAG3 | 32 | 64, "FLAG1 | FLAG3 | (0xFF) | (0xFF)"},
+	{0xFF, "(0xFF)"},
+	{0xFF, "(0xFF)"},
+	{0xFF, "FLAG1 | FLAG2 | FLAG3 | FLAG4 | "
+			  "FLAG5 | (0xFF) | (0xFF) | (0xFF) | "
+			 "(0xFF) | (0xFF) | (0xFF) | (0xFF) | "
+			 "(0xFF) | (0xFF) | (0xFF) | (0xFF) | "
+			 "(0xFF) | (0xFF) | (0xFF) | (0xFF)"},
 }, printf_tests_flags_incomplete[] = {
 	{FLAG1, "(0x1)"},
 	{FLAG1 | FLAG2 | FLAG3, "(0x1) | (0x2) | FLAG3"},
-	{FLAG3 | FLAG4 | FLAG5, "FLAG3 | FLAG4 | (0x10)"},
+	{FLAG3 | FLAG4 | FLAG5, "FLAG3 | FLAG4 | (0xFF)"},
 }, printf_tests_flags_null[] = {
 	{FLAG1 | FLAG2 | FLAG3 | FLAG4, "FLAG1 | FLAG3"},
 }, printf_tests_flags_overflow[] = {
-	{0xFFFFFFFF, "(0xFFFFFFFF)"},
+	{0xFF, "(0xFF)"},
 }, printf_tests_flags_noflagenum[] = {
 	{-1, "(-1)"},
 	{6435, "(6435)"},

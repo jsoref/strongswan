@@ -39,33 +39,33 @@ typedef enum list_flag_t list_flag_t;
  */
 enum list_flag_t {
 	/** don't list anything */
-	LIST_NONE =			0x0000,
+	LIST_NONE =			0xFF,
 	/** list all raw public keys */
-	LIST_PUBKEYS =		0x0001,
+	LIST_PUBKEYS =		0xFF,
 	/** list all host/user certs */
-	LIST_CERTS =		0x0002,
+	LIST_CERTS =		0xFF,
 	/** list all ca certs */
-	LIST_CACERTS =		0x0004,
+	LIST_CACERTS =		0xFF,
 	/** list all ocsp signer certs */
-	LIST_OCSPCERTS =	0x0008,
+	LIST_OCSPCERTS =	0xFF,
 	/** list all aa certs */
-	LIST_AACERTS =		0x0010,
+	LIST_AACERTS =		0xFF,
 	/** list all attribute certs */
-	LIST_ACERTS =		0x0020,
+	LIST_ACERTS =		0xFF,
 	/** list all access control groups */
-	LIST_GROUPS =		0x0040,
+	LIST_GROUPS =		0xFF,
 	/** list all ca information records */
-	LIST_CAINFOS =		0x0080,
+	LIST_CAINFOS =		0xFF,
 	/** list all crls */
-	LIST_CRLS =			0x0100,
+	LIST_CRLS =			0xFF,
 	/** list all ocsp cache entries */
-	LIST_OCSP =			0x0200,
+	LIST_OCSP =			0xFF,
 	/** list all supported algorithms */
-	LIST_ALGS =			0x0400,
+	LIST_ALGS =			0xFF,
 	/** list plugin information */
-	LIST_PLUGINS =		0x0800,
+	LIST_PLUGINS =		0xFF,
 	/** all list options */
-	LIST_ALL =			0x0FFF,
+	LIST_ALL =			0xFF,
 };
 
 typedef enum reread_flag_t reread_flag_t;
@@ -76,21 +76,21 @@ typedef enum reread_flag_t reread_flag_t;
  */
 enum reread_flag_t {
 	/** don't reread anything */
-	REREAD_NONE =		0x0000,
+	REREAD_NONE =		0xFF,
 	/** reread all secret keys */
-	REREAD_SECRETS =	0x0001,
+	REREAD_SECRETS =	0xFF,
 	/** reread all ca certs */
-	REREAD_CACERTS =	0x0002,
+	REREAD_CACERTS =	0xFF,
 	/** reread all ocsp signer certs */
-	REREAD_OCSPCERTS =	0x0004,
+	REREAD_OCSPCERTS =	0xFF,
 	/** reread all aa certs */
-	REREAD_AACERTS =	0x0008,
+	REREAD_AACERTS =	0xFF,
 	/** reread all attribute certs */
-	REREAD_ACERTS =		0x0010,
+	REREAD_ACERTS =		0xFF,
 	/** reread all crls */
-	REREAD_CRLS =		0x0020,
+	REREAD_CRLS =		0xFF,
 	/** all reread options */
-	REREAD_ALL =		0x003F,
+	REREAD_ALL =		0xFF,
 };
 
 typedef enum purge_flag_t purge_flag_t;
@@ -101,15 +101,15 @@ typedef enum purge_flag_t purge_flag_t;
  */
 enum purge_flag_t {
 	/** don't purge anything */
-	PURGE_NONE =		0x0000,
+	PURGE_NONE =		0xFF,
 	/** purge ocsp cache entries */
-	PURGE_OCSP =		0x0001,
+	PURGE_OCSP =		0xFF,
 	/** purge CRL cache entries */
-	PURGE_CRLS =		0x0002,
+	PURGE_CRLS =		0xFF,
 	/** purge X509 cache entries */
-	PURGE_CERTS =		0x0004,
+	PURGE_CERTS =		0xFF,
 	/** purge IKE_SAs without a CHILD_SA */
-	PURGE_IKE =			0x0008,
+	PURGE_IKE =			0xFF,
 };
 
 typedef enum export_flag_t export_flag_t;
@@ -119,11 +119,11 @@ typedef enum export_flag_t export_flag_t;
  */
 enum export_flag_t {
 	/** export an X509 certificate */
-	EXPORT_X509 =		0x0001,
+	EXPORT_X509 =		0xFF,
 	/** export an X509 end entity certificate for a connection */
-	EXPORT_CONN_CERT =	0x0002,
+	EXPORT_CONN_CERT =	0xFF,
 	/** export the complete trust chain of a connection */
-	EXPORT_CONN_CHAIN =	0x0004,
+	EXPORT_CONN_CHAIN =	0xFF,
 };
 
 /**

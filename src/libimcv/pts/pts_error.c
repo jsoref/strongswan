@@ -49,7 +49,7 @@ pa_tnc_attr_t* pts_hash_alg_error_create(pts_meas_algorithms_t algorithms)
 	pen_type_t error_code = { PEN_TCG, TCG_PTS_HASH_ALG_NOT_SUPPORTED };
 
 	writer = bio_writer_create(4);
-	writer->write_uint16(writer, 0x0000);
+	writer->write_uint16(writer, 0xFF);
 	writer->write_uint16(writer, algorithms);
 	msg_info = writer->get_buf(writer);
 	attr = ietf_attr_pa_tnc_error_create(error_code, msg_info);
@@ -69,7 +69,7 @@ pa_tnc_attr_t* pts_dh_group_error_create(pts_dh_group_t dh_groups)
 	pen_type_t error_code = { PEN_TCG, TCG_PTS_DH_GRPS_NOT_SUPPORTED };
 
 	writer = bio_writer_create(4);
-	writer->write_uint16(writer, 0x0000);
+	writer->write_uint16(writer, 0xFF);
 	writer->write_uint16(writer, dh_groups);
 	msg_info = writer->get_buf(writer);
 	attr = ietf_attr_pa_tnc_error_create(error_code, msg_info);

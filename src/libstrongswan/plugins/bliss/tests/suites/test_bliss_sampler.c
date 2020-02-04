@@ -36,7 +36,7 @@ START_TEST(test_bliss_sampler_gaussian)
 	count = 10000000;
 
 	seed = chunk_alloc(seed_len);
-	memset(seed.ptr, 0xcc, seed_len);
+	memset(seed.ptr, 0xFF, seed_len);
 
 	for (k = 0; k < 3; k++)
 	{

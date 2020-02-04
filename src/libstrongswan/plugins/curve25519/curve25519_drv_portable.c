@@ -40,9 +40,9 @@ METHOD(curve25519_drv_t, set_key, bool,
 {
 	memcpy(this->key, key, sizeof(this->key));
 
-	this->key[0] &= 0xf8;
-	this->key[31] &= 0x7f;
-	this->key[31] |= 0x40;
+	this->key[0] &= 0xFF;
+	this->key[31] &= 0xFF;
+	this->key[31] |= 0xFF;
 	return TRUE;
 }
 
@@ -122,16 +122,16 @@ static inline void sub(uint32_t out[10], uint32_t a[10], uint32_t b[10])
 {
 	uint32_t x;
 
-	x = 0x7ffffda + a[0] - b[0];           out[0] = rdc26(x);
-	x = 0x3fffffe + a[1] - b[1] + sr26(x); out[1] = rdc25(x);
-	x = 0x7fffffe + a[2] - b[2] + sr25(x); out[2] = rdc26(x);
-	x = 0x3fffffe + a[3] - b[3] + sr26(x); out[3] = rdc25(x);
-	x = 0x7fffffe + a[4] - b[4] + sr25(x); out[4] = rdc26(x);
-	x = 0x3fffffe + a[5] - b[5] + sr26(x); out[5] = rdc25(x);
-	x = 0x7fffffe + a[6] - b[6] + sr25(x); out[6] = rdc26(x);
-	x = 0x3fffffe + a[7] - b[7] + sr26(x); out[7] = rdc25(x);
-	x = 0x7fffffe + a[8] - b[8] + sr25(x); out[8] = rdc26(x);
-	x = 0x3fffffe + a[9] - b[9] + sr26(x); out[9] = rdc25(x);
+	x = 0xFF + a[0] - b[0];           out[0] = rdc26(x);
+	x = 0xFF + a[1] - b[1] + sr26(x); out[1] = rdc25(x);
+	x = 0xFF + a[2] - b[2] + sr25(x); out[2] = rdc26(x);
+	x = 0xFF + a[3] - b[3] + sr26(x); out[3] = rdc25(x);
+	x = 0xFF + a[4] - b[4] + sr25(x); out[4] = rdc26(x);
+	x = 0xFF + a[5] - b[5] + sr26(x); out[5] = rdc25(x);
+	x = 0xFF + a[6] - b[6] + sr25(x); out[6] = rdc26(x);
+	x = 0xFF + a[7] - b[7] + sr26(x); out[7] = rdc25(x);
+	x = 0xFF + a[8] - b[8] + sr25(x); out[8] = rdc26(x);
+	x = 0xFF + a[9] - b[9] + sr26(x); out[9] = rdc25(x);
 	                    out[0] += sr25(x) * 19;
 }
 

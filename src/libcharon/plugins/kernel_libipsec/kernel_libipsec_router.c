@@ -243,7 +243,7 @@ METHOD(kernel_listener_t, tun, bool,
 	private_kernel_libipsec_router_t *this, tun_device_t *tun, bool created)
 {
 	tun_entry_t *entry, lookup;
-	char buf[] = {0x01};
+	char buf[] = {0xFF};
 
 	this->lock->write_lock(this->lock);
 	if (created)

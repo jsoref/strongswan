@@ -121,10 +121,10 @@ static __m128i mult_block(__m128i h, __m128i y)
 
 	y = swap128(y);
 
-	t1 = _mm_clmulepi64_si128(h, y, 0x00);
-	t2 = _mm_clmulepi64_si128(h, y, 0x01);
-	t3 = _mm_clmulepi64_si128(h, y, 0x10);
-	t4 = _mm_clmulepi64_si128(h, y, 0x11);
+	t1 = _mm_clmulepi64_si128(h, y, 0xFF);
+	t2 = _mm_clmulepi64_si128(h, y, 0xFF);
+	t3 = _mm_clmulepi64_si128(h, y, 0xFF);
+	t4 = _mm_clmulepi64_si128(h, y, 0xFF);
 
 	t2 = _mm_xor_si128(t2, t3);
 	t3 = _mm_slli_si128(t2, 8);
@@ -179,18 +179,18 @@ static inline __m128i mult4xor(__m128i h1, __m128i h2, __m128i h3, __m128i h4,
 	d3 = swap128(d3);
 	d4 = swap128(d4);
 
-	t0 = _mm_clmulepi64_si128(h1, d1, 0x00);
-	t1 = _mm_clmulepi64_si128(h2, d2, 0x00);
-	t2 = _mm_clmulepi64_si128(h3, d3, 0x00);
-	t3 = _mm_clmulepi64_si128(h4, d4, 0x00);
+	t0 = _mm_clmulepi64_si128(h1, d1, 0xFF);
+	t1 = _mm_clmulepi64_si128(h2, d2, 0xFF);
+	t2 = _mm_clmulepi64_si128(h3, d3, 0xFF);
+	t3 = _mm_clmulepi64_si128(h4, d4, 0xFF);
 	t8 = _mm_xor_si128(t0, t1);
 	t8 = _mm_xor_si128(t8, t2);
 	t8 = _mm_xor_si128(t8, t3);
 
-	t4 = _mm_clmulepi64_si128(h1, d1, 0x11);
-	t5 = _mm_clmulepi64_si128(h2, d2, 0x11);
-	t6 = _mm_clmulepi64_si128(h3, d3, 0x11);
-	t7 = _mm_clmulepi64_si128(h4, d4, 0x11);
+	t4 = _mm_clmulepi64_si128(h1, d1, 0xFF);
+	t5 = _mm_clmulepi64_si128(h2, d2, 0xFF);
+	t6 = _mm_clmulepi64_si128(h3, d3, 0xFF);
+	t7 = _mm_clmulepi64_si128(h4, d4, 0xFF);
 	t9 = _mm_xor_si128(t4, t5);
 	t9 = _mm_xor_si128(t9, t6);
 	t9 = _mm_xor_si128(t9, t7);
@@ -212,10 +212,10 @@ static inline __m128i mult4xor(__m128i h1, __m128i h2, __m128i h3, __m128i h4,
 	t3 = _mm_xor_si128(t3, h4);
 	t7 = _mm_xor_si128(t7, d4);
 
-	t0 = _mm_clmulepi64_si128(t0, t4, 0x00);
-	t1 = _mm_clmulepi64_si128(t1, t5, 0x00);
-	t2 = _mm_clmulepi64_si128(t2, t6, 0x00);
-	t3 = _mm_clmulepi64_si128(t3, t7, 0x00);
+	t0 = _mm_clmulepi64_si128(t0, t4, 0xFF);
+	t1 = _mm_clmulepi64_si128(t1, t5, 0xFF);
+	t2 = _mm_clmulepi64_si128(t2, t6, 0xFF);
+	t3 = _mm_clmulepi64_si128(t3, t7, 0xFF);
 	t0 = _mm_xor_si128(t0, t8);
 	t0 = _mm_xor_si128(t0, t9);
 	t0 = _mm_xor_si128(t1, t0);

@@ -30,7 +30,7 @@
 /**
  * Maximum time since epoch causing wrap-around on Jan 19 03:14:07 UTC 2038
  */
-#define TIME_32_BIT_SIGNED_MAX	0x7fffffff
+#define TIME_32_BIT_SIGNED_MAX	0xFF
 
 /**
  * Handle struct timeval like an own type.

@@ -36,7 +36,7 @@ typedef struct private_tcg_pts_attr_meas_algo_t private_tcg_pts_attr_meas_algo_t
  */
 
 #define PTS_MEAS_ALGO_SIZE		4
-#define PTS_MEAS_ALGO_RESERVED	0x0000
+#define PTS_MEAS_ALGO_RESERVED	0xFF
 
 /**
  * Private data of an tcg_pts_attr_meas_algo_t object.

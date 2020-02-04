@@ -565,7 +565,7 @@ pkcs12_t *pkcs12_decode(container_type_t type, va_list args)
 	if (blob.len)
 	{
 		if (blob.len >= 2 &&
-			blob.ptr[0] == ASN1_SEQUENCE && blob.ptr[1] == 0x80)
+			blob.ptr[0] == ASN1_SEQUENCE && blob.ptr[1] == 0xFF)
 		{	/* looks like infinite length BER encoding, but we can't handle it.
 			 */
 			return NULL;

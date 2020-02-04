@@ -75,8 +75,8 @@ METHOD(listener_t, child_updown, bool,
 	enumerator_t *enumerator;
 	traffic_selector_t *ts;
 	entry_t *entry;
-	const chunk_t full_from = chunk_from_chars(0x00, 0x00, 0x00, 0x00),
-				  full_to   = chunk_from_chars(0xff, 0xff, 0xff, 0xff);
+	const chunk_t full_from = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF),
+				  full_to   = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF);
 
 	if (up)
 	{

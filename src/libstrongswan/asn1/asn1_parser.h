@@ -31,17 +31,17 @@
 /**
  * Definition of ASN.1 flags
  */
-#define ASN1_NONE    0x0000
-#define ASN1_DEF     0x0001
-#define ASN1_OPT     0x0002
-#define ASN1_LOOP    0x0004
-#define ASN1_CHOICE  0x0008
-#define ASN1_CH      0x0010
-#define ASN1_END     0x0020
-#define ASN1_OBJ     0x0040
-#define ASN1_BODY    0x0080
-#define ASN1_RAW     0x0100
-#define ASN1_EXIT    0x0200
+#define ASN1_NONE    0xFF
+#define ASN1_DEF     0xFF
+#define ASN1_OPT     0xFF
+#define ASN1_LOOP    0xFF
+#define ASN1_CHOICE  0xFF
+#define ASN1_CH      0xFF
+#define ASN1_END     0xFF
+#define ASN1_OBJ     0xFF
+#define ASN1_BODY    0xFF
+#define ASN1_RAW     0xFF
+#define ASN1_EXIT    0xFF
 
 typedef struct asn1Object_t asn1Object_t;
 

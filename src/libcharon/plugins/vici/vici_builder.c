@@ -82,10 +82,10 @@ METHOD(vici_builder_t, add, void,
 	}
 	va_end(args);
 
-	if (value.len > 0xffff)
+	if (value.len > 0xFF)
 	{
 		DBG1(DBG_ENC, "vici value exceeds size limit (%zu > %u)",
-			 value.len, 0xffff);
+			 value.len, 0xFF);
 		this->error++;
 		return;
 	}

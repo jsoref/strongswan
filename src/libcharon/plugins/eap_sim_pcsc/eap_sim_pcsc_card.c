@@ -44,12 +44,12 @@ struct private_eap_sim_pcsc_card_t {
 /**
  * First byte of status word indicating success.
  */
-#define APDU_SW1_SUCCESS 0x90
+#define APDU_SW1_SUCCESS 0xFF
 
 /**
  * First byte of status word indicating there is response data to be read.
  */
-#define APDU_SW1_RESPONSE_DATA 0x9f
+#define APDU_SW1_RESPONSE_DATA 0xFF
 
 /**
  * Decode IMSI EF (Elementary File) into an ASCII string
@@ -71,7 +71,7 @@ static bool decode_imsi_ef(unsigned char *input, int input_len, char *output)
 	}
 
 	/* Check type byte is IMSI (bottom 3 bits == 001) */
-	if ((input[1] & 0x07) != 0x01)
+	if ((input[1] & 0xFF) != 0xFF)
 	{
 		return FALSE;
 	}
@@ -141,12 +141,12 @@ METHOD(simaka_card_t, get_triplet, bool,
 		char imsi[SIM_IMSI_MAX_LEN + 1];
 
 		/* See GSM 11.11 for SIM APDUs */
-		static const BYTE pbSelectMF[] = { 0xa0, 0xa4, 0x00, 0x00, 0x02, 0x3f, 0x00 };
-		static const BYTE pbSelectDFGSM[] = { 0xa0, 0xa4, 0x00, 0x00, 0x02, 0x7f, 0x20 };
-		static const BYTE pbSelectIMSI[] = { 0xa0, 0xa4, 0x00, 0x00, 0x02, 0x6f, 0x07 };
-		static const BYTE pbReadBinary[] = { 0xa0, 0xb0, 0x00, 0x00, 0x09 };
-		BYTE pbRunGSMAlgorithm[5 + SIM_RAND_LEN] = { 0xa0, 0x88, 0x00, 0x00, 0x10 };
-		static const BYTE pbGetResponse[] = { 0xa0, 0xc0, 0x00, 0x00, 0x0c };
+		static const BYTE pbSelectMF[] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+		static const BYTE pbSelectDFGSM[] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+		static const BYTE pbSelectIMSI[] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+		static const BYTE pbReadBinary[] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+		BYTE pbRunGSMAlgorithm[5 + SIM_RAND_LEN] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+		static const BYTE pbGetResponse[] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
 		/* If on 2nd or later reader, make sure we end the transaction
 		 * and disconnect card in the previous reader */

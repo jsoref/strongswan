@@ -51,7 +51,7 @@ struct private_openssl_rng_t {
 METHOD(rng_t, get_bytes, bool,
 	private_openssl_rng_t *this, size_t bytes, uint8_t *buffer)
 {
-#if OPENSSL_VERSION_NUMBER >= 0x1010100fL
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	if (this->quality > RNG_WEAK)
 	{	/* use a separate DRBG for data we want to keep private, compared
 		 * to e.g. nonces */

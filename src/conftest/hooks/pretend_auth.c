@@ -111,7 +111,7 @@ static void process_auth_request(private_pretend_auth_t *this,
 		proposals->remove_first(proposals, (void**)&this->proposal);
 		if (this->proposal)
 		{
-			this->proposal->set_spi(this->proposal, htonl(0x12345678));
+			this->proposal->set_spi(this->proposal, htonl(0xFF));
 		}
 		proposals->destroy_offset(proposals, offsetof(proposal_t, destroy));
 	}

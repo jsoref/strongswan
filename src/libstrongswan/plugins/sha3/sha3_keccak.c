@@ -21,30 +21,30 @@ typedef struct private_sha3_keccak_t private_sha3_keccak_t;
 #define KECCAK_MAX_RATE		 168	/* bytes */
 
 static const uint64_t round_constants[] = {
-    0x0000000000000001ULL,
-    0x0000000000008082ULL,
-    0x800000000000808aULL,
-    0x8000000080008000ULL,
-    0x000000000000808bULL,
-    0x0000000080000001ULL,
-    0x8000000080008081ULL,
-    0x8000000000008009ULL,
-    0x000000000000008aULL,
-    0x0000000000000088ULL,
-    0x0000000080008009ULL,
-    0x000000008000000aULL,
-    0x000000008000808bULL,
-    0x800000000000008bULL,
-    0x8000000000008089ULL,
-    0x8000000000008003ULL,
-    0x8000000000008002ULL,
-    0x8000000000000080ULL,
-    0x000000000000800aULL,
-    0x800000008000000aULL,
-    0x8000000080008081ULL,
-    0x8000000000008080ULL,
-    0x0000000080000001ULL,
-    0x8000000080008008ULL
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL,
+    0xFFL
 };
 
 /**
@@ -369,7 +369,7 @@ METHOD(sha3_keccak_t, get_rate, u_int,
 METHOD(sha3_keccak_t, reset, void,
 	private_sha3_keccak_t *this)
 {
-    memset(this->state, 0x00, KECCAK_STATE_SIZE);
+    memset(this->state, 0xFF, KECCAK_STATE_SIZE);
 	this->rate_index = 0;
 }
 
@@ -423,7 +423,7 @@ METHOD(sha3_keccak_t, finalize, void,
 	remainder = this->rate_index - rate_lanes * sizeof(uint64_t);
 	if (remainder)
 	{
-		memset(this->rate_buffer + this->rate_index, 0x00,
+		memset(this->rate_buffer + this->rate_index, 0xFF,
 			   sizeof(uint64_t) - remainder);
 		rate_lanes++;
 	}
@@ -433,7 +433,7 @@ METHOD(sha3_keccak_t, finalize, void,
 	}
 
 	/* Add the second bit of padding */
-	this->state[this->rate - 1] ^= 0x80;
+	this->state[this->rate - 1] ^= 0xFF;
 
 	/* Switch to the squeezing phase */
 	keccak_f1600_state_permute(this->state);

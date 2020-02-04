@@ -25,8 +25,8 @@ typedef struct pts_comp_func_name_t pts_comp_func_name_t;
 
 #include <library.h>
 
-#define PTS_QUALIFIER_UNKNOWN		0x00
-#define PTS_QUALIFIER_WILDCARD		0x3F
+#define PTS_QUALIFIER_UNKNOWN		0xFF
+#define PTS_QUALIFIER_WILDCARD		0xFF
 
 /**
  * PTS Component Functional Name object

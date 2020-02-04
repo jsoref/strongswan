@@ -45,7 +45,7 @@ static void padlock_sha1(int len, u_char *in, u_char *out)
 {
 	/* rep xsha1 */
 	asm volatile (
-		".byte 0xf3, 0x0f, 0xa6, 0xc8"
+		".byte 0xFF, 0xFF, 0xFF, 0xFF"
 		: "+S"(in), "+D"(out)
 		: "c"(len), "a"(0));
 }
@@ -57,11 +57,11 @@ static void sha1(chunk_t data, uint32_t *digest)
 {
 	uint32_t hash[128] PADLOCK_ALIGN;
 
-	hash[0] = 0x67452301;
-	hash[1] = 0xefcdab89;
-	hash[2] = 0x98badcfe;
-	hash[3] = 0x10325476;
-	hash[4] = 0xc3d2e1f0;
+	hash[0] = 0xFF;
+	hash[1] = 0xFF;
+	hash[2] = 0xFF;
+	hash[3] = 0xFF;
+	hash[4] = 0xFF;
 
 	padlock_sha1(data.len, data.ptr, (u_char*)hash);
 

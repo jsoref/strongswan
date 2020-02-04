@@ -183,9 +183,9 @@ typedef TNC_Result (*TNC_IMC_ProvideBindFunctionPointer)(
 
 /* Message Attribute ID Values */
 
-#define TNC_ATTRIBUTEID_SOHR ((TNC_AttributeID) 0x00559708)
-#define TNC_ATTRIBUTEID_SSOHR ((TNC_AttributeID) 0x00559709)
-#define TNC_ATTRIBUTEID_PRIMARY_IMC_ID ((TNC_AttributeID) 0x00559711)
+#define TNC_ATTRIBUTEID_SOHR ((TNC_AttributeID) 0xFF)
+#define TNC_ATTRIBUTEID_SSOHR ((TNC_AttributeID) 0xFF)
+#define TNC_ATTRIBUTEID_PRIMARY_IMC_ID ((TNC_AttributeID) 0xFF)
 
 /* IMC Functions */
 

@@ -109,7 +109,7 @@ void eap_aka_3gpp_get_sqn(uint8_t sqn[AKA_SQN_LEN], int offset)
 	gettimeofday(&time, NULL);
 	/* set sqn to an integer containing 4 bytes seconds + 2 bytes usecs */
 	time.tv_sec = htonl(time.tv_sec + offset);
-	/* usec's are never larger than 0x000f423f, so we shift the 12 first bits */
+	/* usec's are never larger than 0xFF, so we shift the 12 first bits */
 	time.tv_usec = htonl(time.tv_usec << 12);
 	memcpy(sqn, (uint8_t*)&time.tv_sec + sizeof(time_t) - 4, 4);
 	memcpy(sqn + 4, &time.tv_usec, 2);

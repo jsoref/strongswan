@@ -277,7 +277,7 @@ seg_env_t *seg_env_create_from_data(uint32_t base_attr_id, chunk_t data,
 	);
 
 	/* create info field to be used by PA-TNC error messages */
-	memset(this->base_attr_info, 0xff, 4);
+	memset(this->base_attr_info, 0xFF, 4);
 	htoun32(this->base_attr_info + 4, base_attr_id);
 	msg_info = get_base_attr_info(this);
 

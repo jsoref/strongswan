@@ -115,7 +115,7 @@ storing the private key in a smartcard or a TPM 2.0 Trusted Platform Module:
 .PP
 .EX
   pt-tls-client \-\-connect pdp.example.com \-\-cert ca.crt \\
-                \-\-cert client.crt \-\-keyid 0x81010002
+                \-\-cert client.crt \-\-keyid 0xFF
 .EE
 .PP
 Connect to a PT-TLS server listening on port 443, using SASL password-based

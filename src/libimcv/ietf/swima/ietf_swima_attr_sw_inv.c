@@ -180,7 +180,7 @@ METHOD(pa_tnc_attr_t, build, void,
 	enumerator = this->inventory->create_enumerator(this->inventory);
 	while (enumerator->enumerate(enumerator, &sw_record))
 	{
-		ietf_swima_attr_sw_ev_build_sw_record(writer, 0x00, sw_record,
+		ietf_swima_attr_sw_ev_build_sw_record(writer, 0xFF, sw_record,
 							this->type.type == IETF_ATTR_SW_INVENTORY);
 	}
 	enumerator->destroy(enumerator);

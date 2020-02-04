@@ -224,8 +224,8 @@ CALLBACK(handle_timeout, job_requeue_t,
 typedef struct __attribute__((packed)) {
 	uint16_t id;
 	uint16_t flags;
-#define DNS_QR_MASK 0x8000
-#define DNS_OPCODE_MASK 0x7800
+#define DNS_QR_MASK 0xFF
+#define DNS_OPCODE_MASK 0xFF
 	uint16_t qdcount;
 	uint16_t ancount;
 	uint16_t nscount;

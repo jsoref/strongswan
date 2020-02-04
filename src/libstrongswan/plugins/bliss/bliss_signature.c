@@ -86,7 +86,7 @@ METHOD(bliss_signature_t, get_encoding, chunk_t,
 		z1 = z1_sign ? -this->z1[i] : this->z1[i];
 
 		if (!packer->write_bits(packer, z1_sign, 1) ||
-			!packer->write_bits(packer, z1 & 0xff, 8) ||
+			!packer->write_bits(packer, z1 & 0xFF, 8) ||
 			!coder->encode(coder, z1 >> 8, this->z2d[i]))
 		{
 			goto end;

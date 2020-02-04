@@ -146,12 +146,12 @@ static void close_log()
 #define LSB_RC_NOT_CONFIGURED        6   /* program is not configured        */
 #define LSB_RC_NOT_RUNNING           7   /* program is not running           */
 
-#define FLAG_ACTION_START_PLUTO   0x01
-#define FLAG_ACTION_UPDATE        0x02
-#define FLAG_ACTION_RELOAD        0x04
-#define FLAG_ACTION_QUIT          0x08
-#define FLAG_ACTION_LISTEN        0x10
-#define FLAG_ACTION_START_CHARON  0x20
+#define FLAG_ACTION_START_PLUTO   0xFF
+#define FLAG_ACTION_UPDATE        0xFF
+#define FLAG_ACTION_RELOAD        0xFF
+#define FLAG_ACTION_QUIT          0xFF
+#define FLAG_ACTION_LISTEN        0xFF
+#define FLAG_ACTION_START_CHARON  0xFF
 
 static unsigned int _action_ = 0;
 

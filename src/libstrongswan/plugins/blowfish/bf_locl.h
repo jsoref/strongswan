@@ -83,24 +83,24 @@
 			}
 
 #undef l2c
-#define l2c(l,c)	(*((c)++)=(unsigned char)(((l)     )&0xff), \
-			 *((c)++)=(unsigned char)(((l)>> 8L)&0xff), \
-			 *((c)++)=(unsigned char)(((l)>>16L)&0xff), \
-			 *((c)++)=(unsigned char)(((l)>>24L)&0xff))
+#define l2c(l,c)	(*((c)++)=(unsigned char)(((l)     )&0xFF), \
+			 *((c)++)=(unsigned char)(((l)>> 8L)&0xFF), \
+			 *((c)++)=(unsigned char)(((l)>>16L)&0xFF), \
+			 *((c)++)=(unsigned char)(((l)>>24L)&0xFF))
 
 /* NOTE - c is not incremented as per l2c */
 #undef l2cn
 #define l2cn(l1,l2,c,n)	{ \
 			c+=n; \
 			switch (n) { \
-			case 8: *(--(c))=(unsigned char)(((l2)>>24L)&0xff); \
-			case 7: *(--(c))=(unsigned char)(((l2)>>16L)&0xff); \
-			case 6: *(--(c))=(unsigned char)(((l2)>> 8L)&0xff); \
-			case 5: *(--(c))=(unsigned char)(((l2)     )&0xff); \
-			case 4: *(--(c))=(unsigned char)(((l1)>>24L)&0xff); \
-			case 3: *(--(c))=(unsigned char)(((l1)>>16L)&0xff); \
-			case 2: *(--(c))=(unsigned char)(((l1)>> 8L)&0xff); \
-			case 1: *(--(c))=(unsigned char)(((l1)     )&0xff); \
+			case 8: *(--(c))=(unsigned char)(((l2)>>24L)&0xFF); \
+			case 7: *(--(c))=(unsigned char)(((l2)>>16L)&0xFF); \
+			case 6: *(--(c))=(unsigned char)(((l2)>> 8L)&0xFF); \
+			case 5: *(--(c))=(unsigned char)(((l2)     )&0xFF); \
+			case 4: *(--(c))=(unsigned char)(((l1)>>24L)&0xFF); \
+			case 3: *(--(c))=(unsigned char)(((l1)>>16L)&0xFF); \
+			case 2: *(--(c))=(unsigned char)(((l1)>> 8L)&0xFF); \
+			case 1: *(--(c))=(unsigned char)(((l1)     )&0xFF); \
 				} \
 			}
 
@@ -124,14 +124,14 @@
 #define l2nn(l1,l2,c,n)	{ \
 			c+=n; \
 			switch (n) { \
-			case 8: *(--(c))=(unsigned char)(((l2)    )&0xff); \
-			case 7: *(--(c))=(unsigned char)(((l2)>> 8)&0xff); \
-			case 6: *(--(c))=(unsigned char)(((l2)>>16)&0xff); \
-			case 5: *(--(c))=(unsigned char)(((l2)>>24)&0xff); \
-			case 4: *(--(c))=(unsigned char)(((l1)    )&0xff); \
-			case 3: *(--(c))=(unsigned char)(((l1)>> 8)&0xff); \
-			case 2: *(--(c))=(unsigned char)(((l1)>>16)&0xff); \
-			case 1: *(--(c))=(unsigned char)(((l1)>>24)&0xff); \
+			case 8: *(--(c))=(unsigned char)(((l2)    )&0xFF); \
+			case 7: *(--(c))=(unsigned char)(((l2)>> 8)&0xFF); \
+			case 6: *(--(c))=(unsigned char)(((l2)>>16)&0xFF); \
+			case 5: *(--(c))=(unsigned char)(((l2)>>24)&0xFF); \
+			case 4: *(--(c))=(unsigned char)(((l1)    )&0xFF); \
+			case 3: *(--(c))=(unsigned char)(((l1)>> 8)&0xFF); \
+			case 2: *(--(c))=(unsigned char)(((l1)>>16)&0xFF); \
+			case 1: *(--(c))=(unsigned char)(((l1)>>24)&0xFF); \
 				} \
 			}
 
@@ -142,10 +142,10 @@
                          l|=((unsigned long)(*((c)++))))
 
 #undef l2n
-#define l2n(l,c)        (*((c)++)=(unsigned char)(((l)>>24L)&0xff), \
-                         *((c)++)=(unsigned char)(((l)>>16L)&0xff), \
-                         *((c)++)=(unsigned char)(((l)>> 8L)&0xff), \
-                         *((c)++)=(unsigned char)(((l)     )&0xff))
+#define l2n(l,c)        (*((c)++)=(unsigned char)(((l)>>24L)&0xFF), \
+                         *((c)++)=(unsigned char)(((l)>>16L)&0xFF), \
+                         *((c)++)=(unsigned char)(((l)>> 8L)&0xFF), \
+                         *((c)++)=(unsigned char)(((l)     )&0xFF))
 
 /* This is actually a big endian algorithm, the most significant byte
  * is used to lookup array 0 */
@@ -208,10 +208,10 @@
 
 #define BF_ENC(LL,R,S,P) ( \
 	LL^=P, \
-	LL^=(((	S[       ((int)(R>>24)&0xff)] + \
-		S[0x0100+((int)(R>>16)&0xff)])^ \
-		S[0x0200+((int)(R>> 8)&0xff)])+ \
-		S[0x0300+((int)(R    )&0xff)])&0xffffffffL \
+	LL^=(((	S[       ((int)(R>>24)&0xFF)] + \
+		S[0xFF+((int)(R>>16)&0xFF)])^ \
+		S[0xFF+((int)(R>> 8)&0xFF)])+ \
+		S[0xFF+((int)(R    )&0xFF)])&0xFF \
 	)
 #endif
 

@@ -1543,10 +1543,10 @@ RFC 4306                         IKEv2                     December 2005
    prf+ (K,S) = T1 | T2 | T3 | T4 | ...
 
    where:
-   T1 = prf (K, S | 0x01)
-   T2 = prf (K, T1 | S | 0x02)
-   T3 = prf (K, T2 | S | 0x03)
-   T4 = prf (K, T3 | S | 0x04)
+   T1 = prf (K, S | 0xFF)
+   T2 = prf (K, T1 | S | 0xFF)
+   T3 = prf (K, T2 | S | 0xFF)
+   T4 = prf (K, T3 | S | 0xFF)
 
    continuing as needed to compute all required keys.  The keys are
    taken from the output string without regard to boundaries (e.g., if

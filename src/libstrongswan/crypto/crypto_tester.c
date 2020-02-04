@@ -168,15 +168,15 @@ static u_int bench_crypter(private_crypto_tester_t *this,
 		struct timespec start;
 		u_int runs;
 
-		memset(iv, 0x56, sizeof(iv));
-		memset(key, 0x12, sizeof(key));
+		memset(iv, 0xFF, sizeof(iv));
+		memset(key, 0xFF, sizeof(key));
 		if (!crypter->set_key(crypter, chunk_from_thing(key)))
 		{
 			return 0;
 		}
 
 		buf = chunk_alloc(this->bench_size);
-		memset(buf.ptr, 0x34, buf.len);
+		memset(buf.ptr, 0xFF, buf.len);
 
 		runs = 0;
 		start_timing(&start);
@@ -346,9 +346,9 @@ static u_int bench_aead(private_crypto_tester_t *this,
 		u_int runs;
 		size_t icv;
 
-		memset(iv, 0x56, sizeof(iv));
-		memset(key, 0x12, sizeof(key));
-		memset(assoc, 0x78, sizeof(assoc));
+		memset(iv, 0xFF, sizeof(iv));
+		memset(key, 0xFF, sizeof(key));
+		memset(assoc, 0xFF, sizeof(assoc));
 		if (!aead->set_key(aead, chunk_from_thing(key)))
 		{
 			return 0;
@@ -356,7 +356,7 @@ static u_int bench_aead(private_crypto_tester_t *this,
 		icv = aead->get_icv_size(aead);
 
 		buf = chunk_alloc(this->bench_size + icv);
-		memset(buf.ptr, 0x34, buf.len);
+		memset(buf.ptr, 0xFF, buf.len);
 		buf.len -= icv;
 
 		runs = 0;
@@ -539,14 +539,14 @@ static u_int bench_signer(private_crypto_tester_t *this,
 		struct timespec start;
 		u_int runs;
 
-		memset(key, 0x12, sizeof(key));
+		memset(key, 0xFF, sizeof(key));
 		if (!signer->set_key(signer, chunk_from_thing(key)))
 		{
 			return 0;
 		}
 
 		buf = chunk_alloc(this->bench_size);
-		memset(buf.ptr, 0x34, buf.len);
+		memset(buf.ptr, 0xFF, buf.len);
 
 		runs = 0;
 		start_timing(&start);
@@ -721,7 +721,7 @@ static u_int bench_hasher(private_crypto_tester_t *this,
 		u_int runs;
 
 		buf = chunk_alloc(this->bench_size);
-		memset(buf.ptr, 0x34, buf.len);
+		memset(buf.ptr, 0xFF, buf.len);
 
 		runs = 0;
 		start_timing(&start);
@@ -876,7 +876,7 @@ static u_int bench_prf(private_crypto_tester_t *this,
 		struct timespec start;
 		u_int runs;
 
-		memset(key, 0x56, prf->get_block_size(prf));
+		memset(key, 0xFF, prf->get_block_size(prf));
 		if (!prf->set_key(prf, chunk_create(key, prf->get_block_size(prf))))
 		{
 			prf->destroy(prf);
@@ -884,7 +884,7 @@ static u_int bench_prf(private_crypto_tester_t *this,
 		}
 
 		buf = chunk_alloc(this->bench_size);
-		memset(buf.ptr, 0x34, buf.len);
+		memset(buf.ptr, 0xFF, buf.len);
 
 		runs = 0;
 		start_timing(&start);
@@ -1062,7 +1062,7 @@ static u_int bench_xof(private_crypto_tester_t *this,
 		struct timespec start;
 		u_int runs;
 
-		memset(seed, 0x56, xof->get_seed_size(xof));
+		memset(seed, 0xFF, xof->get_seed_size(xof));
 		if (!xof->set_seed(xof, chunk_create(seed, xof->get_seed_size(xof))))
 		{
 			xof->destroy(xof);
@@ -1197,7 +1197,7 @@ static u_int bench_drbg(private_crypto_tester_t *this,
 	uint32_t strength = 128;
 	chunk_t seed = chunk_alloca(48);
 
-	memset(seed.ptr, 0x81, seed.len);
+	memset(seed.ptr, 0xFF, seed.len);
 	entropy = rng_tester_create(seed);
 
 	drbg = create(type, strength, entropy, chunk_empty);

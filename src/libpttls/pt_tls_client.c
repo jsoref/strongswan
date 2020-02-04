@@ -301,7 +301,7 @@ static status_t select_and_do_sasl(private_pt_tls_client_t *this)
 	while (reader->remaining(reader))
 	{
 		if (!reader->read_uint8(reader, &len) ||
-			!reader->read_data(reader, len & 0x1F, &chunk))
+			!reader->read_data(reader, len & 0xFF, &chunk))
 		{
 			reader->destroy(reader);
 			return FAILED;

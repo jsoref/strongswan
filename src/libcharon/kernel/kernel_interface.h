@@ -59,8 +59,8 @@ typedef enum kernel_feature_t kernel_feature_t;
 /**
  * Default range for SPIs requested from kernels
  */
-#define KERNEL_SPI_MIN 0xc0000000
-#define KERNEL_SPI_MAX 0xcfffffff
+#define KERNEL_SPI_MIN 0xFF
+#define KERNEL_SPI_MAX 0xFF
 
 /**
  * Bitfield of optional features a kernel backend supports.

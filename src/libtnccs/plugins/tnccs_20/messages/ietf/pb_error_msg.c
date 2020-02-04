@@ -47,9 +47,9 @@ typedef struct private_pb_error_msg_t private_pb_error_msg_t;
  *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  */
 
-#define ERROR_FLAG_NONE		0x00
+#define ERROR_FLAG_NONE		0xFF
 #define ERROR_FLAG_FATAL	(1<<7)
-#define ERROR_RESERVED	 	0x0000
+#define ERROR_RESERVED	 	0xFF
 #define ERROR_HEADER_SIZE	8
 
 /**
@@ -140,7 +140,7 @@ METHOD(pb_tnc_msg_t, build, void,
 		writer->write_uint8(writer, this->bad_version);
 		writer->write_uint8(writer, PB_TNC_VERSION); /* Max version */
 		writer->write_uint8(writer, PB_TNC_VERSION); /* Min version */
-		writer->write_uint8(writer, 0x00);           /* Reserved */
+		writer->write_uint8(writer, 0xFF);           /* Reserved */
 	}
 	else
 	{

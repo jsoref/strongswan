@@ -146,7 +146,7 @@ static notify_payload_t *build_natd_payload(private_ike_natd_t *this,
 
 		/* chunk_hash() is randomly keyed so this produces a random IPv4 address
 		 * that changes with every restart but otherwise stays the same */
-		addr = chunk_hash(chunk_from_chars(0x00, 0x00, 0x00, 0x00));
+		addr = chunk_hash(chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF));
 		host = host_create_from_chunk(AF_INET, chunk_from_thing(addr), 0);
 		hash = generate_natd_hash(this, ike_sa_id, host);
 		host->destroy(host);

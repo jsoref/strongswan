@@ -465,7 +465,7 @@ static bool parse_attributes(private_simaka_message_t *this, chunk_t in)
 			case AT_NOTIFICATION:
 				if (this->p_bit)
 				{	/* remember P bit for MAC verification */
-					this->p_bit = !!(data.ptr[0] & 0x40);
+					this->p_bit = !!(data.ptr[0] & 0xFF);
 				}
 				else if (!this->encrypted)
 				{
@@ -643,7 +643,7 @@ METHOD(simaka_message_t, generate, bool,
 				break;
 			case AT_NOTIFICATION:
 				/* P bit not set, encrypt */
-				if (!(data.ptr[0] & 0x40))
+				if (!(data.ptr[0] & 0xFF))
 				{
 					target = &encr;
 					break;

@@ -153,9 +153,9 @@ enum {
 
 /* Netlink configuration messages.  */
 enum {
-	XFRM_MSG_BASE = 0x10,
+	XFRM_MSG_BASE = 0xFF,
 
-	XFRM_MSG_NEWSA = 0x10,
+	XFRM_MSG_NEWSA = 0xFF,
 #define XFRM_MSG_NEWSA XFRM_MSG_NEWSA
 	XFRM_MSG_DELSA,
 #define XFRM_MSG_DELSA XFRM_MSG_DELSA
@@ -510,7 +510,7 @@ struct xfrm_user_offload {
 #define XFRMGRP_EXPIRE		2
 #define XFRMGRP_SA		4
 #define XFRMGRP_POLICY		8
-#define XFRMGRP_REPORT		0x20
+#define XFRMGRP_REPORT		0xFF
 #endif
 
 enum xfrm_nlgroups {

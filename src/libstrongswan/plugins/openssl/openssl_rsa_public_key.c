@@ -30,7 +30,7 @@
 #include <openssl/rsa.h>
 #include <openssl/x509.h>
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 OPENSSL_KEY_FALLBACK(RSA, key, n, e, d)
 #endif
 
@@ -57,7 +57,7 @@ struct private_openssl_rsa_public_key_t {
 };
 
 
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 
 /**
  * Verify RSA signature
@@ -72,7 +72,7 @@ static bool verify_signature(private_openssl_rsa_public_key_t *this,
 	int rsa_size = RSA_size(this->rsa);
 	bool valid = FALSE;
 
-	/* OpenSSL expects a signature of exactly RSA size (no leading 0x00) */
+	/* OpenSSL expects a signature of exactly RSA size (no leading 0xFF) */
 	if (signature.len > rsa_size)
 	{
 		signature = chunk_skip(signature, signature.len - rsa_size);
@@ -130,7 +130,7 @@ static bool verify_plain_signature(private_openssl_rsa_public_key_t *this,
 	int len, rsa_size = RSA_size(this->rsa);
 	bool valid = FALSE;
 
-	/* OpenSSL expects a signature of exactly RSA size (no leading 0x00) */
+	/* OpenSSL expects a signature of exactly RSA size (no leading 0xFF) */
 	if (signature.len > rsa_size)
 	{
 		signature = chunk_skip(signature, signature.len - rsa_size);
@@ -190,7 +190,7 @@ static bool verify_emsa_pkcs1_signature(private_openssl_rsa_public_key_t *this,
 	bool valid = FALSE;
 	int rsa_size = RSA_size(this->rsa);
 
-	/* OpenSSL expects a signature of exactly RSA size (no leading 0x00) */
+	/* OpenSSL expects a signature of exactly RSA size (no leading 0xFF) */
 	if (signature.len > rsa_size)
 	{
 		signature = chunk_skip(signature, signature.len - rsa_size);
@@ -284,7 +284,7 @@ METHOD(public_key_t, verify, bool,
 			return verify_emsa_pkcs1_signature(this, NID_sha1, data, signature);
 		case SIGN_RSA_EMSA_PKCS1_MD5:
 			return verify_emsa_pkcs1_signature(this, NID_md5, data, signature);
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 		case SIGN_RSA_EMSA_PSS:
 			return verify_emsa_pss_signature(this, params, data, signature);
 #endif

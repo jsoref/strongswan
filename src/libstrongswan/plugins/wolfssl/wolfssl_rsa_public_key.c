@@ -79,7 +79,7 @@ static bool verify_signature(private_wolfssl_rsa_public_key_t *this,
 		signature = chunk_skip(signature, signature.len - len);
 	}
 
-	padded = chunk_copy_pad(chunk_alloca(len), signature, 0x00);
+	padded = chunk_copy_pad(chunk_alloca(len), signature, 0xFF);
 
 	len = wc_RsaSSL_VerifyInline(padded.ptr, len, &p, &this->rsa);
 	if (len > 0)
@@ -147,7 +147,7 @@ static bool verify_emsa_pss_signature(private_wolfssl_rsa_public_key_t *this,
 	{
 		signature = chunk_skip(signature, signature.len - len);
 	}
-	padded = chunk_copy_pad(chunk_alloca(len), signature, 0x00);
+	padded = chunk_copy_pad(chunk_alloca(len), signature, 0xFF);
 
 	len = wc_RsaPSS_VerifyInline_ex(padded.ptr, len, &p, hash, mgf,
 									params->salt_len, &this->rsa);

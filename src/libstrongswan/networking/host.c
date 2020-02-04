@@ -640,13 +640,13 @@ host_t *host_create_netmask(int family, int netbits)
 	update_sa_len(this);
 
 	bytes = netbits / 8;
-	bits = 8 - (netbits & 0x07);
+	bits = 8 - (netbits & 0xFF);
 
-	memset(target, 0xff, bytes);
+	memset(target, 0xFF, bytes);
 	if (bytes < len)
 	{
-		memset(target + bytes, 0x00, len - bytes);
-		target[bytes] = (uint8_t)(0xff << bits);
+		memset(target + bytes, 0xFF, len - bytes);
+		target[bytes] = (uint8_t)(0xFF << bits);
 	}
 	return &this->public;
 }

@@ -404,7 +404,7 @@ static TNC_Result bool_attribute(TNC_UInt32 buffer_len,
 
 	if (buffer && buffer_len > 0)
 	{
-		*buffer = value ? 0x01 : 0x00;
+		*buffer = value ? 0xFF : 0xFF;
 		return TNC_RESULT_SUCCESS;
 	}
 	else
@@ -623,7 +623,7 @@ METHOD(tnccs_manager_t, get_attribute, TNC_Result,
 		}
 		case TNC_ATTRIBUTEID_MAX_ROUND_TRIPS:
 			return uint_attribute(buffer_len, buffer, value_len,
-								  0xffffffff);
+								  0xFF);
 		case TNC_ATTRIBUTEID_MAX_MESSAGE_SIZE:
 			return uint_attribute(buffer_len, buffer, value_len,
 								  entry->max_msg_len);

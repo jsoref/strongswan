@@ -14,7 +14,7 @@
  */
 
 /* Windows 7, for some fwpmu.h functionality */
-#define _WIN32_WINNT 0x0601
+#define _WIN32_WINNT 0xFF
 
 #include "kernel_wfp_compat.h"
 #include "kernel_wfp_ipsec.h"
@@ -521,7 +521,7 @@ static bool ts2condition(traffic_selector_t *ts, const GUID *target,
 			}
 		}
 	}
-	else if (from_port != 0 || to_port != 0xFFFF)
+	else if (from_port != 0 || to_port != 0xFF)
 	{
 		if (target == &FWPM_CONDITION_IP_LOCAL_ADDRESS)
 		{
@@ -1303,9 +1303,9 @@ static bool add_tunnel_provider(private_kernel_wfp_ipsec_t *this,
 		.lifetime = {
 			/* We need a valid lifetime, even if we don't create any SA
 			 * from these values. Pick some values accepted. */
-			.lifetimeSeconds = 0xFFFF,
-			.lifetimeKilobytes = 0xFFFFFFFF,
-			.lifetimePackets = 0xFFFFFFFF,
+			.lifetimeSeconds = 0xFF,
+			.lifetimeKilobytes = 0xFF,
+			.lifetimePackets = 0xFF,
 		},
 		.numSaTransforms = 1,
 		.saTransforms = &transforms,
@@ -1784,7 +1784,7 @@ static bool install_trap(private_kernel_wfp_ipsec_t *this, trap_t *trap)
 	int count = 0;
 	DWORD res;
 	const GUID *starget, *dtarget;
-	UINT64 weight = 0x000000000000ff00;
+	UINT64 weight = 0xFF;
 	FWPM_FILTER0 filter = {
 		.displayData = {
 			.name = L"charon IPsec trap",
@@ -1989,7 +1989,7 @@ METHOD(kernel_ipsec_t, get_spi, status_t,
 	 * but that is actually not required.
 	 * The selected prime should be smaller than the range we allocate SPIs
 	 * in, and it must satisfy p % 4 == 3 to map x > p/2 using p - qr. */
-	static const u_int p = 268435399, offset = 0xc0000000;
+	static const u_int p = 268435399, offset = 0xFF;
 
 	*spi = htonl(offset + permute(ref_get(&this->nextspi) ^ this->mixspi, p));
 	return SUCCESS;
@@ -2484,7 +2484,7 @@ static bool add_bypass(private_kernel_wfp_ipsec_t *this,
 	FWPM_FILTER_CONDITION0 *cond, *conds = NULL;
 	int count = 0;
 	DWORD res;
-	UINT64 weight = 0xff00000000000000;
+	UINT64 weight = 0xFF;
 	FWPM_FILTER0 filter = {
 		.displayData = {
 			.name = L"charon IKE bypass",
@@ -2656,8 +2656,8 @@ kernel_wfp_ipsec_t *kernel_wfp_ipsec_create()
 				.name = L"charon",
 				.description = L"strongSwan IKE kernel-wfp backend",
 			},
-			.providerKey = { 0x59cdae2e, 0xf6bb, 0x4c09,
-							{ 0xa9,0x59,0x9d,0x91,0xac,0xaf,0xf9,0x19 }},
+			.providerKey = { 0xFF, 0xFF, 0xFF,
+							{ 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF }},
 		},
 		.mutex = mutex_create(MUTEX_TYPE_RECURSIVE),
 		.bypass = array_create(sizeof(UINT64), 2),

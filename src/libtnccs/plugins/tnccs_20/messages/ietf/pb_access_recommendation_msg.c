@@ -37,7 +37,7 @@ typedef struct private_pb_access_recommendation_msg_t private_pb_access_recommen
  *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  */
 
-#define ACCESS_RECOMMENDATION_RESERVED	 	0x0000
+#define ACCESS_RECOMMENDATION_RESERVED	 	0xFF
 #define ACCESS_RECOMMENDATION_MSG_SIZE		4
 /**
  * Private data of a pb_access_recommendation_msg_t object.

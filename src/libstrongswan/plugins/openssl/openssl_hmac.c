@@ -70,7 +70,7 @@ struct private_mac_t {
 	 */
 	HMAC_CTX *hmac;
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 	/**
 	 * Static context for OpenSSL < 1.1.0
 	 */
@@ -86,7 +86,7 @@ struct private_mac_t {
 METHOD(mac_t, set_key, bool,
 	private_mac_t *this, chunk_t key)
 {
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	if (HMAC_Init_ex(this->hmac, key.ptr, key.len, this->hasher, NULL))
 	{
 		this->key_set = TRUE;
@@ -107,7 +107,7 @@ METHOD(mac_t, get_mac, bool,
 	{
 		return FALSE;
 	}
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	if (!HMAC_Update(this->hmac, data.ptr, data.len))
 	{
 		return FALSE;
@@ -140,7 +140,7 @@ METHOD(mac_t, get_mac_size, size_t,
 METHOD(mac_t, destroy, void,
 	private_mac_t *this)
 {
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	HMAC_CTX_free(this->hmac);
 #else
 	HMAC_CTX_cleanup(&this->hmac_ctx);
@@ -178,7 +178,7 @@ static mac_t *hmac_create(hash_algorithm_t algo)
 		return NULL;
 	}
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	this->hmac = HMAC_CTX_new();
 #else
 	HMAC_CTX_init(&this->hmac_ctx);

@@ -256,7 +256,7 @@ transform_attribute_t *transform_attribute_create_value(payload_type_t type,
 
 	this = (private_transform_attribute_t*)transform_attribute_create(type);
 
-	this->attribute_type = kind & 0x7FFF;
+	this->attribute_type = kind & 0xFF;
 
 	if (value <= UINT16_MAX)
 	{

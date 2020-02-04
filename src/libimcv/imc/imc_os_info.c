@@ -15,7 +15,7 @@
 
 /* for GetTickCount64, Windows 7 */
 #ifdef WIN32
-# define _WIN32_WINNT 0x0601
+# define _WIN32_WINNT 0xFF
 #endif
 
 #include "imc_os_info.h"

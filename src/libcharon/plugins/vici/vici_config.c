@@ -654,7 +654,7 @@ CALLBACK(parse_ts, bool,
 	struct protoent *protoent;
 	struct servent *svc;
 	long int p;
-	uint16_t from = 0, to = 0xffff;
+	uint16_t from = 0, to = 0xFF;
 	uint8_t proto = 0;
 
 	if (!vici_stringify(v, buf, sizeof(buf)))
@@ -695,7 +695,7 @@ CALLBACK(parse_ts, bool,
 			else
 			{
 				p = strtol(protoport, &end, 0);
-				if ((*protoport && *end) || p < 0 || p > 0xff)
+				if ((*protoport && *end) || p < 0 || p > 0xFF)
 				{
 					return FALSE;
 				}
@@ -704,7 +704,7 @@ CALLBACK(parse_ts, bool,
 		}
 		if (streq(port, "opaque"))
 		{
-			from = 0xffff;
+			from = 0xFF;
 			to = 0;
 		}
 		else if (*port && !streq(port, "any"))
@@ -717,7 +717,7 @@ CALLBACK(parse_ts, bool,
 			else
 			{
 				p = strtol(port, &end, 0);
-				if (p < 0 || p > 0xffff)
+				if (p < 0 || p > 0xFF)
 				{
 					return FALSE;
 				}
@@ -726,7 +726,7 @@ CALLBACK(parse_ts, bool,
 				{
 					port = end + 1;
 					p = strtol(port, &end, 0);
-					if (p < 0 || p > 0xffff)
+					if (p < 0 || p > 0xFF)
 					{
 						return FALSE;
 					}
@@ -1275,7 +1275,7 @@ CALLBACK(parse_dscp, bool,
 {
 	if (parse_uint32_bin(out, v))
 	{
-		*out = *out & 0x3f;
+		*out = *out & 0xFF;
 		return TRUE;
 	}
 	return FALSE;

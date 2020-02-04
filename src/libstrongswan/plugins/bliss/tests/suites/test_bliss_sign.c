@@ -182,7 +182,7 @@ START_TEST(test_bliss_sign_fail)
 	ck_assert(!pubkey->verify(pubkey, SIGN_UNKNOWN, NULL, msg, signature));
 
 	/* corrupt signature */
-	signature.ptr[signature.len - 1] ^= 0x80;
+	signature.ptr[signature.len - 1] ^= 0xFF;
 	ck_assert(!pubkey->verify(pubkey, SIGN_BLISS_WITH_SHA2_512, NULL, msg, signature));
 
 	free(signature.ptr);

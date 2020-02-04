@@ -462,12 +462,12 @@ static void make_u(private_chapoly_drv_ssse3_t *this)
 	_mm_storel_epi64((__m128i*)&d4, x0);
 
 	/* (partial) r %= p */
-	d1 += sr(d0, 26);     u0 = and(d0, 0x3ffffff);
-	d2 += sr(d1, 26);     u1 = and(d1, 0x3ffffff);
-	d3 += sr(d2, 26);     u2 = and(d2, 0x3ffffff);
-	d4 += sr(d3, 26);     u3 = and(d3, 0x3ffffff);
-	u0 += sr(d4, 26) * 5; u4 = and(d4, 0x3ffffff);
-	u1 += u0 >> 26;       u0 &= 0x3ffffff;
+	d1 += sr(d0, 26);     u0 = and(d0, 0xFF);
+	d2 += sr(d1, 26);     u1 = and(d1, 0xFF);
+	d3 += sr(d2, 26);     u2 = and(d2, 0xFF);
+	d4 += sr(d3, 26);     u3 = and(d3, 0xFF);
+	u0 += sr(d4, 26) * 5; u4 = and(d4, 0xFF);
+	u1 += u0 >> 26;       u0 &= 0xFF;
 
 	this->u[0] = u0;
 	this->u[1] = u1;
@@ -488,12 +488,12 @@ METHOD(chapoly_drv_t, init, bool,
 	memset(key, 0, CHACHA_BLOCK_SIZE);
 	chacha_block_xor(this, key);
 
-	/* r &= 0xffffffc0ffffffc0ffffffc0fffffff */
-	this->r[0] = (ru32(key +  0) >> 0) & 0x3ffffff;
-	this->r[1] = (ru32(key +  3) >> 2) & 0x3ffff03;
-	this->r[2] = (ru32(key +  6) >> 4) & 0x3ffc0ff;
-	this->r[3] = (ru32(key +  9) >> 6) & 0x3f03fff;
-	this->r[4] = (ru32(key + 12) >> 8) & 0x00fffff;
+	/* r &= 0xFF */
+	this->r[0] = (ru32(key +  0) >> 0) & 0xFF;
+	this->r[1] = (ru32(key +  3) >> 2) & 0xFF;
+	this->r[2] = (ru32(key +  6) >> 4) & 0xFF;
+	this->r[3] = (ru32(key +  9) >> 6) & 0xFF;
+	this->r[4] = (ru32(key + 12) >> 8) & 0xFF;
 
 	make_u(this);
 
@@ -553,18 +553,18 @@ static void poly2(private_chapoly_drv_ssse3_t *this, u_char *data, u_int dblks)
 	for (i = 0; i < dblks; i++)
 	{
 		/* h += m[i] */
-		h0 += (ru32(data +  0) >> 0) & 0x3ffffff;
-		h1 += (ru32(data +  3) >> 2) & 0x3ffffff;
-		h2 += (ru32(data +  6) >> 4) & 0x3ffffff;
-		h3 += (ru32(data +  9) >> 6) & 0x3ffffff;
+		h0 += (ru32(data +  0) >> 0) & 0xFF;
+		h1 += (ru32(data +  3) >> 2) & 0xFF;
+		h2 += (ru32(data +  6) >> 4) & 0xFF;
+		h3 += (ru32(data +  9) >> 6) & 0xFF;
 		h4 += (ru32(data + 12) >> 8) | (1 << 24);
 		data += POLY_BLOCK_SIZE;
 
 		/* c = m[i + 1] */
-		c0 = (ru32(data +  0) >> 0) & 0x3ffffff;
-		c1 = (ru32(data +  3) >> 2) & 0x3ffffff;
-		c2 = (ru32(data +  6) >> 4) & 0x3ffffff;
-		c3 = (ru32(data +  9) >> 6) & 0x3ffffff;
+		c0 = (ru32(data +  0) >> 0) & 0xFF;
+		c1 = (ru32(data +  3) >> 2) & 0xFF;
+		c2 = (ru32(data +  6) >> 4) & 0xFF;
+		c3 = (ru32(data +  9) >> 6) & 0xFF;
 		c4 = (ru32(data + 12) >> 8) | (1 << 24);
 		data += POLY_BLOCK_SIZE;
 
@@ -602,12 +602,12 @@ static void poly2(private_chapoly_drv_ssse3_t *this, u_char *data, u_int dblks)
 				  mul2(hc4, u0, r0));
 
 		/* (partial) h %= p */
-		d1 += sr(d0, 26);     h0 = and(d0, 0x3ffffff);
-		d2 += sr(d1, 26);     h1 = and(d1, 0x3ffffff);
-		d3 += sr(d2, 26);     h2 = and(d2, 0x3ffffff);
-		d4 += sr(d3, 26);     h3 = and(d3, 0x3ffffff);
-		h0 += sr(d4, 26) * 5; h4 = and(d4, 0x3ffffff);
-		h1 += h0 >> 26;       h0 = h0 & 0x3ffffff;
+		d1 += sr(d0, 26);     h0 = and(d0, 0xFF);
+		d2 += sr(d1, 26);     h1 = and(d1, 0xFF);
+		d3 += sr(d2, 26);     h2 = and(d2, 0xFF);
+		d4 += sr(d3, 26);     h3 = and(d3, 0xFF);
+		h0 += sr(d4, 26) * 5; h4 = and(d4, 0xFF);
+		h1 += h0 >> 26;       h0 = h0 & 0xFF;
 	}
 
 	this->h[0] = h0;
@@ -652,11 +652,11 @@ static void poly1(private_chapoly_drv_ssse3_t *this, u_char *data)
 	h44 = _mm_set_epi32(0, h4, 0, h4);
 
 	/* h += m[i] */
-	t0  = (ru32(data +  0) >> 0) & 0x3ffffff;
-	t1  = (ru32(data +  3) >> 2) & 0x3ffffff;
+	t0  = (ru32(data +  0) >> 0) & 0xFF;
+	t1  = (ru32(data +  3) >> 2) & 0xFF;
 	h01 = _mm_add_epi32(h01, _mm_set_epi32(0, t0, 0, t1));
-	t0  = (ru32(data +  6) >> 4) & 0x3ffffff;
-	t1  = (ru32(data +  9) >> 6) & 0x3ffffff;
+	t0  = (ru32(data +  6) >> 4) & 0xFF;
+	t1  = (ru32(data +  9) >> 6) & 0xFF;
 	h23 = _mm_add_epi32(h23, _mm_set_epi32(0, t0, 0, t1));
 	t0  = (ru32(data + 12) >> 8) | (1 << 24);
 	h44 = _mm_add_epi32(h44, _mm_set_epi32(0, t0, 0, t0));
@@ -689,12 +689,12 @@ static void poly1(private_chapoly_drv_ssse3_t *this, u_char *data)
 	_mm_storel_epi64((__m128i*)&d4, x0);
 
 	/* (partial) h %= p */
-	d1 += sr(d0, 26);     h0 = and(d0, 0x3ffffff);
-	d2 += sr(d1, 26);     h1 = and(d1, 0x3ffffff);
-	d3 += sr(d2, 26);     h2 = and(d2, 0x3ffffff);
-	d4 += sr(d3, 26);     h3 = and(d3, 0x3ffffff);
-	h0 += sr(d4, 26) * 5; h4 = and(d4, 0x3ffffff);
-	h1 += h0 >> 26;       h0 = h0 & 0x3ffffff;
+	d1 += sr(d0, 26);     h0 = and(d0, 0xFF);
+	d2 += sr(d1, 26);     h1 = and(d1, 0xFF);
+	d3 += sr(d2, 26);     h2 = and(d2, 0xFF);
+	d4 += sr(d3, 26);     h3 = and(d3, 0xFF);
+	h0 += sr(d4, 26) * 5; h4 = and(d4, 0xFF);
+	h1 += h0 >> 26;       h0 = h0 & 0xFF;
 
 	this->h[0] = h0;
 	this->h[1] = h1;
@@ -776,18 +776,18 @@ METHOD(chapoly_drv_t, finish, bool,
 	h3 = this->h[3];
 	h4 = this->h[4];
 
-	h2 += (h1 >> 26);     h1 = h1 & 0x3ffffff;
-	h3 += (h2 >> 26);     h2 = h2 & 0x3ffffff;
-	h4 += (h3 >> 26);     h3 = h3 & 0x3ffffff;
-	h0 += (h4 >> 26) * 5; h4 = h4 & 0x3ffffff;
-	h1 += (h0 >> 26);     h0 = h0 & 0x3ffffff;
+	h2 += (h1 >> 26);     h1 = h1 & 0xFF;
+	h3 += (h2 >> 26);     h2 = h2 & 0xFF;
+	h4 += (h3 >> 26);     h3 = h3 & 0xFF;
+	h0 += (h4 >> 26) * 5; h4 = h4 & 0xFF;
+	h1 += (h0 >> 26);     h0 = h0 & 0xFF;
 
 	/* compute h + -p */
 	g0 = h0 + 5;
-	g1 = h1 + (g0 >> 26);             g0 &= 0x3ffffff;
-	g2 = h2 + (g1 >> 26);             g1 &= 0x3ffffff;
-	g3 = h3 + (g2 >> 26);             g2 &= 0x3ffffff;
-	g4 = h4 + (g3 >> 26) - (1 << 26); g3 &= 0x3ffffff;
+	g1 = h1 + (g0 >> 26);             g0 &= 0xFF;
+	g2 = h2 + (g1 >> 26);             g1 &= 0xFF;
+	g3 = h3 + (g2 >> 26);             g2 &= 0xFF;
+	g4 = h4 + (g3 >> 26) - (1 << 26); g3 &= 0xFF;
 
 	/* select h if h < p, or h + -p if h >= p */
 	mask = (g4 >> ((sizeof(uint32_t) * 8) - 1)) - 1;

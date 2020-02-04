@@ -423,7 +423,7 @@ botan_ec_private_key_t *botan_ec_private_key_load(key_type_t type, va_list args)
 	}
 
 	pkcs8 = asn1_wrap(ASN1_SEQUENCE, "mms",
-					  asn1_integer("c", chunk_from_chars(0x00)),
+					  asn1_integer("c", chunk_from_chars(0xFF)),
 					  alg_id,
 					  asn1_wrap(ASN1_OCTET_STRING, "c", key));
 

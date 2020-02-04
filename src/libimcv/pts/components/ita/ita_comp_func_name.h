@@ -71,13 +71,13 @@ extern enum_name_t *pts_ita_qualifier_type_names;
  */
 enum pts_ita_comp_func_name_t {
 	/** Ignore */
-	PTS_ITA_COMP_FUNC_NAME_IGNORE =				0x0000,
+	PTS_ITA_COMP_FUNC_NAME_IGNORE =				0xFF,
 	/** Trusted GRUB Boot Loader */
-	PTS_ITA_COMP_FUNC_NAME_TGRUB =				0x0001,
+	PTS_ITA_COMP_FUNC_NAME_TGRUB =				0xFF,
 	/** Trusted Boot */
-	PTS_ITA_COMP_FUNC_NAME_TBOOT =				0x0002,
+	PTS_ITA_COMP_FUNC_NAME_TBOOT =				0xFF,
 	/** Linux Integrity Measurement Architecture */
-	PTS_ITA_COMP_FUNC_NAME_IMA =				0x0003,
+	PTS_ITA_COMP_FUNC_NAME_IMA =				0xFF,
 };
 
 extern enum_name_t *pts_ita_comp_func_names;

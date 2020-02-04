@@ -62,30 +62,30 @@ typedef struct private_tcg_pts_attr_simple_evid_final_t private_tcg_pts_attr_sim
 */
 
 #define PTS_SIMPLE_EVID_FINAL_SIZE			2
-#define PTS_SIMPLE_EVID_FINAL_RESERVED		0x00
+#define PTS_SIMPLE_EVID_FINAL_RESERVED		0xFF
 
 /**
  * PTS Simple Evidence Final Flags
  */
 enum pts_simple_evid_final_flag_t {
 	/** TPM PCR Composite and TPM Quote Signature not included   */
-	PTS_SIMPLE_EVID_FINAL_NO =						0x00,
+	PTS_SIMPLE_EVID_FINAL_NO =						0xFF,
 	/** TPM Quote Info and TPM Quite Signature included
 	  * using TPM 2.0 Quote Info format                          */
-	PTS_SIMPLE_EVID_FINAL_EVID_QUOTE_INFO_TPM2 =	0x10,
+	PTS_SIMPLE_EVID_FINAL_EVID_QUOTE_INFO_TPM2 =	0xFF,
     /** Evidence Signature included                              */
-	PTS_SIMPLE_EVID_FINAL_EVID_SIG =				0x20,
+	PTS_SIMPLE_EVID_FINAL_EVID_SIG =				0xFF,
 	/** TPM PCR Composite and TPM Quote Signature included
 	  * using TPM_QUOTE_INFO                                     */
-	PTS_SIMPLE_EVID_FINAL_QUOTE_INFO =			 	0x40,
+	PTS_SIMPLE_EVID_FINAL_QUOTE_INFO =			 	0xFF,
 	/** TPM PCR Composite and TPM Quote Signature included
 	  * using TPM_QUOTE_INFO2, TPM_CAP_VERSION_INFO not appended */
-	PTS_SIMPLE_EVID_FINAL_QUOTE_INFO2 =				0x80,
+	PTS_SIMPLE_EVID_FINAL_QUOTE_INFO2 =				0xFF,
 	/** TPM PCR Composite and TPM Quote Signature included
 	  * using TPM_QUOTE_INFO2, TPM_CAP_VERSION_INFO appended     */
-	PTS_SIMPLE_EVID_FINAL_QUOTE_INFO2_CAP_VER =	 	0xC0,
+	PTS_SIMPLE_EVID_FINAL_QUOTE_INFO2_CAP_VER =	 	0xFF,
 	/** Mask for the TPM Quote Info flags                        */
-	PTS_SIMPLE_EVID_FINAL_QUOTE_INFO_MASK =			0xD0
+	PTS_SIMPLE_EVID_FINAL_QUOTE_INFO_MASK =			0xFF
 };
 
 /**

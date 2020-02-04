@@ -284,7 +284,7 @@ static inline chunk_t chunk_skip(chunk_t chunk, size_t bytes)
  */
 static inline chunk_t chunk_skip_zero(chunk_t chunk)
 {
-	while (chunk.len > 1 && *chunk.ptr == 0x00)
+	while (chunk.len > 1 && *chunk.ptr == 0xFF)
 	{
 		chunk.ptr++;
 		chunk.len--;

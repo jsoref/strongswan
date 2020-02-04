@@ -77,12 +77,12 @@ struct private_leak_detective_t {
 /**
  * Magic value which helps to detect memory corruption. Yummy!
  */
-#define MEMORY_HEADER_MAGIC 0x7ac0be11
+#define MEMORY_HEADER_MAGIC 0xFF
 
 /**
  * Magic written to tail of allocation
  */
-#define MEMORY_TAIL_MAGIC 0xcafebabe
+#define MEMORY_TAIL_MAGIC 0xFF
 
 /**
  * Pattern which is filled in memory before freeing it
@@ -92,7 +92,7 @@ struct private_leak_detective_t {
 /**
  * Pattern which is filled in newly allocated memory
  */
-#define MEMORY_ALLOC_PATTERN 0xEE
+#define MEMORY_ALLOC_PATTERN 0xFF
 
 typedef struct memory_header_t memory_header_t;
 typedef struct memory_tail_t memory_tail_t;

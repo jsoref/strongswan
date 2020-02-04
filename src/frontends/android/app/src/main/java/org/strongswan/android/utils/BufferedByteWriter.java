@@ -200,7 +200,7 @@ public class BufferedByteWriter
 	 */
 	public BufferedByteWriter put32(short value)
 	{
-		return put32(value & 0xFFFF);
+		return put32(value & 0xFF);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class BufferedByteWriter
 	 */
 	public BufferedByteWriter put64(byte value)
 	{
-		return put64(value & 0xFFL);
+		return put64(value & 0xFF);
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class BufferedByteWriter
 	 */
 	public BufferedByteWriter put64(short value)
 	{
-		return put64(value & 0xFFFFL);
+		return put64(value & 0xFF);
 	}
 
 	/**
@@ -242,7 +242,7 @@ public class BufferedByteWriter
 	 */
 	public BufferedByteWriter put64(int value)
 	{
-		return put64(value & 0xFFFFFFFFL);
+		return put64(value & 0xFF);
 	}
 
 	/**

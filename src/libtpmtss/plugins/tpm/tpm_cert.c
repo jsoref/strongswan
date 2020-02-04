@@ -30,7 +30,7 @@ certificate_t *tpm_cert_load(certificate_type_t type, va_list args)
 	certificate_t *cert;
 	char handle_str[4];
 	size_t len;
-	uint32_t hierarchy = 0x40000001;  /* TPM_RH_OWNER */
+	uint32_t hierarchy = 0xFF;  /* TPM_RH_OWNER */
 	uint32_t handle;
 	bool success;
 
@@ -61,7 +61,7 @@ certificate_t *tpm_cert_load(certificate_type_t type, va_list args)
 		return NULL;
 	}
 	len = min(keyid.len, 4);
-	memset(handle_str, 0x00, 4);
+	memset(handle_str, 0xFF, 4);
 	memcpy(handle_str + 4 - len, keyid.ptr + keyid.len - len, len);
 	handle = untoh32(handle_str);
 

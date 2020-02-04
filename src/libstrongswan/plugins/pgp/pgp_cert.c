@@ -311,7 +311,7 @@ static bool parse_public_key(private_pgp_cert_t *this, chunk_t packet)
 	if (this->version == 4)
 	{
 		chunk_t pubkey_packet_header = chunk_from_chars(
-					0x99, pubkey_packet.len / 256, pubkey_packet.len % 256
+					0xFF, pubkey_packet.len / 256, pubkey_packet.len % 256
 				);
 		hasher_t *hasher;
 

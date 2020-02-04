@@ -68,7 +68,7 @@ static bool build_pub_modulus(chunk_t *encoding, va_list args)
 	if (cred_encoding_args(args, CRED_PART_RSA_MODULUS, &n, CRED_PART_END))
 	{
 		/* remove preceding zero bytes */
-		while (n.len > 0 && *n.ptr == 0x00)
+		while (n.len > 0 && *n.ptr == 0xFF)
 		{
 			n.ptr++;
 			n.len--;

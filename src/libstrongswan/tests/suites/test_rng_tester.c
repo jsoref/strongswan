@@ -23,8 +23,8 @@ START_TEST(test_rng_tester)
 	rng_t *entropy;
 	chunk_t in, in1, in2, out;
 
-	in1 = chunk_from_chars(0x01, 0x02, 0x03, 0x04, 0x05, 0x06);
-	in2 = chunk_from_chars(0x07, 0x08);
+	in1 = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
+	in2 = chunk_from_chars(0xFF, 0xFF);
 	in = chunk_cat("cc", in1, in2);
 
 	entropy = rng_tester_create(in);

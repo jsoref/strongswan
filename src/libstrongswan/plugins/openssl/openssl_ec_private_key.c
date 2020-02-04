@@ -28,7 +28,7 @@
 #include <openssl/ecdsa.h>
 #include <openssl/x509.h>
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 OPENSSL_KEY_FALLBACK(ECDSA_SIG, r, s)
 #endif
 

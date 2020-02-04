@@ -17,7 +17,7 @@
 
 /* basic support for X25519 was added with 1.1.0a, but we require features (e.g.
  * to load the keys) that were only added with 1.1.1 */
-#if OPENSSL_VERSION_NUMBER >= 0x1010100fL && !defined(OPENSSL_NO_ECDH)
+#if OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_ECDH)
 
 #include "openssl_x_diffie_hellman.h"
 

@@ -16,7 +16,7 @@
 #include <openssl/opensslv.h>
 #include <openssl/opensslconf.h>
 
-#if OPENSSL_VERSION_NUMBER >= 0x0090807fL
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 #ifndef OPENSSL_NO_CMS
 
 #include "openssl_pkcs7.h"
@@ -29,7 +29,7 @@
 
 #include <openssl/cms.h>
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 #define X509_ATTRIBUTE_get0_object(attr) ({ (attr)->object; })
 #endif
 
@@ -243,7 +243,7 @@ static auth_cfg_t *verify_signature(CMS_SignerInfo *si, int hash_oid)
 		attrs = chunk_cat("mm", attrs, attr);
 	}
 	/* wrap in a ASN1_SET */
-	attrs = asn1_wrap(0x31, "m", attrs);
+	attrs = asn1_wrap(0xFF, "m", attrs);
 
 	/* TODO: find a better way to access and verify the signature */
 	sig = openssl_asn1_str2chunk(si->signature);
@@ -452,7 +452,7 @@ METHOD(pkcs7_t, get_attribute, bool,
 			/* get first value in SET */
 			type = X509_ATTRIBUTE_get0_type(attr, 0);
 			chunk = wrapped = openssl_i2chunk(ASN1_TYPE, type);
-			if (asn1_unwrap(&chunk, &chunk) != 0x100 /* ASN1_INVALID */)
+			if (asn1_unwrap(&chunk, &chunk) != 0xFF /* ASN1_INVALID */)
 			{
 				*value = chunk_clone(chunk);
 				free(wrapped.ptr);
@@ -631,7 +631,7 @@ static bool decrypt(private_openssl_pkcs7_t *this,
 					continue;
 				}
 				chunk = openssl_asn1_str2chunk(sn);
-				if (chunk.len && chunk.ptr[0] & 0x80)
+				if (chunk.len && chunk.ptr[0] & 0xFF)
 				{	/* if MSB is set, append a zero to make it non-negative */
 					chunk = chunk_cata("cc", chunk_from_thing(zero), chunk);
 				}

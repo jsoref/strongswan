@@ -236,7 +236,7 @@ static size_t extract_type(private_eap_payload_t *this, size_t offset,
 		}
 		if (this->data.len >= offset + 8)
 		{
-			*vendor = untoh32(this->data.ptr + offset) & 0x00FFFFFF;
+			*vendor = untoh32(this->data.ptr + offset) & 0xFF;
 			*type = untoh32(this->data.ptr + offset + 4);
 			return offset + 8;
 		}

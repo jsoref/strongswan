@@ -15,7 +15,7 @@
 
 #include <openssl/evp.h>
 
-#if OPENSSL_VERSION_NUMBER >= 0x1010100fL && !defined(OPENSSL_NO_EC)
+#if OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_EC)
 
 #include <openssl/x509.h>
 

@@ -37,7 +37,7 @@ typedef struct private_ietf_attr_remediation_instr_t private_ietf_attr_remediati
  */
 
 #define REMEDIATION_INSTR_MIN_SIZE		8
-#define REMEDIATION_INSTR_RESERVED		0x00
+#define REMEDIATION_INSTR_RESERVED		0xFF
 
 /**
  * IETF Remediation Parameters URI type  (see section 4.2.10.1 of RFC 5792)

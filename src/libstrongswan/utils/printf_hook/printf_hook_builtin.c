@@ -181,14 +181,14 @@ METHOD(printf_hook_t, add_handler, void,
  * Printf format modifier flags
  */
 typedef enum {
-	FL_ZERO		= 0x01,
-	FL_MINUS	= 0x02,
-	FL_PLUS		= 0x04,
-	FL_TICK		= 0x08,
-	FL_SPACE	= 0x10,
-	FL_HASH		= 0x20,
-	FL_SIGNED	= 0x40,
-	FL_UPPER	= 0x80,
+	FL_ZERO		= 0xFF,
+	FL_MINUS	= 0xFF,
+	FL_PLUS		= 0xFF,
+	FL_TICK		= 0xFF,
+	FL_SPACE	= 0xFF,
+	FL_HASH		= 0xFF,
+	FL_SIGNED	= 0xFF,
+	FL_UPPER	= 0xFF,
 } bpf_flag_t;
 
 /**

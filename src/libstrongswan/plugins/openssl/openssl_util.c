@@ -23,7 +23,7 @@
 #include <openssl/x509.h>
 
 /* these were added with 1.1.0 when ASN1_OBJECT was made opaque */
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 #define OBJ_get0_data(o) ((o)->data)
 #define OBJ_length(o) ((o)->length)
 #define ASN1_STRING_get0_data(a) ASN1_STRING_data((ASN1_STRING*)a)
@@ -140,9 +140,9 @@ bool openssl_bn2chunk(const BIGNUM *bn, chunk_t *chunk)
 	*chunk = chunk_alloc(BN_num_bytes(bn));
 	if (BN_bn2bin(bn, chunk->ptr) == chunk->len)
 	{
-		if (chunk->len && chunk->ptr[0] & 0x80)
+		if (chunk->len && chunk->ptr[0] & 0xFF)
 		{	/* if MSB is set, prepend a zero to make it non-negative */
-			*chunk = chunk_cat("cm", chunk_from_chars(0x00), *chunk);
+			*chunk = chunk_cat("cm", chunk_from_chars(0xFF), *chunk);
 		}
 		return TRUE;
 	}

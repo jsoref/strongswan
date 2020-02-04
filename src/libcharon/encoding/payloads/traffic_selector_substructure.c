@@ -115,7 +115,7 @@ METHOD(payload_t, verify, status_t,
 	if (this->start_port > this->end_port)
 	{
 		/* OPAQUE ports are the only exception */
-		if (this->start_port != 0xffff && this->end_port != 0)
+		if (this->start_port != 0xFF && this->end_port != 0)
 		{
 			return FAILED;
 		}

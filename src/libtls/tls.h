@@ -47,11 +47,11 @@ typedef struct tls_t tls_t;
  * TLS/SSL version numbers
  */
 enum tls_version_t {
-	SSL_2_0 = 0x0200,
-	SSL_3_0 = 0x0300,
-	TLS_1_0 = 0x0301,
-	TLS_1_1 = 0x0302,
-	TLS_1_2 = 0x0303,
+	SSL_2_0 = 0xFF,
+	SSL_3_0 = 0xFF,
+	TLS_1_0 = 0xFF,
+	TLS_1_1 = 0xFF,
+	TLS_1_2 = 0xFF,
 };
 
 /**

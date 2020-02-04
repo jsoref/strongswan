@@ -90,24 +90,24 @@ START_TEST(test_create_from_bytes)
 {
 	verify("10.1.0.0/16", NULL,
 		traffic_selector_create_from_bytes(0, TS_IPV4_ADDR_RANGE,
-			chunk_from_chars(0x0a,0x01,0x00,0x00), 0,
-			chunk_from_chars(0x0a,0x01,0xff,0xff), 65535));
+			chunk_from_chars(0xFF,0xFF,0xFF,0xFF), 0,
+			chunk_from_chars(0xFF,0xFF,0xFF,0xFF), 65535));
 	verify(NULL, NULL,
 		traffic_selector_create_from_bytes(0, TS_IPV4_ADDR_RANGE,
-			chunk_from_chars(0x0a,0x01,0x00,0x00), 0,
-			chunk_from_chars(0x0a,0x01,0xff,0xff,0xff), 65535));
+			chunk_from_chars(0xFF,0xFF,0xFF,0xFF), 0,
+			chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF), 65535));
 	verify(NULL, NULL,
 		traffic_selector_create_from_bytes(0, TS_IPV4_ADDR_RANGE,
 			chunk_empty, 0,
 			chunk_empty, 65535));
 	verify(NULL, NULL,
 		traffic_selector_create_from_bytes(0, TS_IPV6_ADDR_RANGE,
-			chunk_from_chars(0x0a,0x01,0x00,0x00), 0,
-			chunk_from_chars(0x0a,0x01,0xff,0xff), 65535));
+			chunk_from_chars(0xFF,0xFF,0xFF,0xFF), 0,
+			chunk_from_chars(0xFF,0xFF,0xFF,0xFF), 65535));
 	verify(NULL, NULL,
 		traffic_selector_create_from_bytes(0, 0,
-			chunk_from_chars(0x0a,0x01,0x00,0x00), 0,
-			chunk_from_chars(0x0a,0x01,0xff,0xff), 65535));
+			chunk_from_chars(0xFF,0xFF,0xFF,0xFF), 0,
+			chunk_from_chars(0xFF,0xFF,0xFF,0xFF), 65535));
 }
 END_TEST
 
@@ -126,23 +126,23 @@ struct {
 } rfc3779_prefix_tests[] = {
 	/* some examples from RFC 3779, for addressPrefix elements we pass the same
 	 * value twice to the constructor */
-	{ "10.0.0.0/8",		TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x00,0x0a),				},
-	{ "10.0.32.0/20",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x04,0x0a,0x00,0x20),		},
-	{ "10.0.64.0/24",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x00,0x0a,0x00,0x40),		},
-	{ "10.1.0.0/16",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x00,0x0a,0x01),			},
-	{ "10.5.0.1/32",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x00,0x0a,0x05,0x00,0x01),	},
-	{ "10.5.0.0/23",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x01,0x0a,0x05,0x00),		},
-	{ "10.64.0.0/12",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x04,0x0a,0x40),			},
-	{ "10.64.0.0/20",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x04,0x0a,0x40,0x00),		},
-	{ "128.0.0.0/4",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x04,0x80),				},
-	{ "172.16.0.0/12",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x04,0xac,0x10),			},
-	{ "0.0.0.0/0",		TS_IPV4_ADDR_RANGE,	chunk_from_chars(0x00),						},
-	{ NULL,				0,					chunk_from_chars(0x00),						},
+	{ "10.0.0.0/8",		TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF),				},
+	{ "10.0.32.0/20",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF,0xFF),		},
+	{ "10.0.64.0/24",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF,0xFF),		},
+	{ "10.1.0.0/16",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF),			},
+	{ "10.5.0.1/32",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF),	},
+	{ "10.5.0.0/23",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF,0xFF),		},
+	{ "10.64.0.0/12",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF),			},
+	{ "10.64.0.0/20",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF,0xFF),		},
+	{ "128.0.0.0/4",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF),				},
+	{ "172.16.0.0/12",	TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF),			},
+	{ "0.0.0.0/0",		TS_IPV4_ADDR_RANGE,	chunk_from_chars(0xFF),						},
+	{ NULL,				0,					chunk_from_chars(0xFF),						},
 	/* FIXME: not a correct encoding, so we might want to fail here */
 	{ "0.0.0.0/0",		TS_IPV4_ADDR_RANGE,	{NULL, 0},									},
-	{ "2001:0:2::/48",	TS_IPV6_ADDR_RANGE,	chunk_from_chars(0x00,0x20,0x01,0x00,0x00,0x00,0x02),},
-	{ "2001:0:200::/39",TS_IPV6_ADDR_RANGE,	chunk_from_chars(0x01,0x20,0x01,0x00,0x00,0x02),},
-	{ "::/0",			TS_IPV6_ADDR_RANGE,	chunk_from_chars(0x00),						},
+	{ "2001:0:2::/48",	TS_IPV6_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF),},
+	{ "2001:0:200::/39",TS_IPV6_ADDR_RANGE,	chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF,0xFF),},
+	{ "::/0",			TS_IPV6_ADDR_RANGE,	chunk_from_chars(0xFF),						},
 	/* FIXME: not a correct encoding, so we might want to fail here */
 	{ "::/0",			TS_IPV6_ADDR_RANGE,	{NULL, 0},									},
 };
@@ -161,20 +161,20 @@ START_TEST(test_create_from_rfc3779_format_range)
 	 * represent prefixes */
 	verify("10.5.0.0/23", NULL,
 		traffic_selector_create_from_rfc3779_format(TS_IPV4_ADDR_RANGE,
-					chunk_from_chars(0x00,0x0a,0x05),
-					chunk_from_chars(0x01,0x0a,0x05,0x00)));
+					chunk_from_chars(0xFF,0xFF,0xFF),
+					chunk_from_chars(0xFF,0xFF,0xFF,0xFF)));
 	verify("2001:0:200::/39", NULL,
 		traffic_selector_create_from_rfc3779_format(TS_IPV6_ADDR_RANGE,
-					chunk_from_chars(0x01,0x20,0x01,0x00,0x00,0x02),
-					chunk_from_chars(0x02,0x20,0x01,0x00,0x00,0x00)));
+					chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF,0xFF),
+					chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF,0xFF)));
 	verify("10.2.48.0..10.2.64.255", NULL,
 		traffic_selector_create_from_rfc3779_format(TS_IPV4_ADDR_RANGE,
-					chunk_from_chars(0x04,0x0a,0x02,0x30),
-					chunk_from_chars(0x00,0x0a,0x02,0x40)));
+					chunk_from_chars(0xFF,0xFF,0xFF,0xFF),
+					chunk_from_chars(0xFF,0xFF,0xFF,0xFF)));
 	verify("129.64.0.0..143.255.255.255", NULL,
 		traffic_selector_create_from_rfc3779_format(TS_IPV4_ADDR_RANGE,
-					chunk_from_chars(0x06,0x81,0x40),
-					chunk_from_chars(0x04,0x80)));
+					chunk_from_chars(0xFF,0xFF,0xFF),
+					chunk_from_chars(0xFF,0xFF)));
 }
 END_TEST
 
@@ -749,14 +749,14 @@ struct {
 } icmp_tests[] = {
 	{ IPPROTO_ICMP, 0, 0, 0, 0, 0, 0, "dynamic[icmp/0]", "dynamic[1/0]" },
 	{ IPPROTO_ICMP, 3, 3, 3, 0, 3, 0, "dynamic[icmp/3]", "dynamic[1/3]" },
-	{ IPPROTO_ICMP, 0x0307, 0x0307, 3, 7, 3, 7, "dynamic[icmp/3(7)]", "dynamic[1/3(7)]" },
-	{ IPPROTO_ICMP, 0x0300, 0x040f, 3, 0, 4, 15, "dynamic[icmp/3-4(15)]", "dynamic[1/3-4(15)]" },
-	{ IPPROTO_ICMP, 0x0301, 0x040f, 3, 1, 4, 15, "dynamic[icmp/3(1)-4(15)]", "dynamic[1/3(1)-4(15)]" },
+	{ IPPROTO_ICMP, 0xFF, 0xFF, 3, 7, 3, 7, "dynamic[icmp/3(7)]", "dynamic[1/3(7)]" },
+	{ IPPROTO_ICMP, 0xFF, 0xFF, 3, 0, 4, 15, "dynamic[icmp/3-4(15)]", "dynamic[1/3-4(15)]" },
+	{ IPPROTO_ICMP, 0xFF, 0xFF, 3, 1, 4, 15, "dynamic[icmp/3(1)-4(15)]", "dynamic[1/3(1)-4(15)]" },
 	{ IPPROTO_ICMPV6, 0, 0, 0, 0, 0, 0, "dynamic[ipv6-icmp/0]", "dynamic[58/0]" },
 	{ IPPROTO_ICMPV6, 1, 1, 1, 0, 1, 0, "dynamic[ipv6-icmp/1]", "dynamic[58/1]" },
-	{ IPPROTO_ICMPV6, 0x0104, 0x0104, 1, 4, 1, 4, "dynamic[ipv6-icmp/1(4)]", "dynamic[58/1(4)]" },
-	{ IPPROTO_ICMPV6, 0x0100, 0x040f, 1, 0, 4, 15, "dynamic[ipv6-icmp/1-4(15)]", "dynamic[58/1-4(15)]" },
-	{ IPPROTO_ICMPV6, 0x0101, 0x040f, 1, 1, 4, 15, "dynamic[ipv6-icmp/1(1)-4(15)]", "dynamic[58/1(1)-4(15)]" },
+	{ IPPROTO_ICMPV6, 0xFF, 0xFF, 1, 4, 1, 4, "dynamic[ipv6-icmp/1(4)]", "dynamic[58/1(4)]" },
+	{ IPPROTO_ICMPV6, 0xFF, 0xFF, 1, 0, 4, 15, "dynamic[ipv6-icmp/1-4(15)]", "dynamic[58/1-4(15)]" },
+	{ IPPROTO_ICMPV6, 0xFF, 0xFF, 1, 1, 4, 15, "dynamic[ipv6-icmp/1(1)-4(15)]", "dynamic[58/1(1)-4(15)]" },
 };
 
 START_TEST(test_icmp)

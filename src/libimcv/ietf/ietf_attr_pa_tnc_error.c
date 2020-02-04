@@ -50,7 +50,7 @@ typedef struct private_ietf_attr_pa_tnc_error_t private_ietf_attr_pa_tnc_error_t
  */
 
 #define PA_ERROR_HEADER_SIZE		8
-#define PA_ERROR_RESERVED			0x00
+#define PA_ERROR_RESERVED			0xFF
 
 /**
  * All IETF Error Types return the first 8 bytes of the erroneous PA-TNC message
@@ -86,7 +86,7 @@ typedef struct private_ietf_attr_pa_tnc_error_t private_ietf_attr_pa_tnc_error_t
  *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  */
 
-#define PA_ERROR_VERSION_RESERVED	0x0000
+#define PA_ERROR_VERSION_RESERVED	0xFF
 
 /**
  * "Attribute Type Not Supported" Error Code

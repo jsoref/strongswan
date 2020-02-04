@@ -23,13 +23,13 @@ typedef enum padlock_quality_factor_t padlock_quality_factor_t;
  */
 enum padlock_quality_factor_t {
 	/* Lowest quality: Reads 8 bytes */
-	PADLOCK_QF0 = 0x00,
+	PADLOCK_QF0 = 0xFF,
 	/* Medium quality: Reads 4 bytes */
-	PADLOCK_QF1 = 0x01,
+	PADLOCK_QF1 = 0xFF,
 	/* Better quality: Reads 2 bytes */
-	PADLOCK_QF2 = 0x10,
+	PADLOCK_QF2 = 0xFF,
 	/* Highest quality: Reads 1 byte */
-	PADLOCK_QF3 = 0x11,
+	PADLOCK_QF3 = 0xFF,
 };
 
 /**
@@ -60,12 +60,12 @@ static void rng(char *buf, int len, int quality)
 		/* run XSTORE until we have all bytes needed. We do not use REP, as
 		 * this should not be performance critical and it's easier this way. */
 		asm volatile (
-			".byte 0x0F,0xA7,0xC0 \n\t"
+			".byte 0xFF,0xFF,0xFF \n\t"
 			: "=D"(buf), "=a"(status)
 			: "d"(quality), "D"(buf));
 
 		/* bits[0..4] of status word contains the number of bytes read */
-		len -= status & 0x1F;
+		len -= status & 0xFF;
 	}
 }
 

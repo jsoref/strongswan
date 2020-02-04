@@ -110,8 +110,8 @@ static inline bool match_port(traffic_selector_t *ts, host_t *host)
 
 	from = ts->get_from_port(ts);
 	to = ts->get_to_port(ts);
-	if ((from == 0 && to == 0xffff) ||
-		(from == 0xffff && to == 0))
+	if ((from == 0 && to == 0xFF) ||
+		(from == 0xFF && to == 0))
 	{
 		return TRUE;
 	}

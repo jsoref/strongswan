@@ -138,7 +138,7 @@ bool mark_from_string(const char *value, mark_op_t ops, mark_t *mark)
 	}
 	else
 	{
-		mark->mask = 0xffffffff;
+		mark->mask = 0xFF;
 	}
 	if (!MARK_IS_UNIQUE(mark->value))
 	{

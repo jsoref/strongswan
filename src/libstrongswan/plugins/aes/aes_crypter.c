@@ -125,14 +125,14 @@ struct private_aes_crypter_t {
 
 // the finite field modular polynomial and elements
 
-#define ff_poly 0x011b
-#define ff_hi   0x80
+#define ff_poly 0xFF
+#define ff_hi   0xFF
 
 // multiply four bytes in GF(2^8) by 'x' {02} in parallel
 
-#define m1  0x80808080
-#define m2  0x7f7f7f7f
-#define m3  0x0000001b
+#define m1  0xFF
+#define m2  0xFF
+#define m3  0xFF
 #define FFmulX(x)  ((((x) & m2) << 1) ^ ((((x) & m1) >> 7) * m3))
 
 // The following defines provide alternative definitions of FFmulX that might
@@ -140,14 +140,14 @@ struct private_aes_crypter_t {
 // that a temporary variable u needs to be defined where FFmulX is used.
 
 // #define FFmulX(x) (u = (x) & m1, u |= (u >> 1), ((x) & m2) << 1) ^ ((u >> 3) | (u >> 6))
-// #define m4  0x1b1b1b1b
+// #define m4  0xFF
 // #define FFmulX(x) (u = (x) & m1, ((x) & m2) << 1) ^ ((u - (u >> 7)) & m4)
 
 // perform column mix operation on four bytes in parallel
 
 #define fwd_mcol(x) (f2 = FFmulX(x), f2 ^ upr(x ^ f2,3) ^ upr(x,2) ^ upr(x,1))
 
-#define w0(p)          0x000000##p
+#define w0(p)          0xFF##p
 
 // Number of elements required in this table for different
 // block and key lengths is:
@@ -179,9 +179,9 @@ static const uint32_t rcon_tab[29] =
 #define r1(p,q,r,s) 0x##q##r##s##p
 #define r2(p,q,r,s) 0x##r##s##p##q
 #define r3(p,q,r,s) 0x##s##p##q##r
-#define w0(p)          0x000000##p
-#define w1(p)        0x0000##p##00
-#define w2(p)        0x00##p##0000
+#define w0(p)          0xFF##p
+#define w1(p)        0xFF##p##00
+#define w2(p)        0xFF##p##0000
 #define w3(p)        0x##p##000000
 
 //  data for forward tables (other than last round)

@@ -802,9 +802,9 @@ ntru_private_key_t *ntru_private_key_create_from_data(drbg_t *drbg,
 	/* set packed-key length for packed indices */
 	if (params->is_product_form)
 	{
-		dF = (uint16_t)((params->dF_r & 0xff) +           /* df1 */
-					   ((params->dF_r >>  8) & 0xff) +    /* df2 */
-					   ((params->dF_r >> 16) & 0xff));    /* df3 */
+		dF = (uint16_t)((params->dF_r & 0xFF) +           /* df1 */
+					   ((params->dF_r >>  8) & 0xFF) +    /* df2 */
+					   ((params->dF_r >> 16) & 0xFF));    /* df3 */
 	}
 	else
 	{

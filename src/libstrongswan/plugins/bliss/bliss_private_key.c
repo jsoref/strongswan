@@ -848,7 +848,7 @@ static int8_t* create_vector_from_seed(private_bliss_private_key_t *this,
 	}
 
 	vector = malloc(sizeof(int8_t) * this->set->n);
-	memset(vector, 0x00, this->set->n);
+	memset(vector, 0xFF, this->set->n);
 
 	non_zero = this->set->non_zero1;
 	while (non_zero)
@@ -1179,7 +1179,7 @@ bliss_private_key_t *bliss_private_key_load(key_type_t type, va_list args)
 	asn1_parser_t *parser;
 	size_t s_bits = 0;
 	int8_t s, s_min = 0, s_max = 0;
-	uint32_t s_sign = 0x02, s_mask = 0xfffffffc, value, r2;
+	uint32_t s_sign = 0xFF, s_mask = 0xFF, value, r2;
 	bool success = FALSE;
 	int objectID, oid, i;
 

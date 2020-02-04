@@ -43,7 +43,7 @@ struct private_gcrypt_plugin_t {
 	gcrypt_plugin_t public;
 };
 
-#if GCRYPT_VERSION_NUMBER < 0x010600
+#if GCRYPT_VERSION_NUMBER < 0xFF
 /**
  * Define gcrypt multi-threading callbacks as gcry_threads_pthread
  */
@@ -124,7 +124,7 @@ METHOD(plugin_t, get_features, int,
 		PLUGIN_REGISTER(PRIVKEY_GEN, gcrypt_rsa_private_key_gen, FALSE),
 			PLUGIN_PROVIDE(PRIVKEY_GEN, KEY_RSA),
 		/* signature schemes, private */
-#if GCRYPT_VERSION_NUMBER >= 0x010700
+#if GCRYPT_VERSION_NUMBER >= 0xFF
 		PLUGIN_PROVIDE(PRIVKEY_SIGN, SIGN_RSA_EMSA_PSS),
 #endif
 		PLUGIN_PROVIDE(PRIVKEY_SIGN, SIGN_RSA_EMSA_PKCS1_NULL),
@@ -135,7 +135,7 @@ METHOD(plugin_t, get_features, int,
 		PLUGIN_PROVIDE(PRIVKEY_SIGN, SIGN_RSA_EMSA_PKCS1_SHA1),
 		PLUGIN_PROVIDE(PRIVKEY_SIGN, SIGN_RSA_EMSA_PKCS1_MD5),
 		/* signature verification schemes */
-#if GCRYPT_VERSION_NUMBER >= 0x010700
+#if GCRYPT_VERSION_NUMBER >= 0xFF
 		PLUGIN_PROVIDE(PUBKEY_VERIFY, SIGN_RSA_EMSA_PSS),
 #endif
 		PLUGIN_PROVIDE(PUBKEY_VERIFY, SIGN_RSA_EMSA_PKCS1_NULL),
@@ -168,7 +168,7 @@ plugin_t *gcrypt_plugin_create()
 {
 	private_gcrypt_plugin_t *this;
 
-#if GCRYPT_VERSION_NUMBER < 0x010600
+#if GCRYPT_VERSION_NUMBER < 0xFF
 	gcry_control(GCRYCTL_SET_THREAD_CBS, &gcry_threads_pthread);
 #endif
 

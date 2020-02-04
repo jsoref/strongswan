@@ -18,7 +18,7 @@
 #include <encoding/payloads/encodings.h>
 
 /** Flag that is set in case the given fragment is the last for the message */
-#define LAST_FRAGMENT 0x01
+#define LAST_FRAGMENT 0xFF
 
 typedef struct private_fragment_payload_t private_fragment_payload_t;
 

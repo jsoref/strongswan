@@ -107,8 +107,8 @@ static void calc_range(private_traffic_selector_t *this, uint8_t netbits)
 	mask  = bits ? (1 << bits) - 1 : 0;
 
 	memcpy(this->to, this->from, bytes);
-	memset(this->from + bytes, 0x00, len - bytes);
-	memset(this->to   + bytes, 0xff, len - bytes);
+	memset(this->from + bytes, 0xFF, len - bytes);
+	memset(this->to   + bytes, 0xFF, len - bytes);
 	this->from[bytes-1] &= ~mask;
 	this->to[bytes-1]   |=  mask;
 }
@@ -171,7 +171,7 @@ static private_traffic_selector_t *traffic_selector_create(uint8_t protocol,
  */
 static bool is_opaque(private_traffic_selector_t *this)
 {
-	return this->from_port == 0xffff && this->to_port == 0;
+	return this->from_port == 0xFF && this->to_port == 0;
 }
 
 /**
@@ -179,7 +179,7 @@ static bool is_opaque(private_traffic_selector_t *this)
  */
 static bool is_any(private_traffic_selector_t *this)
 {
-	return this->from_port == 0 && this->to_port == 0xffff;
+	return this->from_port == 0 && this->to_port == 0xFF;
 }
 
 /**
@@ -381,7 +381,7 @@ METHOD(traffic_selector_t, get_subset, traffic_selector_t*,
 		(is_opaque(this) && is_any(other)) ||
 		(is_opaque(other) && is_any(this)))
 	{
-		from_port = 0xffff;
+		from_port = 0xFF;
 		to_port = 0;
 	}
 	else
@@ -520,7 +520,7 @@ METHOD(traffic_selector_t, set_address, void,
 
 	if (host->is_anyaddr(host))
 	{
-		memset(this->from, 0x00, sizeof(this->from));
+		memset(this->from, 0xFF, sizeof(this->from));
 		memset(this->to, 0xFF, sizeof(this->to));
 		this->netbits = 0;
 	}
@@ -601,7 +601,7 @@ METHOD(traffic_selector_t, to_subnet, bool,
 	}
 
 	net_chunk.ptr = malloc(net_chunk.len);
-	memset(net_chunk.ptr, 0x00, net_chunk.len);
+	memset(net_chunk.ptr, 0xFF, net_chunk.len);
 	if (*mask)
 	{
 		non_zero_bytes = (*mask + 7) / 8;
@@ -750,8 +750,8 @@ traffic_selector_t *traffic_selector_create_from_rfc3779_format(ts_type_t type,
 	}
 	len = TS_IP_LEN(this);
 
-	memset(this->from, 0x00, len);
-	memset(this->to  , 0xff, len);
+	memset(this->from, 0xFF, len);
+	memset(this->to  , 0xFF, len);
 
 	if (from.len > 1)
 	{

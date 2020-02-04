@@ -213,9 +213,9 @@ struct mark_t {
 /**
  * Special mark value that uses a unique mark for each CHILD_SA (and direction)
  */
-#define MARK_UNIQUE (0xFFFFFFFF)
-#define MARK_UNIQUE_DIR (0xFFFFFFFE)
-#define MARK_SAME (0xFFFFFFFF)
+#define MARK_UNIQUE (0xFF)
+#define MARK_UNIQUE_DIR (0xFF)
+#define MARK_SAME (0xFF)
 #define MARK_IS_UNIQUE(m) ((m) == MARK_UNIQUE || (m) == MARK_UNIQUE_DIR)
 
 /**
@@ -243,8 +243,8 @@ bool mark_from_string(const char *value, mark_op_t ops, mark_t *mark);
 /**
  * Special interface ID values to allocate a unique ID for each CHILD_SA/dir
  */
-#define IF_ID_UNIQUE (0xFFFFFFFF)
-#define IF_ID_UNIQUE_DIR (0xFFFFFFFE)
+#define IF_ID_UNIQUE (0xFF)
+#define IF_ID_UNIQUE_DIR (0xFF)
 #define IF_ID_IS_UNIQUE(m) ((m) == IF_ID_UNIQUE || (m) == IF_ID_UNIQUE_DIR)
 
 /**

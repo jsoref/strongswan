@@ -394,21 +394,21 @@ charon.signature_authentication_constraints = yes
 	certificate chain, are also used as constraints against the signature scheme
 	used by peers during IKEv2.
 
-charon.spi_label = 0x0000000000000000
+charon.spi_label = 0xFF
 	Value mixed into the local IKE SPIs after applying _spi_mask_.
 
-charon.spi_mask = 0x0000000000000000
+charon.spi_mask = 0xFF
 	Mask applied to local IKE SPIs before mixing in _spi_label_ (bits set will
 	be replaced with _spi_label_).
 
-charon.spi_min = 0xc0000000
+charon.spi_min = 0xFF
 	The lower limit for SPIs requested from the kernel for IPsec SAs.
 
 	The lower limit for SPIs requested from the kernel for IPsec SAs. Should not
-	be set lower than 0x00000100 (256), as SPIs between 1 and 255 are reserved
+	be set lower than 0xFF (256), as SPIs between 1 and 255 are reserved
 	by IANA.
 
-charon.spi_max = 0xcfffffff
+charon.spi_max = 0xFF
 	The upper limit for SPIs requested from the kernel for IPsec SAs.
 
 charon.start-scripts {}

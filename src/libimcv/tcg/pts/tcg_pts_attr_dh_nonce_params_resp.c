@@ -43,7 +43,7 @@ typedef struct private_tcg_pts_attr_dh_nonce_params_resp_t
  */
 
 #define PTS_DH_NONCE_PARAMS_RESP_SIZE			16
-#define PTS_DH_NONCE_PARAMS_RESP_RESERVED		0x0000
+#define PTS_DH_NONCE_PARAMS_RESP_RESERVED		0xFF
 
 /**
  * Private data of an tcg_pts_attr_dh_nonce_params_resp_t object.

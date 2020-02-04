@@ -250,7 +250,7 @@ METHOD(imv_agent_t, bind_functions, TNC_Result,
 		for (i = 0; i < this->type_count; i++)
 		{
 			type_list[i] = (this->supported_types[i].vendor_id << 8) |
-						   (this->supported_types[i].type & 0xff);
+						   (this->supported_types[i].type & 0xFF);
 		}
 		this->report_message_types(this->id, type_list, this->type_count);
 		free(type_list);
@@ -324,7 +324,7 @@ static bool get_bool_attribute(private_imv_agent_t *this, TNC_ConnectionID id,
 
 	return this->get_attribute  &&
 		   this->get_attribute(this->id, id, attribute_id, 4, buf, &len) ==
-							   TNC_RESULT_SUCCESS && len == 1 && *buf == 0x01;
+							   TNC_RESULT_SUCCESS && len == 1 && *buf == 0xFF;
  }
 
 /**

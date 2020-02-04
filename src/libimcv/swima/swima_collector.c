@@ -540,7 +540,7 @@ swima_collector_t *swima_collector_create(void)
 {
 	private_swima_collector_t *this;
 	char *database;
-	uint32_t last_eid = 1, eid_epoch = 0x11223344;
+	uint32_t last_eid = 1, eid_epoch = 0xFF;
 
 	INIT(this,
 		.public = {

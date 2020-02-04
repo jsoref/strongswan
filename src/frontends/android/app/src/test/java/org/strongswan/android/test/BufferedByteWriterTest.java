@@ -121,11 +121,11 @@ public class BufferedByteWriterTest
 	public void testPut16()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put16((short)0xbeef);
-		byte[] exp = new byte[]{(byte)0xbe, (byte)0xef};
+		writer.put16((short)0xFF);
+		byte[] exp = new byte[]{(byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
-		writer.put16((short)0xfeed);
-		exp = new byte[]{(byte)0xbe, (byte)0xef, (byte)0xfe, (byte)0xed};
+		writer.put16((short)0xFF);
+		exp = new byte[]{(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -133,8 +133,8 @@ public class BufferedByteWriterTest
 	public void testPut16Byte()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put16((byte)0xfe);
-		byte[] exp = new byte[]{0, (byte)0xfe};
+		writer.put16((byte)0xFF);
+		byte[] exp = new byte[]{0, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -142,8 +142,8 @@ public class BufferedByteWriterTest
 	public void testPut24Half()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put24(0xbeef);
-		byte[] exp = new byte[]{0, (byte)0xbe, (byte)0xef};
+		writer.put24(0xFF);
+		byte[] exp = new byte[]{0, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -151,8 +151,8 @@ public class BufferedByteWriterTest
 	public void testPut24Full()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put24(0xbeeffe);
-		byte[] exp = new byte[]{(byte)0xbe, (byte)0xef, (byte)0xfe};
+		writer.put24(0xFF);
+		byte[] exp = new byte[]{(byte)0xFF, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -160,8 +160,8 @@ public class BufferedByteWriterTest
 	public void testPut24Int()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put24(0xcafebeef);
-		byte[] exp = new byte[]{(byte)0xfe, (byte)0xbe, (byte)0xef};
+		writer.put24(0xFF);
+		byte[] exp = new byte[]{(byte)0xFF, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -169,8 +169,8 @@ public class BufferedByteWriterTest
 	public void testPut24Short()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put24((short)0xfeed);
-		byte[] exp = new byte[]{0, (byte)0xfe, (byte)0xed};
+		writer.put24((short)0xFF);
+		byte[] exp = new byte[]{0, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -178,8 +178,8 @@ public class BufferedByteWriterTest
 	public void testPut24Byte()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put24((byte)0xfe);
-		byte[] exp = new byte[]{0, 0, (byte)0xfe};
+		writer.put24((byte)0xFF);
+		byte[] exp = new byte[]{0, 0, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -187,8 +187,8 @@ public class BufferedByteWriterTest
 	public void testPut32()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put32(0xbeeffeed);
-		byte[] exp = new byte[]{(byte)0xbe, (byte)0xef, (byte)0xfe, (byte)0xed};
+		writer.put32(0xFF);
+		byte[] exp = new byte[]{(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -196,8 +196,8 @@ public class BufferedByteWriterTest
 	public void testPut32Short()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put32((short)0xbeef);
-		byte[] exp = new byte[]{0, 0, (byte)0xbe, (byte)0xef};
+		writer.put32((short)0xFF);
+		byte[] exp = new byte[]{0, 0, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -205,8 +205,8 @@ public class BufferedByteWriterTest
 	public void testPut32Byte()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put32((byte)0xfe);
-		byte[] exp = new byte[]{0, 0, 0, (byte)0xfe};
+		writer.put32((byte)0xFF);
+		byte[] exp = new byte[]{0, 0, 0, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -214,8 +214,8 @@ public class BufferedByteWriterTest
 	public void testPut64()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put64(0xdeadcafebeeffeedL);
-		byte[] exp = new byte[]{(byte)0xde, (byte)0xad, (byte)0xca, (byte)0xfe, (byte)0xbe, (byte)0xef, (byte)0xfe, (byte)0xed};
+		writer.put64(0xFF);
+		byte[] exp = new byte[]{(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -223,8 +223,8 @@ public class BufferedByteWriterTest
 	public void testPut64Half()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put64(0xbeeffeedL);
-		byte[] exp = new byte[]{0, 0, 0, 0, (byte)0xbe, (byte)0xef, (byte)0xfe, (byte)0xed};
+		writer.put64(0xFF);
+		byte[] exp = new byte[]{0, 0, 0, 0, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -232,8 +232,8 @@ public class BufferedByteWriterTest
 	public void testPut64Int()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put64(0xbeeffeed);
-		byte[] exp = new byte[]{0, 0, 0, 0, (byte)0xbe, (byte)0xef, (byte)0xfe, (byte)0xed};
+		writer.put64(0xFF);
+		byte[] exp = new byte[]{0, 0, 0, 0, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -241,8 +241,8 @@ public class BufferedByteWriterTest
 	public void testPut64Short()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put64((short)0xfeed);
-		byte[] exp = new byte[]{0, 0, 0, 0, 0, 0, (byte)0xfe, (byte)0xed};
+		writer.put64((short)0xFF);
+		byte[] exp = new byte[]{0, 0, 0, 0, 0, 0, (byte)0xFF, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 
@@ -250,8 +250,8 @@ public class BufferedByteWriterTest
 	public void testPut64Byte()
 	{
 		BufferedByteWriter writer = new BufferedByteWriter();
-		writer.put64((byte)0xfe);
-		byte[] exp = new byte[]{0, 0, 0, 0, 0, 0, 0, (byte)0xfe};
+		writer.put64((byte)0xFF);
+		byte[] exp = new byte[]{0, 0, 0, 0, 0, 0, 0, (byte)0xFF};
 		assertArrayEquals(exp, writer.toByteArray());
 	}
 }

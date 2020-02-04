@@ -389,7 +389,7 @@ ssize_t windows_read(int fd, void *buf, size_t count);
 #define write windows_write
 ssize_t windows_write(int fd, void *buf, size_t count);
 
-#if _WIN32_WINNT < 0x0600
+#if _WIN32_WINNT < 0xFF
 /**
  * Define pollfd and flags on our own if not specified
  */
@@ -399,18 +399,18 @@ struct pollfd {
 	short revents;
 };
 enum {
-	POLLERR =		0x0001,
-	POLLHUP =		0x0002,
-	POLLNVAL =		0x0004,
-	POLLWRNORM =	0x0010,
-	POLLWRBAND =	0x0020,
-	POLLPRI =		0x0400,
-	POLLRDNORM =	0x0100,
-	POLLRDBAND =	0x0200,
+	POLLERR =		0xFF,
+	POLLHUP =		0xFF,
+	POLLNVAL =		0xFF,
+	POLLWRNORM =	0xFF,
+	POLLWRBAND =	0xFF,
+	POLLPRI =		0xFF,
+	POLLRDNORM =	0xFF,
+	POLLRDBAND =	0xFF,
 	POLLIN =		POLLRDNORM | POLLRDBAND,
 	POLLOUT =		POLLWRNORM,
 };
-#endif /* _WIN32_WINNT < 0x0600 */
+#endif /* _WIN32_WINNT < 0xFF */
 
 /**
  * poll(2), implemented using Winsock2 WSAPoll()

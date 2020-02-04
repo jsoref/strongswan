@@ -103,10 +103,10 @@ METHOD(newhope_noise_t, get_binomial_words, uint32_t*,
 		d = 0;
 		for (j = 0; j < 8; j++)
 		{
-			d += (t >> j) & 0x01010101;
+			d += (t >> j) & 0xFF;
 		}
-		a = ((d >>  8) & 0xff) + (d & 0xff);
-		b = ((d >> 16) & 0xff) + (d >> 24);
+		a = ((d >>  8) & 0xFF) + (d & 0xFF);
+		b = ((d >> 16) & 0xFF) + (d >> 24);
 		np[i] = (a >= b) ? a - b : a + q - b;
 	}
 
@@ -154,7 +154,7 @@ newhope_noise_t *newhope_noise_create(chunk_t seed)
 
 	/* initialize seed for ChaCha 20 stream */
 	memcpy(this->seed.ptr, seed.ptr, seed_len);
-	memset(this->seed.ptr + seed_len, 0x00, nonce_len);
+	memset(this->seed.ptr + seed_len, 0xFF, nonce_len);
 
 	return &this->public;
 }

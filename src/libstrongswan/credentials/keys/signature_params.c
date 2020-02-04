@@ -45,7 +45,7 @@ bool rsa_pss_params_set_salt_len(rsa_pss_params_t *params, size_t modbits)
 					modbits -= 1;
 					/* emLen = ceil(emBits/8) */
 					modbits = (modbits+7) / BITS_PER_BYTE;
-					/* account for 0x01 separator in DB, 0xbc trailing byte */
+					/* account for 0xFF separator in DB, 0xFF trailing byte */
 					params->salt_len = max(0, (ssize_t)(modbits - hash_len - 2));
 					break;
 				}

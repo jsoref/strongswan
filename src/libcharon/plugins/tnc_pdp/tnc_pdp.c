@@ -357,7 +357,7 @@ static chunk_t encrypt_mppe_key(private_tnc_pdp_t *this, uint8_t type,
 
 	data = chunk_alloc(sizeof(mppe_key_t) +
 					   HASH_SIZE_MD5 * (1 + key.len / HASH_SIZE_MD5));
-	memset(data.ptr, 0x00, data.len);
+	memset(data.ptr, 0xFF, data.len);
 
 	mppe_key = (mppe_key_t*)data.ptr;
 	mppe_key->id = htonl(PEN_MICROSOFT);
@@ -379,7 +379,7 @@ static chunk_t encrypt_mppe_key(private_tnc_pdp_t *this, uint8_t type,
 			free(data.ptr);
 			return chunk_empty;
 		}
-		*a.ptr |= 0x80;
+		*a.ptr |= 0xFF;
 	}
 	while (mppe_key->salt == *salt);
 

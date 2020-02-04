@@ -225,12 +225,12 @@ METHOD(chapoly_drv_t, init, bool,
 	memset(key, 0, CHACHA_BLOCK_SIZE);
 	chacha_block_xor(this, key);
 
-	/* r &= 0xffffffc0ffffffc0ffffffc0fffffff */
-	this->r[0] = (uletoh32(key +  0) >> 0) & 0x3ffffff;
-	this->r[1] = (uletoh32(key +  3) >> 2) & 0x3ffff03;
-	this->r[2] = (uletoh32(key +  6) >> 4) & 0x3ffc0ff;
-	this->r[3] = (uletoh32(key +  9) >> 6) & 0x3f03fff;
-	this->r[4] = (uletoh32(key + 12) >> 8) & 0x00fffff;
+	/* r &= 0xFF */
+	this->r[0] = (uletoh32(key +  0) >> 0) & 0xFF;
+	this->r[1] = (uletoh32(key +  3) >> 2) & 0xFF;
+	this->r[2] = (uletoh32(key +  6) >> 4) & 0xFF;
+	this->r[3] = (uletoh32(key +  9) >> 6) & 0xFF;
+	this->r[4] = (uletoh32(key + 12) >> 8) & 0xFF;
 
 	/* h = 0 */
 	memwipe(this->h, sizeof(this->h));
@@ -272,10 +272,10 @@ METHOD(chapoly_drv_t, poly, bool,
 	for (i = 0; i < blocks; i++)
 	{
 		/* h += m[i] */
-		h0 += (uletoh32(data +  0) >> 0) & 0x3ffffff;
-		h1 += (uletoh32(data +  3) >> 2) & 0x3ffffff;
-		h2 += (uletoh32(data +  6) >> 4) & 0x3ffffff;
-		h3 += (uletoh32(data +  9) >> 6) & 0x3ffffff;
+		h0 += (uletoh32(data +  0) >> 0) & 0xFF;
+		h1 += (uletoh32(data +  3) >> 2) & 0xFF;
+		h2 += (uletoh32(data +  6) >> 4) & 0xFF;
+		h3 += (uletoh32(data +  9) >> 6) & 0xFF;
 		h4 += (uletoh32(data + 12) >> 8) | (1 << 24);
 
 		/* h *= r */
@@ -286,12 +286,12 @@ METHOD(chapoly_drv_t, poly, bool,
 		d4 = mlt(h0, r4) + mlt(h1, r3) + mlt(h2, r2) + mlt(h3, r1) + mlt(h4, r0);
 
 		/* (partial) h %= p */
-		d1 += sr(d0, 26);     h0 = and(d0, 0x3ffffff);
-		d2 += sr(d1, 26);     h1 = and(d1, 0x3ffffff);
-		d3 += sr(d2, 26);     h2 = and(d2, 0x3ffffff);
-		d4 += sr(d3, 26);     h3 = and(d3, 0x3ffffff);
-		h0 += sr(d4, 26) * 5; h4 = and(d4, 0x3ffffff);
-		h1 += h0 >> 26;       h0 = h0 & 0x3ffffff;
+		d1 += sr(d0, 26);     h0 = and(d0, 0xFF);
+		d2 += sr(d1, 26);     h1 = and(d1, 0xFF);
+		d3 += sr(d2, 26);     h2 = and(d2, 0xFF);
+		d4 += sr(d3, 26);     h3 = and(d3, 0xFF);
+		h0 += sr(d4, 26) * 5; h4 = and(d4, 0xFF);
+		h1 += h0 >> 26;       h0 = h0 & 0xFF;
 
 		data += POLY_BLOCK_SIZE;
 	}
@@ -357,18 +357,18 @@ METHOD(chapoly_drv_t, finish, bool,
 	h3 = this->h[3];
 	h4 = this->h[4];
 
-	h2 += (h1 >> 26);     h1 = h1 & 0x3ffffff;
-	h3 += (h2 >> 26);     h2 = h2 & 0x3ffffff;
-	h4 += (h3 >> 26);     h3 = h3 & 0x3ffffff;
-	h0 += (h4 >> 26) * 5; h4 = h4 & 0x3ffffff;
-	h1 += (h0 >> 26);     h0 = h0 & 0x3ffffff;
+	h2 += (h1 >> 26);     h1 = h1 & 0xFF;
+	h3 += (h2 >> 26);     h2 = h2 & 0xFF;
+	h4 += (h3 >> 26);     h3 = h3 & 0xFF;
+	h0 += (h4 >> 26) * 5; h4 = h4 & 0xFF;
+	h1 += (h0 >> 26);     h0 = h0 & 0xFF;
 
 	/* compute h + -p */
 	g0 = h0 + 5;
-	g1 = h1 + (g0 >> 26);             g0 &= 0x3ffffff;
-	g2 = h2 + (g1 >> 26);             g1 &= 0x3ffffff;
-	g3 = h3 + (g2 >> 26);             g2 &= 0x3ffffff;
-	g4 = h4 + (g3 >> 26) - (1 << 26); g3 &= 0x3ffffff;
+	g1 = h1 + (g0 >> 26);             g0 &= 0xFF;
+	g2 = h2 + (g1 >> 26);             g1 &= 0xFF;
+	g3 = h3 + (g2 >> 26);             g2 &= 0xFF;
+	g4 = h4 + (g3 >> 26) - (1 << 26); g3 &= 0xFF;
 
 	/* select h if h < p, or h + -p if h >= p */
 	mask = (g4 >> ((sizeof(uint32_t) * 8) - 1)) - 1;

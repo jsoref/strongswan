@@ -158,7 +158,7 @@ prf_plus_t *prf_plus_create(prf_t *prf, bool counter, chunk_t seed)
 		.seed = chunk_clone(seed),
 		.buffer = chunk_alloc(prf->get_block_size(prf)),
 		.apply_prf = counter ? apply_prf_counter : apply_prf,
-		.counter = 0x01,
+		.counter = 0xFF,
 	);
 
 	if (!this->apply_prf(this))

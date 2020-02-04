@@ -70,7 +70,7 @@ typedef struct private_tcg_pts_attr_file_meta_t private_tcg_pts_attr_file_meta_t
  */
 
 #define PTS_FILE_META_SIZE			8
-#define PTS_FILE_MEAS_RESERVED		0x00
+#define PTS_FILE_MEAS_RESERVED		0xFF
 #define PTS_FILE_METADATA_SIZE		52
 
 /**

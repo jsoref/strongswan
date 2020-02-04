@@ -68,12 +68,12 @@ static int32_t rec_f(private_newhope_reconciliation_t *this,
 	b >>= 31;
 	t -= b;
 
-	r = t & 0x01;
+	r = t & 0xFF;
 	xit = (t >> 1);
 	*v0 = xit + r ; /* v0 = round(x/(2q)) */
 
 	t -= 1;
-	r = t & 0x01;
+	r = t & 0xFF;
 	*v1 = ( t>> 1) + r;
 
 	return rec_abs(x - (*v0) * this->q2);
@@ -94,7 +94,7 @@ static int32_t rec_g(private_newhope_reconciliation_t *this, int32_t x)
 	b >>= 31;
 	t -= b;
 
-	r = t & 0x01;
+	r = t & 0xFF;
 	t = (t >> 1) + r; /* t = round(x/(8q)) */
 	t *= this->q8;
 
@@ -121,7 +121,7 @@ METHOD(newhope_reconciliation_t, help_reconcile, uint8_t*,
 			i3 = i2 + this->n4;
 
 			/* iterate through all 256 random bits */
-			rbit = (rbits[i] >> j) & 0x01;
+			rbit = (rbits[i] >> j) & 0xFF;
 
 			k  = rec_f(this, v[i0], rbit, &v0[0], &v1[0]);
 			k += rec_f(this, v[i1], rbit, &v0[1], &v1[1]);
@@ -135,10 +135,10 @@ METHOD(newhope_reconciliation_t, help_reconcile, uint8_t*,
 			v_tmp[2] = ((~k) & v0[2]) ^ (k & v1[2]);
 			v_tmp[3] = ((~k) & v0[3]) ^ (k & v1[3]);
 
-			r[i0] = (v_tmp[0] -     v_tmp[3]) & 0x03;
-			r[i1] = (v_tmp[1] -     v_tmp[3]) & 0x03;
-			r[i2] = (v_tmp[2] -     v_tmp[3]) & 0x03;
-			r[i3] = (v_tmp[3] - k + v_tmp[3]) & 0x03;
+			r[i0] = (v_tmp[0] -     v_tmp[3]) & 0xFF;
+			r[i1] = (v_tmp[1] -     v_tmp[3]) & 0xFF;
+			r[i2] = (v_tmp[2] -     v_tmp[3]) & 0xFF;
+			r[i3] = (v_tmp[3] - k + v_tmp[3]) & 0xFF;
 		}
 	}
 
@@ -155,7 +155,7 @@ METHOD(newhope_reconciliation_t, reconcile, chunk_t,
 
 	key_len = this->n4 / 8;
 	key = (uint8_t*)malloc(key_len);
-	memset(key, 0x00, key_len);
+	memset(key, 0xFF, key_len);
 
 	for (i = 0; i < key_len; i++)
 	{
@@ -178,7 +178,7 @@ METHOD(newhope_reconciliation_t, reconcile, chunk_t,
 			t = rec_g(this, tmp[0]) + rec_g(this, tmp[1]) +
 				rec_g(this, tmp[2]) + rec_g(this, tmp[3]) - this->q8;
 
-			key[i] |= ((t >> 31) & 0x01) << j;
+			key[i] |= ((t >> 31) & 0xFF) << j;
 		}
 	}
 

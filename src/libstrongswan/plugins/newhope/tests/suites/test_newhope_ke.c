@@ -121,12 +121,12 @@ START_TEST(test_newhope_ke_fail_i)
 
 	chunk_t r_msg[] = {
 		chunk_empty,
-		chunk_from_chars(0x00),
+		chunk_from_chars(0xFF),
 		chunk_create(buf_ff, 2047),
 		chunk_create(buf_ff, 2048),
 	};
 
-	memset(buf_ff, 0xff, sizeof(buf_ff));
+	memset(buf_ff, 0xFF, sizeof(buf_ff));
 
 		for (i = 0; i < countof(r_msg); i++)
 	{
@@ -148,12 +148,12 @@ START_TEST(test_newhope_ke_fail_r)
 
 	chunk_t i_msg[] = {
 		chunk_empty,
-		chunk_from_chars(0x00),
+		chunk_from_chars(0xFF),
 		chunk_create(buf_ff, 1823),
 		chunk_create(buf_ff, 1824),
 	};
 
-	memset(buf_ff, 0xff, sizeof(buf_ff));
+	memset(buf_ff, 0xFF, sizeof(buf_ff));
 
 	for (i = 0; i < countof(i_msg); i++)
 	{

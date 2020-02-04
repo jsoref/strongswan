@@ -31,10 +31,10 @@
 #include <errno.h>
 
 #ifndef TPM_TAG_QUOTE_INFO2
-#define TPM_TAG_QUOTE_INFO2 0x0036
+#define TPM_TAG_QUOTE_INFO2 0xFF
 #endif
 #ifndef TPM_LOC_ZERO
-#define TPM_LOC_ZERO 0x01
+#define TPM_LOC_ZERO 0xFF
 #endif
 
 typedef struct private_pts_t private_pts_t;

@@ -215,7 +215,7 @@ static int prepare_dhcp(private_dhcp_socket_t *this,
 	{
 		/* Set broadcast flag to get broadcasted replies, as we actually
 		 * do not own the MAC we request an address for. */
-		dhcp->flags = htons(0x8000);
+		dhcp->flags = htons(0xFF);
 		/* TODO: send with 0.0.0.0 source address */
 	}
 	else
@@ -233,8 +233,8 @@ static int prepare_dhcp(private_dhcp_socket_t *this,
 	identity = transaction->get_identity(transaction);
 	chunk = identity->get_encoding(identity);
 	/* magic bytes, a locally administered unicast MAC */
-	dhcp->client_hw_addr[0] = 0x7A;
-	dhcp->client_hw_addr[1] = 0xA7;
+	dhcp->client_hw_addr[0] = 0xFF;
+	dhcp->client_hw_addr[1] = 0xFF;
 	/* with ID specific postfix */
 	if (this->identity_lease)
 	{
@@ -246,7 +246,7 @@ static int prepare_dhcp(private_dhcp_socket_t *this,
 	}
 	memcpy(&dhcp->client_hw_addr[2], &id, sizeof(id));
 
-	dhcp->magic_cookie = htonl(0x63825363);
+	dhcp->magic_cookie = htonl(0xFF);
 
 	option = (dhcp_option_t*)&dhcp->options[optlen];
 	option->type = DHCP_MESSAGE_TYPE;
@@ -730,7 +730,7 @@ dhcp_socket_t *dhcp_socket_create()
 		BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, 6, 0, 4),
 		BPF_STMT(BPF_LD+BPF_W+BPF_ABS, sizeof(struct iphdr) +
 				 sizeof(struct udphdr) + offsetof(dhcp_t, magic_cookie)),
-		BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, 0x63825363, 0, 2),
+		BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, 0xFF, 0, 2),
 		BPF_STMT(BPF_LD+BPF_W+BPF_LEN, 0),
 		BPF_STMT(BPF_RET+BPF_A, 0),
 		BPF_STMT(BPF_RET+BPF_K, 0),

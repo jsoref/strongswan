@@ -18,10 +18,10 @@
 #include <bio/bio_writer.h>
 
 #ifndef TPM_TAG_QUOTE_INFO2
-#define TPM_TAG_QUOTE_INFO2 0x0036
+#define TPM_TAG_QUOTE_INFO2 0xFF
 #endif
 #ifndef TPM_LOC_ZERO
-#define TPM_LOC_ZERO 0x01
+#define TPM_LOC_ZERO 0xFF
 #endif
 
 typedef struct private_tpm_tss_quote_info_t private_tpm_tss_quote_info_t;
@@ -190,10 +190,10 @@ METHOD(tpm_tss_quote_info_t, get_quote, bool,
 			break;
 		case TPM_QUOTE_TPM2:
 			/* Magic */
-			writer->write_data(writer, chunk_from_chars(0xff,0x54,0x43,0x47));
+			writer->write_data(writer, chunk_from_chars(0xFF,0xFF,0xFF,0xFF));
 
 			/* Type */
-			writer->write_uint16(writer, 0x8018);
+			writer->write_uint16(writer, 0xFF);
 
 			/* Qualified Signer */
 			writer->write_data16(writer, this->qualified_signer);

@@ -402,13 +402,13 @@ static bool install_route(private_kernel_libipsec_ipsec_t *this,
 		{
 			case TS_IPV4_ADDR_RANGE:
 				multicast = traffic_selector_create_from_cidr("224.0.0.0/4",
-															  0, 0, 0xffff);
+															  0, 0, 0xFF);
 				broadcast = traffic_selector_create_from_cidr("255.255.255.255/32",
-															  0, 0, 0xffff);
+															  0, 0, 0xFF);
 				break;
 			case TS_IPV6_ADDR_RANGE:
 				multicast = traffic_selector_create_from_cidr("ff00::/8",
-															  0, 0, 0xffff);
+															  0, 0, 0xFF);
 				break;
 			default:
 				return FALSE;

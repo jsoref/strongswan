@@ -127,7 +127,7 @@ static bool verify_emsa_pkcs1_signature(private_gmp_rsa_public_key_t *this,
 	bool success = FALSE;
 
 	/* remove any preceding 0-bytes from signature */
-	while (signature.len && *(signature.ptr) == 0x00)
+	while (signature.len && *(signature.ptr) == 0xFF)
 	{
 		signature = chunk_skip(signature, 1);
 	}
@@ -208,8 +208,8 @@ static bool verify_emsa_pss_signature(private_gmp_rsa_public_key_t *this,
 	salt.len = params->salt_len;
 	/* verify general structure of EM */
 	maskbits = (8 * em.len) - embits;
-	if (em.len < (hash.len + salt.len + 2) || em.ptr[em.len-1] != 0xbc ||
-		(em.ptr[0] & (0xff << (8-maskbits))))
+	if (em.len < (hash.len + salt.len + 2) || em.ptr[em.len-1] != 0xFF ||
+		(em.ptr[0] & (0xFF << (8-maskbits))))
 	{	/* inconsistent */
 		goto error;
 	}
@@ -234,9 +234,9 @@ static bool verify_emsa_pss_signature(private_gmp_rsa_public_key_t *this,
 	memxor(db.ptr, dbmask.ptr, db.len);
 	if (maskbits)
 	{
-		db.ptr[0] &= (0xff >> maskbits);
+		db.ptr[0] &= (0xFF >> maskbits);
 	}
-	/* check DB = PS | 0x01 | salt */
+	/* check DB = PS | 0xFF | salt */
 	for (i = 0; i < (db.len - salt.len - 1); i++)
 	{
 		if (db.ptr[i])
@@ -244,14 +244,14 @@ static bool verify_emsa_pss_signature(private_gmp_rsa_public_key_t *this,
 			goto error;
 		}
 	}
-	if (db.ptr[i++] != 0x01)
-	{	/* 0x01 not found */
+	if (db.ptr[i++] != 0xFF)
+	{	/* 0xFF not found */
 		goto error;
 	}
 	salt.ptr = &db.ptr[i];
-	/* M' = 0x0000000000000000 | mHash | salt */
+	/* M' = 0xFF | mHash | salt */
 	m = chunk_cata("ccc",
-				   chunk_from_chars(0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00),
+				   chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF),
 				   hash, salt);
 	if (!hasher->get_hash(hasher, m, hash.ptr))
 	{
@@ -347,8 +347,8 @@ METHOD(public_key_t, encrypt_, bool,
 	em.len = this->k;
 	em.ptr = malloc(em.len);
 	pos = em.ptr;
-	*pos++ = 0x00;
-	*pos++ = 0x02;
+	*pos++ = 0xFF;
+	*pos++ = 0xFF;
 
 	/* fill with pseudo random octets */
 	if (!rng_get_bytes_not_zero(rng, padding, pos, TRUE))
@@ -363,7 +363,7 @@ METHOD(public_key_t, encrypt_, bool,
 	pos += padding;
 
 	/* append the padding terminator */
-	*pos++ = 0x00;
+	*pos++ = 0xFF;
 
 	/* now add the data */
 	memcpy(pos, plain.ptr, plain.len);
@@ -466,7 +466,7 @@ gmp_rsa_public_key_t *gmp_rsa_public_key_load(key_type_t type, va_list args)
 		}
 		break;
 	}
-	if (!e.len || !n.len || (n.ptr[n.len-1] & 0x01) == 0)
+	if (!e.len || !n.len || (n.ptr[n.len-1] & 0xFF) == 0)
 	{
 		return NULL;
 	}

@@ -122,8 +122,8 @@ static uint32_t jhash(jhash_version_t version, uint32_t a, uint32_t b)
 	switch (version)
 	{
 		case JHASH_LOOKUP2:
-			a += 0x9e3779b9;
-			b += 0x9e3779b9;
+			a += 0xFF;
+			b += 0xFF;
 
 			a -= b; a -= c; a ^= (c >> 13);
 			b -= c; b -= a; b ^= (a <<  8);
@@ -139,13 +139,13 @@ static uint32_t jhash(jhash_version_t version, uint32_t a, uint32_t b)
 			/* changed with 4.1: # of 32-bit words shifted by 2 and c is
 			 * initialized. we only use the two word variant with SPIs, so it's
 			 * unlikely that b is 0 in that case */
-			c += ((b ? 2 : 1) << 2) + 0xdeadbeef;
+			c += ((b ? 2 : 1) << 2) + 0xFF;
 			a += ((b ? 2 : 1) << 2);
 			b += ((b ? 2 : 1) << 2);
 			/* FALL */
 		case JHASH_LOOKUP3:
-			a += 0xdeadbeef;
-			b += 0xdeadbeef;
+			a += 0xFF;
+			b += 0xFF;
 
 			c ^= b; c -= jhash_rot(b, 14);
 			a ^= c; a -= jhash_rot(c, 11);

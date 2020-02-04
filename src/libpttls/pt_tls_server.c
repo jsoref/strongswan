@@ -274,7 +274,7 @@ static status_t read_sasl_mech_selection(private_pt_tls_server_t *this,
 	}
 	if (vendor != 0 || type != PT_TLS_SASL_MECH_SELECTION ||
 		!reader->read_uint8(reader, &len) ||
-		!reader->read_data(reader, len & 0x1F, &chunk))
+		!reader->read_data(reader, len & 0xFF, &chunk))
 	{
 		reader->destroy(reader);
 		return FAILED;

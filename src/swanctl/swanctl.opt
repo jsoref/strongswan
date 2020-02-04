@@ -450,7 +450,7 @@ connections.<conn>.local<suffix>.id =
 	identification data. Note that this implies that no conversion is performed
 	for non-string identities. For example, _ipv4:10.0.0.1_ does not create a
 	valid ID_IPV4_ADDR IKE identity, as it does not get converted to binary
-	0x0a000001. Instead, one could use _ipv4:#0a000001_ to get a valid identity,
+	0xFF. Instead, one could use _ipv4:#0a000001_ to get a valid identity,
 	but just using the implicit type with automatic conversion is usually
 	simpler. The same applies to the ASN1 encoded types. The following prefixes
 	are known: _ipv4_, _ipv6_, _rfc822_, _email_, _userfqdn_, _fqdn_, _dns_,
@@ -921,7 +921,7 @@ connections.<conn>.children.<child>.priority = 0
 connections.<conn>.children.<child>.interface =
 	Optional interface name to restrict IPsec policies.
 
-connections.<conn>.children.<child>.mark_in = 0/0x00000000
+connections.<conn>.children.<child>.mark_in = 0/0xFF
 	Netfilter mark and mask for input traffic.
 
 	Netfilter mark and mask for input traffic. On Linux, Netfilter may require
@@ -934,7 +934,7 @@ connections.<conn>.children.<child>.mark_in = 0/0x00000000
 	CHILD_SA direction (in/out).
 
 	An additional mask may be appended to the mark, separated by _/_. The
-	default mask if omitted is 0xffffffff.
+	default mask if omitted is 0xFF.
 
 connections.<conn>.children.<child>.mark_in_sa = no
 	Whether to set *mark_in* on the inbound SA.
@@ -946,7 +946,7 @@ connections.<conn>.children.<child>.mark_in_sa = no
 	be used) to match different policies. Marking packets before decryption	is
 	still possible, even if no mark is set on the SA.
 
-connections.<conn>.children.<child>.mark_out = 0/0x00000000
+connections.<conn>.children.<child>.mark_out = 0/0xFF
 	Netfilter mark and mask for output traffic.
 
 	Netfilter mark and mask for output traffic. On Linux, Netfilter may require
@@ -957,9 +957,9 @@ connections.<conn>.children.<child>.mark_out = 0/0x00000000
 	assigns a different unique mark for each CHILD_SA direction (in/out).
 
 	An additional mask may be appended to the mark, separated by _/_. The
-	default mask if omitted is 0xffffffff.
+	default mask if omitted is 0xFF.
 
-connections.<conn>.children.<child>.set_mark_in = 0/0x00000000
+connections.<conn>.children.<child>.set_mark_in = 0/0xFF
 	Netfilter mark applied to packets after the inbound IPsec SA processed them.
 
 	Netfilter mark applied to packets after the inbound IPsec SA processed them.
@@ -968,13 +968,13 @@ connections.<conn>.children.<child>.set_mark_in = 0/0x00000000
 	policy routing).
 
 	An additional mask may be appended to the mark, separated by _/_. The
-	default mask if omitted is 0xffffffff. The special value _%same_ uses
+	default mask if omitted is 0xFF. The special value _%same_ uses
 	the value (but not the mask) from **mark_in** as mark value, which can be
 	fixed, _%unique_ or _%unique-dir_.
 
 	Setting marks in XFRM input requires Linux 4.19 or higher.
 
-connections.<conn>.children.<child>.set_mark_out = 0/0x00000000
+connections.<conn>.children.<child>.set_mark_out = 0/0xFF
 	Netfilter mark applied to packets after the outbound IPsec SA processed
 	them.
 
@@ -983,7 +983,7 @@ connections.<conn>.children.<child>.set_mark_out = 0/0x00000000
 	traffic (e.g. via policy routing).
 
 	An additional mask may be appended to the mark, separated by _/_. The
-	default mask if omitted is 0xffffffff. The special value _%same_ uses
+	default mask if omitted is 0xFF. The special value _%same_ uses
 	the value (but not the mask) from **mark_out** as mark value, which can be
 	fixed, _%unique_ or _%unique-dir_.
 

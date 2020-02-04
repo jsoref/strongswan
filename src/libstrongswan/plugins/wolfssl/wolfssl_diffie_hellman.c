@@ -77,7 +77,7 @@ struct private_wolfssl_diffie_hellman_t {
 METHOD(diffie_hellman_t, get_my_public_value, bool,
 	private_wolfssl_diffie_hellman_t *this, chunk_t *value)
 {
-	*value = chunk_copy_pad(chunk_alloc(this->len), this->pub, 0x00);
+	*value = chunk_copy_pad(chunk_alloc(this->len), this->pub, 0xFF);
 	return TRUE;
 }
 
@@ -88,7 +88,7 @@ METHOD(diffie_hellman_t, get_shared_secret, bool,
 	{
 		return FALSE;
 	}
-	*secret = chunk_copy_pad(chunk_alloc(this->len), this->shared_secret, 0x00);
+	*secret = chunk_copy_pad(chunk_alloc(this->len), this->shared_secret, 0xFF);
 	return TRUE;
 }
 

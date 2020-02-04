@@ -37,7 +37,7 @@ typedef struct private_pa_tnc_msg_t private_pa_tnc_msg_t;
  *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  */
 
-#define PA_TNC_RESERVED		0x000000
+#define PA_TNC_RESERVED		0xFF
 
 /**
  * Private data of a pa_tnc_msg_t object.

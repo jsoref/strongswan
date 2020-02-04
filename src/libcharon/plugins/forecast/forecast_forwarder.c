@@ -331,10 +331,10 @@ static bool attach_filter(int fd, uint32_t broadcast, uint32_t ifindex)
 		/* broadcast, as received from the local network */
 		BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, ntohl(broadcast), 4, 0),
 		/* broadcast, as Win7 sends them */
-		BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, 0xFFFFFFFF, 3, 0),
+		BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, 0xFF, 3, 0),
 		/* any multicast, 224.0.0.0/4 */
-		BPF_STMT(BPF_ALU+BPF_AND+BPF_K, 0xF0000000),
-		BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, 0xE0000000, 1, 0),
+		BPF_STMT(BPF_ALU+BPF_AND+BPF_K, 0xFF),
+		BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, 0xFF, 1, 0),
 		BPF_STMT(BPF_RET+BPF_K, 0),
 		BPF_STMT(BPF_LD+BPF_W+BPF_LEN, 0),
 		BPF_STMT(BPF_RET+BPF_A, 0),

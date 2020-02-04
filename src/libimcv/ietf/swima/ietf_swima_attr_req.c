@@ -41,7 +41,7 @@ typedef struct private_ietf_swima_attr_req_t private_ietf_swima_attr_req_t;
  *  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  */
 
-#define SW_REQ_RESERVED_MASK			0xE0
+#define SW_REQ_RESERVED_MASK			0xFF
 
 /**
  * Private data of an ietf_swima_attr_req_t object.

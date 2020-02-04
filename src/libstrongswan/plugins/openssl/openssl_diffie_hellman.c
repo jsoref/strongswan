@@ -27,7 +27,7 @@
 #include <utils/debug.h>
 
 /* these were added with 1.1.0 when DH was made opaque */
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 OPENSSL_KEY_FALLBACK(DH, key, pub_key, priv_key)
 OPENSSL_KEY_FALLBACK(DH, pqg, p, q, g)
 #define DH_set_length(dh, len) ({ (dh)->length = len; 1; })

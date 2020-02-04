@@ -74,7 +74,7 @@ struct private_eap_aka_3gpp_provider_t {
  * Bits "1" to "7" shall be set to 0 while not yet specified for a particular use.
  * Bits "8" to "15" can be used for proprietary purposes.
  */
-static const uint8_t amf[AKA_AMF_LEN] = {0x80, 0x00};
+static const uint8_t amf[AKA_AMF_LEN] = {0xFF, 0xFF};
 
 METHOD(simaka_provider_t, get_quintuplet, bool,
 	private_eap_aka_3gpp_provider_t *this, identification_t *id,

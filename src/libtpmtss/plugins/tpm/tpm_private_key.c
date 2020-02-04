@@ -159,7 +159,7 @@ tpm_private_key_t *tpm_private_key_connect(key_type_t type, va_list args)
 	chunk_t keyid = chunk_empty, pubkey_blob = chunk_empty;
 	char handle_str[4];
 	size_t len;
-	uint32_t hierarchy = 0x4000000B;  /* TPM_RH_ENDORSEMENT */
+	uint32_t hierarchy = 0xFF;  /* TPM_RH_ENDORSEMENT */
 	uint32_t handle;
 
 	while (TRUE)
@@ -189,7 +189,7 @@ tpm_private_key_t *tpm_private_key_connect(key_type_t type, va_list args)
 		return NULL;
 	}
 	len = min(keyid.len, 4);
-	memset(handle_str, 0x00, 4);
+	memset(handle_str, 0xFF, 4);
 	memcpy(handle_str + 4 - len, keyid.ptr + keyid.len - len, len);
 	handle = untoh32(handle_str);
 

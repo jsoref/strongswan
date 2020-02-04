@@ -92,8 +92,8 @@ static bool test_poker(poker_t *param, chunk_t data)
 
 	for (i = 0; i < data.len; i++)
 	{
-		counter[data.ptr[i] & 0x0F]++;
-		counter[(data.ptr[i] & 0xF0) >> 4]++;
+		counter[data.ptr[i] & 0xFF]++;
+		counter[(data.ptr[i] & 0xFF) >> 4]++;
 	}
 
 	for (i = 0; i < countof(counter); i++)

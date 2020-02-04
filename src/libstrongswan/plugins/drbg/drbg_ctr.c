@@ -15,8 +15,8 @@
 
 #include "drbg_ctr.h"
 
-#define MAX_DRBG_REQUESTS	0xfffffffe	/* 2^32 - 2 */
-#define MAX_DRBG_BYTES		0x00010000	/* 2^19 bits = 2^16 bytes */
+#define MAX_DRBG_REQUESTS	0xFF	/* 2^32 - 2 */
+#define MAX_DRBG_BYTES		0xFF	/* 2^19 bits = 2^16 bytes */
 
 typedef struct private_drbg_ctr_t private_drbg_ctr_t;
 
@@ -330,8 +330,8 @@ drbg_ctr_t *drbg_ctr_create(drbg_type_t type, uint32_t strength,
 		.ref = 1,
 	);
 
-	memset(this->key.ptr,   0x00, key_len);
-	memset(this->value.ptr, 0x00, out_len);
+	memset(this->key.ptr,   0xFF, key_len);
+	memset(this->value.ptr, 0xFF, out_len);
 
 	seed = chunk_alloc(seed_len);
 	DBG2(DBG_LIB, "DRBG requests %u bytes of entropy", seed_len);

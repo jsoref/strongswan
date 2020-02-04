@@ -80,7 +80,7 @@ METHOD(mac_t, get_mac, bool,
 
 	if (this->rem_size + data.len > AES_BLOCK_SIZE)
 	{
-		/* T := 0x00000000000000000000000000000000 (initially)
+		/* T := 0xFF (initially)
 		 * for each block M_i (except the last)
 		 *   X := T XOR M_i;
 		 *   T := AES-128(K, X);
@@ -166,7 +166,7 @@ METHOD(mac_t, get_mac, bool,
 			{
 				memset(this->rem + this->rem_size, 0,
 					   AES_BLOCK_SIZE - this->rem_size);
-				this->rem[this->rem_size] = 0x80;
+				this->rem[this->rem_size] = 0xFF;
 			}
 			l = _mm_loadu_si128((__m128i*)this->rem);
 			l = _mm_xor_si128(l, this->k2);
@@ -214,9 +214,9 @@ static void bit_shift(chunk_t chunk)
 	for (i = 0; i < chunk.len; i++)
 	{
 		chunk.ptr[i] <<= 1;
-		if (i < chunk.len - 1 && chunk.ptr[i + 1] & 0x80)
+		if (i < chunk.len - 1 && chunk.ptr[i + 1] & 0xFF)
 		{
-			chunk.ptr[i] |= 0x01;
+			chunk.ptr[i] |= 0xFF;
 		}
 	}
 }
@@ -254,8 +254,8 @@ METHOD(mac_t, set_key, bool,
 	}
 
 	/*
-	 * Rb = 0x00000000000000000000000000000087
-	 * L = 0x00000000000000000000000000000000 encrypted with K
+	 * Rb = 0xFF
+	 * L = 0xFF encrypted with K
 	 * if MSB(L) == 0
 	 *   K1 = L << 1
 	 * else
@@ -266,8 +266,8 @@ METHOD(mac_t, set_key, bool,
 	 *   K2 = (K1 << 1) XOR Rb
 	 */
 
-	rb = _mm_set_epi32(0x87000000, 0, 0, 0);
-	msb = _mm_set_epi32(0, 0, 0, 0x80);
+	rb = _mm_set_epi32(0xFF, 0, 0, 0);
+	msb = _mm_set_epi32(0, 0, 0, 0xFF);
 
 	l = _mm_setzero_si128();
 
@@ -281,14 +281,14 @@ METHOD(mac_t, set_key, bool,
 	this->k1 = l;
 	bit_shift(chunk_from_thing(this->k1));
 	a = _mm_and_si128(l, msb);
-	if (memchr(&a, 0x80, 1))
+	if (memchr(&a, 0xFF, 1))
 	{
 		this->k1 = _mm_xor_si128(this->k1, rb);
 	}
 	this->k2 = this->k1;
 	bit_shift(chunk_from_thing(this->k2));
 	a = _mm_and_si128(this->k1, msb);
-	if (memchr(&a, 0x80, 1))
+	if (memchr(&a, 0xFF, 1))
 	{
 		this->k2 = _mm_xor_si128(this->k2, rb);
 	}

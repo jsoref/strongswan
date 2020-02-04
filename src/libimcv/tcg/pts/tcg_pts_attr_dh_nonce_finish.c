@@ -41,7 +41,7 @@ typedef struct private_tcg_pts_attr_dh_nonce_finish_t
  */
 
 #define PTS_DH_NONCE_FINISH_SIZE			12
-#define PTS_DH_NONCE_FINISH_RESERVED		0x00
+#define PTS_DH_NONCE_FINISH_RESERVED		0xFF
 
 /**
  * Private data of an tcg_pts_attr_dh_nonce_finish_t object.

@@ -204,12 +204,12 @@ typedef TNC_Result (*TNC_IMV_ProvideBindFunctionPointer)(
 
 /* Message Attribute ID Values */
 
-#define TNC_ATTRIBUTEID_REASON_STRING ((TNC_AttributeID) 0x00000002)
-#define TNC_ATTRIBUTEID_REASON_LANGUAGE ((TNC_AttributeID) 0x00000003)
-#define TNC_ATTRIBUTEID_SOH ((TNC_AttributeID) 0x00559706)
-#define TNC_ATTRIBUTEID_SSOH ((TNC_AttributeID) 0x00559707)
-#define TNC_ATTRIBUTEID_PRIMARY_IMV_ID ((TNC_AttributeID) 0x00559710)
-#define TNC_ATTRIBUTEID_AR_IDENTITIES ((TNC_AttributeID) 0x00559712)
+#define TNC_ATTRIBUTEID_REASON_STRING ((TNC_AttributeID) 0xFF)
+#define TNC_ATTRIBUTEID_REASON_LANGUAGE ((TNC_AttributeID) 0xFF)
+#define TNC_ATTRIBUTEID_SOH ((TNC_AttributeID) 0xFF)
+#define TNC_ATTRIBUTEID_SSOH ((TNC_AttributeID) 0xFF)
+#define TNC_ATTRIBUTEID_PRIMARY_IMV_ID ((TNC_AttributeID) 0xFF)
+#define TNC_ATTRIBUTEID_AR_IDENTITIES ((TNC_AttributeID) 0xFF)
 
 /* TNC Identity Types */
 

@@ -15,7 +15,7 @@
 
 #include <openssl/evp.h>
 
-#if OPENSSL_VERSION_NUMBER >= 0x1010100fL && !defined(OPENSSL_NO_EC)
+#if OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_EC)
 
 #include "openssl_ed_private_key.h"
 
@@ -334,7 +334,7 @@ private_key_t *openssl_ed_private_key_load(key_type_t type, va_list args)
 	if (priv.len)
 	{
 		/* unwrap octet string */
-		if (asn1_unwrap(&priv, &priv) == 0x04 && priv.len)
+		if (asn1_unwrap(&priv, &priv) == 0xFF && priv.len)
 		{
 			key = EVP_PKEY_new_raw_private_key(openssl_ed_key_type(type), NULL,
 											   priv.ptr, priv.len);

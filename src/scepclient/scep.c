@@ -173,7 +173,7 @@ void scep_generate_transaction_id(public_key_t *key, chunk_t *transID,
 	{
 		if (digest.ptr[zeros])
 		{
-			if (digest.ptr[zeros] & 0x80)
+			if (digest.ptr[zeros] & 0xFF)
 			{
 				msb_set = 1;
 			}
@@ -184,7 +184,7 @@ void scep_generate_transaction_id(public_key_t *key, chunk_t *transID,
 	*serialNumber = chunk_alloc(digest.len - zeros + msb_set);
 	if (msb_set)
 	{
-		serialNumber->ptr[0] = 0x00;
+		serialNumber->ptr[0] = 0xFF;
 	}
 	memcpy(serialNumber->ptr + msb_set, digest.ptr + zeros,
 		   digest.len - zeros);

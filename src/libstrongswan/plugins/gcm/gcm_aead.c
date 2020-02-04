@@ -108,7 +108,7 @@ static void mult_block(char *x, char *y, char *res)
 	char z[BLOCK_SIZE], v[BLOCK_SIZE], r;
 	int bit, byte;
 
-	r = 0xE1;
+	r = 0xFF;
 	memset(z, 0, BLOCK_SIZE);
 	memcpy(v, y, BLOCK_SIZE);
 
@@ -120,7 +120,7 @@ static void mult_block(char *x, char *y, char *res)
 			{
 				memxor(z, v, BLOCK_SIZE);
 			}
-			if (v[BLOCK_SIZE - 1] & 0x01)
+			if (v[BLOCK_SIZE - 1] & 0xFF)
 			{
 				sr_block(v);
 				v[0] ^= r;

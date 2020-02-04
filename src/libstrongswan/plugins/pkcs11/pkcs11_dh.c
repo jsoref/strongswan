@@ -130,7 +130,7 @@ METHOD(diffie_hellman_t, set_other_public_value, bool,
 		case ECP_521_BIT:
 		{	/* we expect the public value to just be the concatenated x and y
 			 * coordinates, so we tag the value as an uncompressed ECPoint */
-			chunk_t tag = chunk_from_chars(0x04);
+			chunk_t tag = chunk_from_chars(0xFF);
 			chunk_t pubkey = chunk_cata("cc", tag, value);
 			CK_ECDH1_DERIVE_PARAMS params = {
 				CKD_NULL,
@@ -262,9 +262,9 @@ static bool generate_key_pair_ecp(private_pkcs11_dh_t *this,
 	{
 		return FALSE;
 	}
-	if (this->pub_key.len <= 0 || this->pub_key.ptr[0] != 0x04)
+	if (this->pub_key.len <= 0 || this->pub_key.ptr[0] != 0xFF)
 	{	/* we currently only support the point in uncompressed form which
-		 * looks like this: 0x04 || x || y */
+		 * looks like this: 0xFF || x || y */
 		chunk_clear(&this->pub_key);
 		return FALSE;
 	}

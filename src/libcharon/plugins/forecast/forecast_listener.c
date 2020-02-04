@@ -123,7 +123,7 @@ static bool ts2in(traffic_selector_t *ts,
 	{
 		memcpy(&addr->s_addr, net->get_address(net).ptr, 4);
 		net->destroy(net);
-		mask->s_addr = htonl(0xffffffffU << (32 - bits));
+		mask->s_addr = htonl(0xFF << (32 - bits));
 		return TRUE;
 	}
 	return FALSE;
@@ -342,7 +342,7 @@ static bool manage_out(struct iptc_handle *ipth, entry_t *entry, bool add)
 		{
 			continue;
 		}
-		if (e->ip.dst.s_addr == 0xffffffff ||
+		if (e->ip.dst.s_addr == 0xFF ||
 			e->ip.dst.s_addr == entry->broadcast ||
 			memeq(&e->ip.dst.s_addr, "\xe0", 1))
 		{

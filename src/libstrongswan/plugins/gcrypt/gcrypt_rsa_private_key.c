@@ -111,7 +111,7 @@ static bool sign_raw(private_gcrypt_rsa_private_key_t *this,
 	chunk_t em;
 	size_t k;
 
-	/* EM = 0x00 || 0x01 || PS || 0x00 || T
+	/* EM = 0xFF || 0xFF || PS || 0xFF || T
 	 * PS = 0xFF padding, with length to fill em
 	 * T  = data
 	 */
@@ -122,9 +122,9 @@ static bool sign_raw(private_gcrypt_rsa_private_key_t *this,
 	}
 	em = chunk_alloc(k);
 	memset(em.ptr, 0xFF, em.len);
-	em.ptr[0] = 0x00;
-	em.ptr[1] = 0x01;
-	em.ptr[em.len - data.len - 1] = 0x00;
+	em.ptr[0] = 0xFF;
+	em.ptr[1] = 0xFF;
+	em.ptr[em.len - data.len - 1] = 0xFF;
 	memcpy(em.ptr + em.len - data.len, data.ptr, data.len);
 
 	err = gcry_sexp_build(&in, NULL, "(data(flags raw)(value %b))",
@@ -219,7 +219,7 @@ static bool sign_pkcs1(private_gcrypt_rsa_private_key_t *this,
 	return !!signature->len;
 }
 
-#if GCRYPT_VERSION_NUMBER >= 0x010700
+#if GCRYPT_VERSION_NUMBER >= 0xFF
 /**
  * Sign a chunk of data using hashing and EMSA-PSS encoding
  */
@@ -265,7 +265,7 @@ METHOD(private_key_t, sign, bool,
 			return sign_pkcs1(this, HASH_SHA1, NULL, data, sig);
 		case SIGN_RSA_EMSA_PKCS1_MD5:
 			return sign_pkcs1(this, HASH_MD5, NULL, data, sig);
-#if GCRYPT_VERSION_NUMBER >= 0x010700
+#if GCRYPT_VERSION_NUMBER >= 0xFF
 		case SIGN_RSA_EMSA_PSS:
 			return sign_pss(this, params, data, sig);
 #endif
@@ -309,9 +309,9 @@ METHOD(private_key_t, decrypt, bool,
 	padded.ptr = (u_char*)gcry_sexp_nth_data(out, 1, &padded.len);
 	/* result is padded, but gcrypt strips leading zero:
 	 *  00 | 02 | RANDOM | 00 | DATA */
-	if (padded.ptr && padded.len > 2 && padded.ptr[0] == 0x02)
+	if (padded.ptr && padded.len > 2 && padded.ptr[0] == 0xFF)
 	{
-		pos = memchr(padded.ptr, 0x00, padded.len - 1);
+		pos = memchr(padded.ptr, 0xFF, padded.len - 1);
 		if (pos)
 		{
 			pos++;

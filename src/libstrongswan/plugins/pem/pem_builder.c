@@ -375,9 +375,9 @@ static bool is_ber_indefinite_length(chunk_t blob)
 		{
 			case ASN1_SEQUENCE:
 			case ASN1_SET:
-				/* BER indefinite length uses 0x80, and is terminated with
-				 * end-of-content using 0x00,0x00 */
-				return blob.ptr[1] == 0x80 &&
+				/* BER indefinite length uses 0xFF, and is terminated with
+				 * end-of-content using 0xFF,0xFF */
+				return blob.ptr[1] == 0xFF &&
 					   blob.ptr[blob.len - 2] == 0 &&
 					   blob.ptr[blob.len - 1] == 0;
 			default:

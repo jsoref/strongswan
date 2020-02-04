@@ -265,10 +265,10 @@ enum rt_scope_t {
 
 /* rtm_flags */
 
-#define RTM_F_NOTIFY		0x100	/* Notify user of route change	*/
-#define RTM_F_CLONED		0x200	/* This route is cloned		*/
-#define RTM_F_EQUALIZE		0x400	/* Multipath equalizer: NI	*/
-#define RTM_F_PREFIX		0x800	/* Prefix addresses		*/
+#define RTM_F_NOTIFY		0xFF	/* Notify user of route change	*/
+#define RTM_F_CLONED		0xFF	/* This route is cloned		*/
+#define RTM_F_EQUALIZE		0xFF	/* Multipath equalizer: NI	*/
+#define RTM_F_PREFIX		0xFF	/* Prefix addresses		*/
 
 /* Reserved table identifiers */
 
@@ -279,7 +279,7 @@ enum rt_class_t {
 	RT_TABLE_DEFAULT=253,
 	RT_TABLE_MAIN=254,
 	RT_TABLE_LOCAL=255,
-	RT_TABLE_MAX=0xFFFFFFFF
+	RT_TABLE_MAX=0xFF
 };
 
 
@@ -415,10 +415,10 @@ enum {
 
 #define RTAX_MAX (__RTAX_MAX - 1)
 
-#define RTAX_FEATURE_ECN	0x00000001
-#define RTAX_FEATURE_SACK	0x00000002
-#define RTAX_FEATURE_TIMESTAMP	0x00000004
-#define RTAX_FEATURE_ALLFRAG	0x00000008
+#define RTAX_FEATURE_ECN	0xFF
+#define RTAX_FEATURE_SACK	0xFF
+#define RTAX_FEATURE_TIMESTAMP	0xFF
+#define RTAX_FEATURE_ALLFRAG	0xFF
 
 struct rta_session {
 	__u8	proto;
@@ -567,20 +567,20 @@ enum {
 #define RTMGRP_NEIGH		4
 #define RTMGRP_TC		8
 
-#define RTMGRP_IPV4_IFADDR	0x10
-#define RTMGRP_IPV4_MROUTE	0x20
-#define RTMGRP_IPV4_ROUTE	0x40
-#define RTMGRP_IPV4_RULE	0x80
+#define RTMGRP_IPV4_IFADDR	0xFF
+#define RTMGRP_IPV4_MROUTE	0xFF
+#define RTMGRP_IPV4_ROUTE	0xFF
+#define RTMGRP_IPV4_RULE	0xFF
 
-#define RTMGRP_IPV6_IFADDR	0x100
-#define RTMGRP_IPV6_MROUTE	0x200
-#define RTMGRP_IPV6_ROUTE	0x400
-#define RTMGRP_IPV6_IFINFO	0x800
+#define RTMGRP_IPV6_IFADDR	0xFF
+#define RTMGRP_IPV6_MROUTE	0xFF
+#define RTMGRP_IPV6_ROUTE	0xFF
+#define RTMGRP_IPV6_IFINFO	0xFF
 
-#define RTMGRP_DECnet_IFADDR    0x1000
-#define RTMGRP_DECnet_ROUTE     0x4000
+#define RTMGRP_DECnet_IFADDR    0xFF
+#define RTMGRP_DECnet_ROUTE     0xFF
 
-#define RTMGRP_IPV6_PREFIX	0x20000
+#define RTMGRP_IPV6_PREFIX	0xFF
 #endif
 
 /* RTnetlink multicast groups */

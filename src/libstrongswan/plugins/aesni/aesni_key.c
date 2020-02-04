@@ -64,12 +64,12 @@ static __m128i assist128(__m128i a, __m128i b)
 {
 	__m128i c;
 
-	b = _mm_shuffle_epi32(b ,0xff);
-	c = _mm_slli_si128(a, 0x04);
+	b = _mm_shuffle_epi32(b ,0xFF);
+	c = _mm_slli_si128(a, 0xFF);
 	a = _mm_xor_si128(a, c);
-	c = _mm_slli_si128(c, 0x04);
+	c = _mm_slli_si128(c, 0xFF);
 	a = _mm_xor_si128(a, c);
-	c = _mm_slli_si128(c, 0x04);
+	c = _mm_slli_si128(c, 0xFF);
 	a = _mm_xor_si128(a, c);
 	a = _mm_xor_si128(a, b);
 
@@ -84,16 +84,16 @@ static void expand128(__m128i *key, __m128i *schedule)
 	__m128i t;
 
 	schedule[0] = t = _mm_loadu_si128(key);
-	schedule[1] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x01));
-	schedule[2] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x02));
-	schedule[3] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x04));
-	schedule[4] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x08));
-	schedule[5] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x10));
-	schedule[6] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x20));
-	schedule[7] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x40));
-	schedule[8] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x80));
-	schedule[9] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0x1b));
-	schedule[10]    = assist128(t, _mm_aeskeygenassist_si128(t, 0x36));
+	schedule[1] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[2] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[3] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[4] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[5] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[6] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[7] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[8] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[9] = t = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
+	schedule[10]    = assist128(t, _mm_aeskeygenassist_si128(t, 0xFF));
 }
 
 /**
@@ -103,16 +103,16 @@ static __m128i assist192(__m128i b, __m128i c, __m128i *a)
 {
 	__m128i t;
 
-	 b = _mm_shuffle_epi32(b, 0x55);
-	 t = _mm_slli_si128(*a, 0x04);
+	 b = _mm_shuffle_epi32(b, 0xFF);
+	 t = _mm_slli_si128(*a, 0xFF);
 	*a = _mm_xor_si128(*a, t);
-	 t = _mm_slli_si128(t, 0x04);
+	 t = _mm_slli_si128(t, 0xFF);
 	*a = _mm_xor_si128(*a, t);
-	 t = _mm_slli_si128(t, 0x04);
+	 t = _mm_slli_si128(t, 0xFF);
 	*a = _mm_xor_si128(*a, t);
 	*a = _mm_xor_si128(*a, b);
-	 b = _mm_shuffle_epi32(*a, 0xff);
-	 t = _mm_slli_si128(c, 0x04);
+	 b = _mm_shuffle_epi32(*a, 0xFF);
+	 t = _mm_slli_si128(c, 0xFF);
 	 t = _mm_xor_si128(c, t);
 	 t = _mm_xor_si128(t, b);
 
@@ -157,16 +157,16 @@ static void expand192(__m128i *key, __m128i *schedule)
 	t2 = t3 = assist192(_mm_aeskeygenassist_si128(t2, 0x8), t2, &t1);
 	schedule[6] = t1;
 
-	t2 = assist192(_mm_aeskeygenassist_si128 (t2,0x10), t2, &t1);
+	t2 = assist192(_mm_aeskeygenassist_si128 (t2,0xFF), t2, &t1);
 	schedule[7] = _mm_shuffle_i00(t3, t1);
 	schedule[8] = _mm_shuffle_i01(t1, t2);
-	t2 = t3 = assist192(_mm_aeskeygenassist_si128 (t2,0x20), t2, &t1);
+	t2 = t3 = assist192(_mm_aeskeygenassist_si128 (t2,0xFF), t2, &t1);
 	schedule[9] = t1;
 
-	t2 = assist192(_mm_aeskeygenassist_si128(t2, 0x40), t2, &t1);
+	t2 = assist192(_mm_aeskeygenassist_si128(t2, 0xFF), t2, &t1);
 	schedule[10] = _mm_shuffle_i00(t3, t1);
 	schedule[11] = _mm_shuffle_i01(t1, t2);
-	assist192(_mm_aeskeygenassist_si128(t2, 0x80), t2, &t1);
+	assist192(_mm_aeskeygenassist_si128(t2, 0xFF), t2, &t1);
 	schedule[12] = t1;
 }
 
@@ -177,12 +177,12 @@ static __m128i assist256_1(__m128i a, __m128i b)
 {
 	__m128i x, y;
 
-	b = _mm_shuffle_epi32(b, 0xff);
-	y = _mm_slli_si128(a, 0x04);
+	b = _mm_shuffle_epi32(b, 0xFF);
+	y = _mm_slli_si128(a, 0xFF);
 	x = _mm_xor_si128(a, y);
-	y = _mm_slli_si128(y, 0x04);
+	y = _mm_slli_si128(y, 0xFF);
 	x = _mm_xor_si128 (x, y);
-	y = _mm_slli_si128(y, 0x04);
+	y = _mm_slli_si128(y, 0xFF);
 	x = _mm_xor_si128(x, y);
 	x = _mm_xor_si128(x, b);
 
@@ -196,13 +196,13 @@ static __m128i assist256_2(__m128i a, __m128i b)
 {
 	__m128i x, y, z;
 
-	y = _mm_aeskeygenassist_si128(a, 0x00);
-	z = _mm_shuffle_epi32(y, 0xaa);
-	y = _mm_slli_si128(b, 0x04);
+	y = _mm_aeskeygenassist_si128(a, 0xFF);
+	z = _mm_shuffle_epi32(y, 0xFF);
+	y = _mm_slli_si128(b, 0xFF);
 	x = _mm_xor_si128(b, y);
-	y = _mm_slli_si128(y, 0x04);
+	y = _mm_slli_si128(y, 0xFF);
 	x = _mm_xor_si128(x, y);
-	y = _mm_slli_si128(y, 0x04);
+	y = _mm_slli_si128(y, 0xFF);
 	x = _mm_xor_si128(x, y);
 	x = _mm_xor_si128(x, z);
 
@@ -219,25 +219,25 @@ static void expand256(__m128i *key, __m128i *schedule)
 	schedule[0] = t1 = _mm_loadu_si128(key);
 	schedule[1] = t2 = _mm_loadu_si128(key + 1);
 
-	schedule[2] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0x01));
+	schedule[2] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0xFF));
 	schedule[3] = t2 = assist256_2(t1, t2);
 
-	schedule[4] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0x02));
+	schedule[4] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0xFF));
 	schedule[5] = t2 = assist256_2(t1, t2);
 
-	schedule[6] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0x04));
+	schedule[6] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0xFF));
 	schedule[7] = t2 = assist256_2(t1, t2);
 
-	schedule[8] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0x08));
+	schedule[8] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0xFF));
 	schedule[9] = t2 = assist256_2(t1, t2);
 
-	schedule[10] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0x10));
+	schedule[10] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0xFF));
 	schedule[11] = t2 = assist256_2(t1, t2);
 
-	schedule[12] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0x20));
+	schedule[12] = t1 = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0xFF));
 	schedule[13] = t2 = assist256_2(t1, t2);
 
-	schedule[14] = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0x40));
+	schedule[14] = assist256_1(t1, _mm_aeskeygenassist_si128(t2, 0xFF));
 }
 
 METHOD(aesni_key_t, destroy, void,

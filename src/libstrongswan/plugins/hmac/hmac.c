@@ -118,8 +118,8 @@ METHOD(mac_t, set_key, bool,
 	/* apply ipad and opad to key */
 	for (i = 0; i < this->b; i++)
 	{
-		this->ipaded_key.ptr[i] = buffer[i] ^ 0x36;
-		this->opaded_key.ptr[i] = buffer[i] ^ 0x5C;
+		this->ipaded_key.ptr[i] = buffer[i] ^ 0xFF;
+		this->opaded_key.ptr[i] = buffer[i] ^ 0xFF;
 	}
 
 	/* begin hashing of inner pad */

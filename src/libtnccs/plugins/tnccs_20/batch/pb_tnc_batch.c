@@ -50,7 +50,7 @@ typedef struct private_pb_tnc_batch_t private_pb_tnc_batch_t;
  *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  */
 
-#define PB_TNC_BATCH_FLAG_NONE		0x00
+#define PB_TNC_BATCH_FLAG_NONE		0xFF
 #define PB_TNC_BATCH_FLAG_D			(1<<7)
 
 /**
@@ -69,10 +69,10 @@ typedef struct private_pb_tnc_batch_t private_pb_tnc_batch_t;
  *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  */
 
-#define PB_TNC_FLAG_NONE			0x00
+#define PB_TNC_FLAG_NONE			0xFF
 #define PB_TNC_FLAG_NOSKIP			(1<<7)
 
-#define PB_TNC_RESERVED_MSG_TYPE	0xffffffff
+#define PB_TNC_RESERVED_MSG_TYPE	0xFF
 
 /**
  * Private data of a pb_tnc_batch_t object.
@@ -291,7 +291,7 @@ METHOD(pb_tnc_batch_t, process_header, status_t,
 	}
 
 	/* Batch Type */
-	this->type = type & 0x0F;
+	this->type = type & 0xFF;
 	if (this->type > PB_BATCH_ROOF)
 	{
 		DBG1(DBG_TNC, "unknown PB-TNC batch type: %d", this->type);

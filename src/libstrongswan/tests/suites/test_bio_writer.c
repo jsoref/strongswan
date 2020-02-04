@@ -107,7 +107,7 @@ static inline void assert_writer_after_write(bio_writer_t *writer, int count)
 
 START_TEST(test_write_data)
 {
-	chunk_t buf, data = chunk_from_chars(0x00, 0x01, 0x02);
+	chunk_t buf, data = chunk_from_chars(0xFF, 0xFF, 0xFF);
 	bio_writer_t *writer;
 
 	/* no allocation, but default buffer size */
@@ -151,7 +151,7 @@ END_TEST
 
 START_TEST(test_skip)
 {
-	chunk_t skipped, buf, data = chunk_from_chars(0x00, 0x01, 0x02);
+	chunk_t skipped, buf, data = chunk_from_chars(0xFF, 0xFF, 0xFF);
 	bio_writer_t *writer;
 
 	writer = bio_writer_create(4);
@@ -163,7 +163,7 @@ START_TEST(test_skip)
 
 	writer->write_data(writer, data);
 	buf = writer->get_buf(writer);
-	ck_assert(chunk_equals(buf, chunk_from_chars(0x00, 0x00, 0x00, 0x00, 0x01, 0x02)));
+	ck_assert(chunk_equals(buf, chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF)));
 	writer->destroy(writer);
 
 	writer = bio_writer_create(1);

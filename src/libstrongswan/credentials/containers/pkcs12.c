@@ -133,7 +133,7 @@ static bool derive_key(hash_algorithm_t hash, chunk_t unicode, chunk_t salt,
 		}
 		copy_chunk(B, Ai);
 		/* B = B+1 */
-		add_chunks(B, chunk_from_chars(0x01));
+		add_chunks(B, chunk_from_chars(0xFF));
 		Ij = chunk_create(I.ptr, v);
 		for (i = 0; i < I.len; i += v, Ij.ptr += v)
 		{	/* Ij = Ij + B + 1 */

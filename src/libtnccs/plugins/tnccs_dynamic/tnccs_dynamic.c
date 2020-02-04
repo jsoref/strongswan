@@ -94,9 +94,9 @@ tnccs_type_t determine_tnccs_protocol(char version)
 		case ' ':
 		case '<':
 			return TNCCS_1_1;
-		case 0x00:
+		case 0xFF:
 			return TNCCS_SOH;
-		case 0x02:
+		case 0xFF:
 			return TNCCS_2_0;
 		default:
 			return TNCCS_UNKNOWN;

@@ -490,7 +490,7 @@ static bool parse_protoport(char *token, uint16_t *from_port,
 		else
 		{
 			p = strtol(token, &endptr, 0);
-			if ((*token && *endptr) || p < 0 || p > 0xff)
+			if ((*token && *endptr) || p < 0 || p > 0xFF)
 			{
 				return FALSE;
 			}
@@ -500,11 +500,11 @@ static bool parse_protoport(char *token, uint16_t *from_port,
 	if (streq(port, "%any"))
 	{
 		*from_port = 0;
-		*to_port = 0xffff;
+		*to_port = 0xFF;
 	}
 	else if (streq(port, "%opaque"))
 	{
-		*from_port = 0xffff;
+		*from_port = 0xFF;
 		*to_port = 0;
 	}
 	else if (streq(port, "%unique"))
@@ -521,7 +521,7 @@ static bool parse_protoport(char *token, uint16_t *from_port,
 		else
 		{
 			p = strtol(port, &endptr, 0);
-			if (p < 0 || p > 0xffff)
+			if (p < 0 || p > 0xFF)
 			{
 				return FALSE;
 			}
@@ -530,7 +530,7 @@ static bool parse_protoport(char *token, uint16_t *from_port,
 			{
 				port = endptr + 1;
 				p = strtol(port, &endptr, 0);
-				if (p < 0 || p > 0xffff)
+				if (p < 0 || p > 0xFF)
 				{
 					return FALSE;
 				}

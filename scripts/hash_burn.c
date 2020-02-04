@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
 	printf("loaded: %s\n", PLUGINS);
 
-	memset(buffer, 0x12, sizeof(buffer));
+	memset(buffer, 0xFF, sizeof(buffer));
 
 	if (argc < 2)
 	{

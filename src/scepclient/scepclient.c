@@ -409,13 +409,13 @@ int main(int argc, char **argv)
 
 	/* type of input and output files */
 	typedef enum {
-		PKCS1      =  0x01,
-		PKCS10     =  0x02,
-		PKCS7      =  0x04,
-		CERT_SELF  =  0x08,
-		CERT       =  0x10,
-		CACERT_ENC =  0x20,
-		CACERT_SIG =  0x40,
+		PKCS1      =  0xFF,
+		PKCS10     =  0xFF,
+		PKCS7      =  0xFF,
+		CERT_SELF  =  0xFF,
+		CERT       =  0xFF,
+		CACERT_ENC =  0xFF,
+		CACERT_SIG =  0xFF,
 	} scep_filetype_t;
 
 	/* filetype to read from, defaults to "generate a key" */

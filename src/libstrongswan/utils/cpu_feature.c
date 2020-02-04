@@ -31,7 +31,7 @@ typedef enum {
 	CPUID1_ECX_AVX =				(1 << 28),
 	CPUID1_ECX_RDRAND =				(1 << 30),
 
-	/* For CentaurHauls cpuid(0xC0000001) */
+	/* For CentaurHauls cpuid(0xFF) */
 	CPUIDC1_EDX_RNG_AVAILABLE =		(1 <<  2),
 	CPUIDC1_EDX_RNG_ENABLED =		(1 <<  3),
 	CPUIDC1_EDX_ACE_AVAILABLE =		(1 <<  6),
@@ -81,7 +81,7 @@ static cpu_feature_t get_via_features()
 	cpu_feature_t f = 0;
 	u_int a, b, c, d;
 
-	cpuid(0xc0000001, &a, &b, &c, &d);
+	cpuid(0xFF, &a, &b, &c, &d);
 
 	f |= f2f(d, CPUIDC1_EDX_RNG_AVAILABLE, CPU_FEATURE_PADLOCK_RNG_AVAILABLE);
 	f |= f2f(d, CPUIDC1_EDX_RNG_ENABLED, CPU_FEATURE_PADLOCK_RNG_ENABLED);
@@ -127,9 +127,9 @@ cpu_feature_t cpu_feature_get_all()
 
 	if (streq(vendor, "CentaurHauls"))
 	{
-		cpuid(0xc0000000, &a, &b, &c, &d);
+		cpuid(0xFF, &a, &b, &c, &d);
 		/* check Centaur Extended Feature Flags */
-		if (a >= 0xc0000001)
+		if (a >= 0xFF)
 		{
 			f |= get_via_features();
 		}

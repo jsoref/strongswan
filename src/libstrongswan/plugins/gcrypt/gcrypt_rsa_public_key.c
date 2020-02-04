@@ -64,7 +64,7 @@ static bool verify_raw(private_gcrypt_rsa_public_key_t *this,
 	chunk_t em;
 	size_t k;
 
-	/* EM = 0x00 || 0x01 || PS || 0x00 || T
+	/* EM = 0xFF || 0xFF || PS || 0xFF || T
 	 * PS = 0xFF padding, with length to fill em
 	 * T  = data
 	 */
@@ -75,9 +75,9 @@ static bool verify_raw(private_gcrypt_rsa_public_key_t *this,
 	}
 	em = chunk_alloc(k);
 	memset(em.ptr, 0xFF, em.len);
-	em.ptr[0] = 0x00;
-	em.ptr[1] = 0x01;
-	em.ptr[em.len - data.len - 1] = 0x00;
+	em.ptr[0] = 0xFF;
+	em.ptr[1] = 0xFF;
+	em.ptr[em.len - data.len - 1] = 0xFF;
 	memcpy(em.ptr + em.len - data.len, data.ptr, data.len);
 
 	err = gcry_sexp_build(&in, NULL, "(data(flags raw)(value %b))",
@@ -178,7 +178,7 @@ static bool verify_pkcs1(private_gcrypt_rsa_public_key_t *this,
 	return TRUE;
 }
 
-#if GCRYPT_VERSION_NUMBER >= 0x010700
+#if GCRYPT_VERSION_NUMBER >= 0xFF
 /**
  * Verification of an EMSA-PSS signature described in PKCS#1
  */
@@ -224,7 +224,7 @@ METHOD(public_key_t, verify, bool,
 			return verify_pkcs1(this, HASH_SHA1, NULL, data, signature);
 		case SIGN_RSA_EMSA_PKCS1_MD5:
 			return verify_pkcs1(this, HASH_MD5, NULL, data, signature);
-#if GCRYPT_VERSION_NUMBER >= 0x010700
+#if GCRYPT_VERSION_NUMBER >= 0xFF
 		case SIGN_RSA_EMSA_PSS:
 			return verify_pss(this, params, data, signature);
 #endif

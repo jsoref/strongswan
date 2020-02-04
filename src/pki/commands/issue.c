@@ -442,7 +442,7 @@ static int issue()
 			rng->destroy(rng);
 			goto end;
 		}
-		serial.ptr[0] &= 0x7F;
+		serial.ptr[0] &= 0xFF;
 		rng->destroy(rng);
 	}
 

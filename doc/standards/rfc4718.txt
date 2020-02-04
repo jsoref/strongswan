@@ -1044,11 +1044,11 @@ RFC 4718                  IKEv2 Clarifications              October 2006
       Initiator                   Responder
      -----------                 -----------
       HDR, SK { N(USE_TRANSPORT_MODE), SA, Ni,
-                TSi(1, 0x0300-0x03FF, 192.0.1.234-192.0.1.234),
+                TSi(1, 0xFF-0xFF, 192.0.1.234-192.0.1.234),
                 TSr(1, 65535-0, 192.0.2.155-192.0.2.155) } -->
 
          <-- HDR, SK { N(USE_TRANSPORT_MODE), SA, Nr,
-                       TSi(1, 0x0300-0x03FF, 192.0.1.234-192.0.1.234),
+                       TSi(1, 0xFF-0xFF, 192.0.1.234-192.0.1.234),
                        TSr(1, 65535-0, 192.0.2.155-192.0.2.155) }
 
    Since IKEv2 always creates IPsec SAs in pairs, two SAs are also
@@ -1071,12 +1071,12 @@ RFC 4718                  IKEv2 Clarifications              October 2006
       Initiator                   Responder
      -----------                 -----------
       HDR, SK { N(USE_TRANSPORT_MODE), SA, Ni,
-                TSi(1, 0x0300-0x03FF, 192.0.1.234-192.0.1.234),
-                TSr(1, 0x0300-0x03FF, 192.0.2.155-192.0.2.155) } -->
+                TSi(1, 0xFF-0xFF, 192.0.1.234-192.0.1.234),
+                TSr(1, 0xFF-0xFF, 192.0.2.155-192.0.2.155) } -->
 
          <-- HDR, SK { N(USE_TRANSPORT_MODE), SA, Nr,
-                       TSi(1, 0x0300-0x03FF, 192.0.1.234-192.0.1.234),
-                       TSr(1, 0x0300-0x03FF, 192.0.2.155-192.0.2.155) }
+                       TSi(1, 0xFF-0xFF, 192.0.1.234-192.0.1.234),
+                       TSr(1, 0xFF-0xFF, 192.0.2.155-192.0.2.155) }
 
    (References: "ICMP and MH TSs for IKEv2" thread, Sep 2005.)
 

@@ -33,9 +33,9 @@
 /**
  *  Public exponent to use for key generation.
  */
-#define PUBLIC_EXPONENT 0x10001
+#define PUBLIC_EXPONENT 0xFF
 
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 OPENSSL_KEY_FALLBACK(RSA, key, n, e, d)
 OPENSSL_KEY_FALLBACK(RSA, factors, p, q)
 OPENSSL_KEY_FALLBACK(RSA, crt_params, dmp1, dmq1, iqmp)
@@ -72,7 +72,7 @@ struct private_openssl_rsa_private_key_t {
 /* implemented in rsa public key */
 bool openssl_rsa_fingerprint(RSA *rsa, cred_encoding_type_t type, chunk_t *fp);
 
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 
 /**
  * Build RSA signature
@@ -283,7 +283,7 @@ METHOD(private_key_t, sign, bool,
 			return build_emsa_pkcs1_signature(this, NID_sha1, data, signature);
 		case SIGN_RSA_EMSA_PKCS1_MD5:
 			return build_emsa_pkcs1_signature(this, NID_md5, data, signature);
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 		case SIGN_RSA_EMSA_PSS:
 			return build_emsa_pss_signature(this, params, data, signature);
 #endif

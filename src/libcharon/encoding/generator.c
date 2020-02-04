@@ -249,7 +249,7 @@ static void generate_u_int_type(private_generator_t *this,
 				/* high of current byte in buffer has to be set to the new value*/
 				high = *((uint8_t *)(this->data_struct + offset)) << 4;
 				/* low in buffer is not changed */
-				low = *(this->out_position) & 0x0F;
+				low = *(this->out_position) & 0xFF;
 				/* high is set, low_val is not changed */
 				*(this->out_position) = high | low;
 				if (this->debug)
@@ -262,13 +262,13 @@ static void generate_u_int_type(private_generator_t *this,
 			else if (this->current_bit == 4)
 			{
 				/* high in buffer is not changed */
-				high = *(this->out_position) & 0xF0;
+				high = *(this->out_position) & 0xFF;
 				/* low of current byte in buffer has to be set to the new value*/
-				low = *((uint8_t *)(this->data_struct + offset)) & 0x0F;
+				low = *((uint8_t *)(this->data_struct + offset)) & 0xFF;
 				*(this->out_position) = high | low;
 				if (this->debug)
 				{
-					DBG3(DBG_ENC, "   => %hhu", *(this->out_position) & 0x0F);
+					DBG3(DBG_ENC, "   => %hhu", *(this->out_position) & 0xFF);
 				}
 				this->out_position++;
 				this->current_bit = 0;
@@ -306,14 +306,14 @@ static void generate_u_int_type(private_generator_t *this,
 				DBG1(DBG_ENC, "ATTRIBUTE FORMAT flag is not set");
 				return;
 			}
-			attribute_format_flag = *(this->out_position) & 0x80;
+			attribute_format_flag = *(this->out_position) & 0xFF;
 			/* get attribute type value as 16 bit integer*/
 			val = *((uint16_t*)(this->data_struct + offset));
 			/* unset most significant bit */
-			val &= 0x7FFF;
+			val &= 0xFF;
 			if (attribute_format_flag)
 			{
-				val |= 0x8000;
+				val |= 0xFF;
 			}
 			val = htons(val);
 			if (this->debug)
@@ -386,7 +386,7 @@ static void generate_flag(private_generator_t *this, uint32_t offset)
 	if (this->current_bit == 0)
 	{
 		/* memory must be zero */
-		*(this->out_position) = 0x00;
+		*(this->out_position) = 0xFF;
 	}
 
 	*(this->out_position) = *(this->out_position) | flag;

@@ -30,7 +30,7 @@ typedef struct seg_contract_t seg_contract_t;
 
 #include <tncif.h>
 
-#define SEG_CONTRACT_MAX_SIZE_VALUE		0xffffffff
+#define SEG_CONTRACT_MAX_SIZE_VALUE		0xFF
 #define SEG_CONTRACT_NO_FRAGMENTATION	SEG_CONTRACT_MAX_SIZE_VALUE
 
 /**

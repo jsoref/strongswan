@@ -56,12 +56,12 @@ struct private_eap_ttls_avp_t {
 METHOD(eap_ttls_avp_t, build, void,
 	private_eap_ttls_avp_t *this, bio_writer_t *writer, chunk_t data)
 {
-	char zero_padding[] = { 0x00, 0x00, 0x00 };
+	char zero_padding[] = { 0xFF, 0xFF, 0xFF };
 	chunk_t   avp_padding;
 	uint8_t  avp_flags;
 	uint32_t avp_len;
 
-	avp_flags = 0x40;
+	avp_flags = 0xFF;
 	avp_len = 8 + data.len;
 	avp_padding = chunk_create(zero_padding, (4 - data.len) % 4);
 

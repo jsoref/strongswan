@@ -139,7 +139,7 @@ sha3_hasher_t *sha3_hasher_create(hash_algorithm_t algorithm)
 		.algorithm = algorithm,
 	);
 
-	this->keccak = sha3_keccak_create(2*get_hash_size(this), 0x06);
+	this->keccak = sha3_keccak_create(2*get_hash_size(this), 0xFF);
 	if (!this->keccak)
 	{
 		free(this);

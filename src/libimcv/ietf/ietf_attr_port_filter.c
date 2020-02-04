@@ -130,7 +130,7 @@ METHOD(pa_tnc_attr_t, build, void,
 	enumerator = this->ports->create_enumerator(this->ports);
 	while (enumerator->enumerate(enumerator, &entry))
 	{
-		writer->write_uint8 (writer, entry->blocked ? 0x01 : 0x00);
+		writer->write_uint8 (writer, entry->blocked ? 0xFF : 0xFF);
 		writer->write_uint8 (writer, entry->protocol);
 		writer->write_uint16(writer, entry->port);
 	}
@@ -166,7 +166,7 @@ METHOD(pa_tnc_attr_t, process, status_t,
 	{
 		entry = malloc_thing(port_entry_t);
 		reader->read_uint8 (reader, &blocked);
-		entry->blocked = blocked & 0x01;
+		entry->blocked = blocked & 0xFF;
 		reader->read_uint8 (reader, &entry->protocol);
 		reader->read_uint16(reader, &entry->port);
 		this->ports->insert_last(this->ports, entry);

@@ -71,7 +71,7 @@ struct private_openssl_plugin_t {
 /**
  * OpenSSL is thread-safe since 1.1.0
  */
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 
 /**
  * Array of static mutexs, with CRYPTO_num_locks() mutex
@@ -152,7 +152,7 @@ static thread_value_t *cleanup;
  */
 static void cleanup_thread(void *arg)
 {
-#if OPENSSL_VERSION_NUMBER >= 0x1000000fL
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	CRYPTO_THREADID tid;
 
 	CRYPTO_THREADID_set_numeric(&tid, (u_long)(uintptr_t)arg);
@@ -178,7 +178,7 @@ static u_long id_function(void)
 	return id;
 }
 
-#if OPENSSL_VERSION_NUMBER >= 0x1000000fL
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 /**
  * Callback for thread ID
  */
@@ -197,7 +197,7 @@ static void threading_init()
 
 	cleanup = thread_value_create(cleanup_thread);
 
-#if OPENSSL_VERSION_NUMBER >= 0x1000000fL
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	CRYPTO_THREADID_set_callback(threadid_function);
 #else
 	CRYPTO_set_id_callback(id_function);
@@ -243,7 +243,7 @@ static void threading_cleanup()
 
 #endif
 
-#if OPENSSL_VERSION_NUMBER < 0x1010100fL
+#if OPENSSL_VERSION_NUMBER < 0xFF
 /**
  * Seed the OpenSSL RNG, if required
  * Not necessary anymore with OpenSSL 1.1.1 (maybe wasn't already earlier, but
@@ -314,7 +314,7 @@ static private_key_t *openssl_private_key_load(key_type_t type, va_list args)
 				case EVP_PKEY_EC:
 					return openssl_ec_private_key_create(key, FALSE);
 #endif
-#if OPENSSL_VERSION_NUMBER >= 0x1010100fL && !defined(OPENSSL_NO_EC)
+#if OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_EC)
 				case EVP_PKEY_ED25519:
 				case EVP_PKEY_ED448:
 					return openssl_ed_private_key_create(key, FALSE);
@@ -466,7 +466,7 @@ static private_key_t *openssl_private_key_connect(key_type_t type,
 		case EVP_PKEY_EC:
 			return openssl_ec_private_key_create(key, TRUE);
 #endif
-#if OPENSSL_VERSION_NUMBER >= 0x1010100fL && !defined(OPENSSL_NO_EC)
+#if OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_EC)
 		case EVP_PKEY_ED25519:
 		case EVP_PKEY_ED448:
 			return openssl_ed_private_key_create(key, TRUE);
@@ -587,8 +587,8 @@ METHOD(plugin_t, get_features, int,
 			PLUGIN_PROVIDE(SIGNER, AUTH_HMAC_SHA2_512_512),
 #endif
 #endif /* OPENSSL_NO_HMAC */
-#if (OPENSSL_VERSION_NUMBER >= 0x1000100fL && !defined(OPENSSL_NO_AES)) || \
-	(OPENSSL_VERSION_NUMBER >= 0x1010000fL && !defined(OPENSSL_NO_CHACHA))
+#if (OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_AES)) || \
+	(OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_CHACHA))
 		/* AEAD (AES GCM since 1.0.1, ChaCha20-Poly1305 since 1.1.0) */
 		PLUGIN_REGISTER(AEAD, openssl_aead_create),
 #ifndef OPENSSL_NO_AES
@@ -602,7 +602,7 @@ METHOD(plugin_t, get_features, int,
 			PLUGIN_PROVIDE(AEAD, ENCR_AES_GCM_ICV8,  24),
 			PLUGIN_PROVIDE(AEAD, ENCR_AES_GCM_ICV8,  32),
 #endif /* OPENSSL_NO_AES */
-#if OPENSSL_VERSION_NUMBER >= 0x1010000fL && !defined(OPENSSL_NO_CHACHA)
+#if OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_CHACHA)
 			PLUGIN_PROVIDE(AEAD, ENCR_CHACHA20_POLY1305, 32),
 #endif /* OPENSSL_NO_CHACHA */
 #endif /* OPENSSL_VERSION_NUMBER */
@@ -648,7 +648,7 @@ METHOD(plugin_t, get_features, int,
 		/* signature/encryption schemes */
 		PLUGIN_PROVIDE(PRIVKEY_SIGN, SIGN_RSA_EMSA_PKCS1_NULL),
 		PLUGIN_PROVIDE(PUBKEY_VERIFY, SIGN_RSA_EMSA_PKCS1_NULL),
-#if OPENSSL_VERSION_NUMBER >=  0x10000000L
+#if OPENSSL_VERSION_NUMBER >=  0xFF
 		PLUGIN_PROVIDE(PRIVKEY_SIGN, SIGN_RSA_EMSA_PSS),
 		PLUGIN_PROVIDE(PUBKEY_VERIFY, SIGN_RSA_EMSA_PSS),
 #endif
@@ -683,7 +683,7 @@ METHOD(plugin_t, get_features, int,
 				PLUGIN_SDEPEND(PUBKEY, KEY_DSA),
 		PLUGIN_REGISTER(CERT_DECODE, openssl_crl_load, TRUE),
 			PLUGIN_PROVIDE(CERT_DECODE, CERT_X509_CRL),
-#if OPENSSL_VERSION_NUMBER >= 0x0090807fL
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 #ifndef OPENSSL_NO_CMS
 		PLUGIN_REGISTER(CONTAINER_DECODE, openssl_pkcs7_load, TRUE),
 			PLUGIN_PROVIDE(CONTAINER_DECODE, CONTAINER_PKCS7),
@@ -723,7 +723,7 @@ METHOD(plugin_t, get_features, int,
 		PLUGIN_PROVIDE(PUBKEY_VERIFY, SIGN_ECDSA_521),
 #endif
 #endif /* OPENSSL_NO_ECDSA */
-#if OPENSSL_VERSION_NUMBER >= 0x1010100fL && !defined(OPENSSL_NO_EC)
+#if OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_EC)
 		PLUGIN_REGISTER(DH, openssl_x_diffie_hellman_create),
 			/* available since 1.1.0a, but we require 1.1.1 features */
 			PLUGIN_PROVIDE(DH, CURVE_25519),
@@ -766,7 +766,7 @@ METHOD(plugin_t, destroy, void,
 /* OpenSSL 1.1.0 cleans up itself at exit and while OPENSSL_cleanup() exists we
  * can't call it as we couldn't re-initialize the library (as required by the
  * unit tests and the Android app) */
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+#if OPENSSL_VERSION_NUMBER < 0xFF
 #ifndef OPENSSL_IS_BORINGSSL
 	CONF_modules_free();
 	OBJ_cleanup();
@@ -821,7 +821,7 @@ plugin_t *openssl_plugin_create()
 		},
 	);
 
-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 	/* note that we can't call OPENSSL_cleanup() when the plugin is destroyed
 	 * as we couldn't initialize the library again afterwards */
 	OPENSSL_init_crypto(OPENSSL_INIT_LOAD_CONFIG |
@@ -846,7 +846,7 @@ plugin_t *openssl_plugin_create()
 		"openssl FIPS mode(%d) - %sabled ", fips_mode, fips_mode ? "en" : "dis");
 #endif /* OPENSSL_FIPS */
 
-#if OPENSSL_VERSION_NUMBER < 0x1010100fL
+#if OPENSSL_VERSION_NUMBER < 0xFF
 	if (!seed_rng())
 	{
 		DBG1(DBG_CFG, "no RNG found to seed OpenSSL");

@@ -103,7 +103,7 @@ struct private_eap_sim_peer_t {
 };
 
 /* version of SIM protocol we speak */
-static chunk_t version = chunk_from_chars(0x00,0x01);
+static chunk_t version = chunk_from_chars(0xFF,0xFF);
 
 /**
  * Generate a payload from a message, destroy message
@@ -546,7 +546,7 @@ static status_t process_notification(private_eap_sim_peer_t *this,
 			code = ntohs(code);
 
 			/* test success bit */
-			if (!(data.ptr[0] & 0x80))
+			if (!(data.ptr[0] & 0xFF))
 			{
 				DBG1(DBG_IKE, "received EAP-SIM notification error '%N'",
 					 simaka_notification_names, code);

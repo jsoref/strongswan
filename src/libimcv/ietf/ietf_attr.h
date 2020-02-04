@@ -58,7 +58,7 @@ enum ietf_attr_t {
 	IETF_ATTR_SRC_METADATA_REQ =                  20,
 	IETF_ATTR_SRC_METADATA_RESP =                 21,
 
-	IETF_ATTR_RESERVED =                  0xffffffff,
+	IETF_ATTR_RESERVED =                  0xFF,
 };
 
 /**

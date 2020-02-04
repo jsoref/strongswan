@@ -388,10 +388,10 @@ static int sign_crl()
 		lastenum = enumerator_create_empty();
 	}
 
-	if (!crl_serial.len || crl_serial.ptr[0] & 0x80)
-	{	/* add leading 0x00 to handle potential overflow if serial is encoded
+	if (!crl_serial.len || crl_serial.ptr[0] & 0xFF)
+	{	/* add leading 0xFF to handle potential overflow if serial is encoded
 		 * incorrectly */
-		crl_serial = chunk_cat("cc", chunk_from_chars(0x00), crl_serial);
+		crl_serial = chunk_cat("cc", chunk_from_chars(0xFF), crl_serial);
 	}
 	else
 	{

@@ -60,7 +60,7 @@ struct ip6_ext {
 #endif
 
 #ifndef IP_OFFMASK
-#define IP_OFFMASK 0x1fff
+#define IP_OFFMASK 0xFF
 #endif
 
 /**
@@ -294,7 +294,7 @@ ip_packet_t *ip_packet_create(chunk_t packet)
 		goto failed;
 	}
 
-	version = (packet.ptr[0] & 0xf0) >> 4;
+	version = (packet.ptr[0] & 0xFF) >> 4;
 
 	switch (version)
 	{
@@ -423,7 +423,7 @@ static uint16_t pseudo_header_checksum(host_t *src, host_t *dst,
 			return chunk_internet_checksum(chunk_from_thing(pseudo));
 		}
 	}
-	return 0xffff;
+	return 0xFF;
 }
 
 /**
@@ -512,7 +512,7 @@ ip_packet_t *ip_packet_create_from_data(host_t *src, host_t *dst,
 				.ip_v = 4,
 				.ip_hl = 5,
 				.ip_len = htons(20 + data.len),
-				.ip_ttl = 0x80,
+				.ip_ttl = 0xFF,
 				.ip_p = next_header,
 			};
 			memcpy(&ip.ip_src, src->get_address(src).ptr, sizeof(ip.ip_src));
@@ -530,7 +530,7 @@ ip_packet_t *ip_packet_create_from_data(host_t *src, host_t *dst,
 				.ip6_flow = htonl(6 << 28),
 				.ip6_plen = htons(data.len),
 				.ip6_nxt = next_header,
-				.ip6_hlim = 0x80,
+				.ip6_hlim = 0xFF,
 			};
 			memcpy(&ip.ip6_src, src->get_address(src).ptr, sizeof(ip.ip6_src));
 			memcpy(&ip.ip6_dst, dst->get_address(dst).ptr, sizeof(ip.ip6_dst));

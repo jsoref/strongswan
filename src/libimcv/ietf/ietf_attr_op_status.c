@@ -155,7 +155,7 @@ METHOD(pa_tnc_attr_t, build, void,
 	writer = bio_writer_create(OP_STATUS_SIZE);
 	writer->write_uint8 (writer, this->status);
 	writer->write_uint8 (writer, this->result);
-	writer->write_uint16(writer, 0x0000);
+	writer->write_uint16(writer, 0xFF);
 	writer->write_data  (writer, chunk_create(last_use, 20));
 
 	this->value = writer->extract_buf(writer);

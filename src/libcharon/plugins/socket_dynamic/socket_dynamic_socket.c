@@ -487,7 +487,7 @@ static dynsock_t *find_socket(private_socket_dynamic_socket_t *this,
 		.family = family,
 		.port = port,
 	};
-	char buf[] = {0x01};
+	char buf[] = {0xFF};
 	int fd;
 
 	this->lock->read_lock(this->lock);

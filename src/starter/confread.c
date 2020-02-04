@@ -221,8 +221,8 @@ static void conn_defaults(starter_conn_t *conn)
 	conn->left.ikeport = 500;
 	conn->right.ikeport = 500;
 
-	conn->left.to_port = 0xffff;
-	conn->right.to_port = 0xffff;
+	conn->left.to_port = 0xFF;
+	conn->right.to_port = 0xFF;
 }
 
 /*
@@ -318,7 +318,7 @@ static void kw_end(starter_conn_t *conn, starter_end_t *end, kw_token_t token,
 				else
 				{
 					p = strtol(value, &endptr, 0);
-					if ((*value && *endptr) || p < 0 || p > 0xff)
+					if ((*value && *endptr) || p < 0 || p > 0xFF)
 					{
 						DBG1(DBG_APP, "# bad protocol: %s=%s", key, value);
 						goto err;
@@ -329,11 +329,11 @@ static void kw_end(starter_conn_t *conn, starter_end_t *end, kw_token_t token,
 			if (streq(port, "%any"))
 			{
 				end->from_port = 0;
-				end->to_port = 0xffff;
+				end->to_port = 0xFF;
 			}
 			else if (streq(port, "%opaque"))
 			{
-				end->from_port = 0xffff;
+				end->from_port = 0xFF;
 				end->to_port = 0;
 			}
 			else if (*port)
@@ -346,7 +346,7 @@ static void kw_end(starter_conn_t *conn, starter_end_t *end, kw_token_t token,
 				else
 				{
 					p = strtol(port, &endptr, 0);
-					if (p < 0 || p > 0xffff)
+					if (p < 0 || p > 0xFF)
 					{
 						DBG1(DBG_APP, "# bad port: %s=%s", key, port);
 						goto err;
@@ -356,7 +356,7 @@ static void kw_end(starter_conn_t *conn, starter_end_t *end, kw_token_t token,
 					{
 						port = endptr + 1;
 						p = strtol(port, &endptr, 0);
-						if (p < 0 || p > 0xffff)
+						if (p < 0 || p > 0xFF)
 						{
 							DBG1(DBG_APP, "# bad port: %s=%s", key, port);
 							goto err;

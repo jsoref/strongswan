@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 
 	sigs = malloc(sizeof(chunk_t) * rounds);
 
-	data = chunk_from_chars(0x01,0x02,0x03,0x04,0x05,0x06,0x07);
+	data = chunk_from_chars(0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF);
 	start_timing(&timing);
 	for (round = 0; round < rounds; round++)
 	{

@@ -76,9 +76,9 @@ struct private_keymat_v1_t {
 /**
  * Constants used in key derivation.
  */
-static const chunk_t octet_0 = chunk_from_chars(0x00);
-static const chunk_t octet_1 = chunk_from_chars(0x01);
-static const chunk_t octet_2 = chunk_from_chars(0x02);
+static const chunk_t octet_0 = chunk_from_chars(0xFF);
+static const chunk_t octet_1 = chunk_from_chars(0xFF);
+static const chunk_t octet_2 = chunk_from_chars(0xFF);
 
 /**
  * Simple aead_t implementation without support for authentication.

@@ -202,9 +202,9 @@ METHOD(ntru_public_key_t, encrypt, bool,
 		ptr += this->params->sec_strength_len;
 		if (this->params->m_len_len == 2)
 		{
-			*ptr++ = (uint8_t)((plaintext.len >> 8) & 0xff);
+			*ptr++ = (uint8_t)((plaintext.len >> 8) & 0xFF);
 		}
-		*ptr++ = (uint8_t)(plaintext.len & 0xff);
+		*ptr++ = (uint8_t)(plaintext.len & 0xFF);
 		memcpy(ptr, plaintext.ptr, plaintext.len);
 		ptr += plaintext.len;
 

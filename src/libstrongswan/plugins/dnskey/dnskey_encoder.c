@@ -51,7 +51,7 @@ static bool build_pub(chunk_t *encoding, va_list args)
 			/* exponent length fits into two octets preceded by zero octet */
 			exp_len = 3;
 			pubkey = chunk_alloc(exp_len + e.len + n.len);
-			pubkey.ptr[0] = 0x00;
+			pubkey.ptr[0] = 0xFF;
 			htoun16(pubkey.ptr + 1, e.len);
 		}
 		else

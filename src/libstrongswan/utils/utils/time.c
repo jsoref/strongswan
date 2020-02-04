@@ -16,7 +16,7 @@
 
 #ifdef WIN32
 /* for GetTickCount64, Windows 7 */
-# define _WIN32_WINNT 0x0601
+# define _WIN32_WINNT 0xFF
 #endif
 
 #define _GNU_SOURCE

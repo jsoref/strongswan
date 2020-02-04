@@ -14,7 +14,7 @@
  */
 
 /* WSAPoll() */
-#define _WIN32_WINNT 0x0600
+#define _WIN32_WINNT 0xFF
 
 #include <utils/utils.h>
 

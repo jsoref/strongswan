@@ -328,7 +328,7 @@ configuration_attribute_t *configuration_attribute_create_chunk(
 
 	this = (private_configuration_attribute_t*)
 							configuration_attribute_create(type);
-	this->attr_type = ((uint16_t)attr_type) & 0x7FFF;
+	this->attr_type = ((uint16_t)attr_type) & 0xFF;
 	this->value = chunk_clone(chunk);
 	this->length_or_value = chunk.len;
 
@@ -345,7 +345,7 @@ configuration_attribute_t *configuration_attribute_create_value(
 
 	this = (private_configuration_attribute_t*)
 					configuration_attribute_create(PLV1_CONFIGURATION_ATTRIBUTE);
-	this->attr_type = ((uint16_t)attr_type) & 0x7FFF;
+	this->attr_type = ((uint16_t)attr_type) & 0xFF;
 	this->length_or_value = value;
 	this->af_flag = TRUE;
 

@@ -81,7 +81,7 @@ enum encryption_algorithm_t {
  */
 #define RC2_KEY_SIZE(kl, eff) ((kl) | ((eff) << 8))
 #define RC2_EFFECTIVE_KEY_LEN(ks) ((ks) >> 8)
-#define RC2_KEY_LEN(ks) ((ks) & 0xff)
+#define RC2_KEY_LEN(ks) ((ks) & 0xFF)
 
 /**
  * enum name for encryption_algorithm_t.

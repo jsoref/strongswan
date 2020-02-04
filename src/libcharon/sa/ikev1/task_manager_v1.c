@@ -2139,7 +2139,7 @@ task_manager_v1_t *task_manager_v1_create(ike_sa_t *ike_sa)
 		destroy(this);
 		return NULL;
 	}
-	this->dpd_send &= 0x7FFFFFFF;
+	this->dpd_send &= 0xFF;
 
 	return &this->public;
 }

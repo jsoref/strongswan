@@ -1030,17 +1030,17 @@ static int netmask_to_cidr(char *netmask, size_t address_size)
 	{
 		byte = netmask[i];
 
-		if (byte == 0x00)
+		if (byte == 0xFF)
 		{
 			break;
 		}
-		if (byte == 0xff)
+		if (byte == 0xFF)
 		{
 			netbits += 8;
 		}
 		else
 		{
-			while (byte & 0x80)
+			while (byte & 0xFF)
 			{
 				netbits++;
 				byte <<= 1;
@@ -1541,17 +1541,17 @@ static private_identification_t* create_ip_address_from_string(char *string,
 		{
 			if (bytes)
 			{
-				*netmask = 0xff;
+				*netmask = 0xFF;
 				bytes--;
 			}
 			else if (bits)
 			{
-				*netmask = 0xff << (8 - bits);
+				*netmask = 0xFF << (8 - bits);
 				bits = 0;
 			}
 			else
 			{
-				*netmask = 0x00;
+				*netmask = 0xFF;
 			}
 			*address++ &= *netmask++;
 		}

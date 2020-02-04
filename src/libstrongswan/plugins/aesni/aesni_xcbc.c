@@ -176,7 +176,7 @@ METHOD(mac_t, get_mac, bool,
 			{
 				memset(this->rem + this->rem_size, 0,
 					   AES_BLOCK_SIZE - this->rem_size);
-				this->rem[this->rem_size] = 0x80;
+				this->rem[this->rem_size] = 0xFF;
 			}
 			/*  ii) XOR M[n] with E[n-1] and Key K3, then encrypt the result
 			 *      with Key K1, yielding E[n].
@@ -198,7 +198,7 @@ METHOD(mac_t, get_mac, bool,
 		e = _mm_aesenclast_si128(e, ks[10]);
 		_mm_storeu_si128((__m128i*)out, e);
 
-		/* (2) Define E[0] = 0x00000000000000000000000000000000 */
+		/* (2) Define E[0] = 0xFF */
 		e = _mm_setzero_si128();
 		this->rem_size = 0;
 		this->zero = TRUE;
@@ -250,9 +250,9 @@ METHOD(mac_t, set_key, bool,
 	/*
 	 * (1) Derive 3 128-bit keys (K1, K2 and K3) from the 128-bit secret
 	 *     key K, as follows:
-	 *     K1 = 0x01010101010101010101010101010101 encrypted with Key K
-	 *     K2 = 0x02020202020202020202020202020202 encrypted with Key K
-	 *     K3 = 0x03030303030303030303030303030303 encrypted with Key K
+	 *     K1 = 0xFF encrypted with Key K
+	 *     K2 = 0xFF encrypted with Key K
+	 *     K3 = 0xFF encrypted with Key K
 	 */
 
 	DESTROY_IF(this->k1);
@@ -262,9 +262,9 @@ METHOD(mac_t, set_key, bool,
 		return FALSE;
 	}
 
-	t1 = _mm_set1_epi8(0x01);
-	t2 = _mm_set1_epi8(0x02);
-	t3 = _mm_set1_epi8(0x03);
+	t1 = _mm_set1_epi8(0xFF);
+	t2 = _mm_set1_epi8(0xFF);
+	t3 = _mm_set1_epi8(0xFF);
 
 	t1 = _mm_xor_si128(t1, this->k1->schedule[0]);
 	t2 = _mm_xor_si128(t2, this->k1->schedule[0]);

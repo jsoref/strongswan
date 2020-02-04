@@ -31,10 +31,10 @@ typedef struct ntru_param_set_t ntru_param_set_t;
 /**
  * Encoding types for NTRU encryption public/private key blobs
  */
-#define NTRU_PUBKEY_TAG           0x01
-#define NTRU_PRIVKEY_DEFAULT_TAG  0x02
-#define NTRU_PRIVKEY_TRITS_TAG    0xfe
-#define NTRU_PRIVKEY_INDICES_TAG  0xff
+#define NTRU_PUBKEY_TAG           0xFF
+#define NTRU_PRIVKEY_DEFAULT_TAG  0xFF
+#define NTRU_PRIVKEY_TRITS_TAG    0xFF
+#define NTRU_PRIVKEY_INDICES_TAG  0xFF
 
 /**
  * Size in octets of the OID designating the NTRU encryption parameter set
@@ -44,9 +44,9 @@ typedef struct ntru_param_set_t ntru_param_set_t;
 /**
  * Packing types for NTRU encryption public/private keys
  */
-#define NTRU_KEY_PACKED_COEFFICIENTS    0x01
-#define NTRU_KEY_PACKED_INDICES         0x02
-#define NTRU_KEY_PACKED_TRITS           0x03
+#define NTRU_KEY_PACKED_COEFFICIENTS    0xFF
+#define NTRU_KEY_PACKED_INDICES         0xFF
+#define NTRU_KEY_PACKED_TRITS           0xFF
 
 /**
  * NTRU encryption parameter set ID list

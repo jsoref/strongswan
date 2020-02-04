@@ -30,7 +30,7 @@ typedef enum pts_error_code_t pts_error_code_t;
 #include <library.h>
 
 #define PTS_MIN_NONCE_LEN		17
-#define PTS_MAX_NONCE_LEN		0xffff
+#define PTS_MAX_NONCE_LEN		0xFF
 
 /**
  * PTS Attestation Error Codes

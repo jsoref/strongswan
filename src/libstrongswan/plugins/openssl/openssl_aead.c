@@ -15,7 +15,7 @@
 
 #include <openssl/opensslv.h>
 
-#if OPENSSL_VERSION_NUMBER >= 0x1000100fL
+#if OPENSSL_VERSION_NUMBER >= 0xFF
 
 #include "openssl_aead.h"
 
@@ -278,7 +278,7 @@ aead_t *openssl_aead_create(encryption_algorithm_t algo,
 					return NULL;
 			}
 			break;
-#if OPENSSL_VERSION_NUMBER >= 0x1010000fL && !defined(OPENSSL_NO_CHACHA)
+#if OPENSSL_VERSION_NUMBER >= 0xFF && !defined(OPENSSL_NO_CHACHA)
 		case ENCR_CHACHA20_POLY1305:
 			switch (key_size)
 			{

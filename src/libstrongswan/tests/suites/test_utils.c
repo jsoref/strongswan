@@ -176,18 +176,18 @@ START_TEST(test_htoun)
 	net64 = chunk_alloca(16);
 	memset(net64.ptr, 0, net64.len);
 
-	expected = chunk_from_chars(0x00, 0x02, 0x01, 0x00);
+	expected = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF);
 	htoun16((char*)&net16 + 1, host16);
 	ck_assert(chunk_equals(expected, chunk_from_thing(net16)));
 
-	expected = chunk_from_chars(0x00, 0x00, 0x04, 0x03, 0x02, 0x01, 0x00, 0x00);
+	expected = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
 	htoun32((uint16_t*)&net32 + 1, host32);
 	ck_assert(chunk_equals(expected, chunk_from_thing(net32)));
 
-	expected = chunk_from_chars(0x00, 0x00, 0x00, 0x00,
-								0x08, 0x07, 0x06, 0x05,
-								0x04, 0x03, 0x02, 0x01,
-								0x00, 0x00, 0x00, 0x00);
+	expected = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF,
+								0xFF, 0xFF, 0xFF, 0xFF,
+								0xFF, 0xFF, 0xFF, 0xFF,
+								0xFF, 0xFF, 0xFF, 0xFF);
 	htoun64((uint32_t*)net64.ptr + 1, host64);
 	ck_assert(chunk_equals(expected, net64));
 }
@@ -200,16 +200,16 @@ START_TEST(test_untoh)
 	uint32_t host32;
 	uint64_t host64;
 
-	net = chunk_from_chars(0x00, 0x02, 0x01, 0x00);
+	net = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF);
 	host16 = untoh16(net.ptr + 1);
 	ck_assert(host16 == 513);
 
-	net = chunk_from_chars(0x00, 0x00, 0x04, 0x03, 0x02, 0x01, 0x00, 0x00);
+	net = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
 	host32 = untoh32(net.ptr + 2);
 	ck_assert(host32 == 67305985);
 
-	net = chunk_from_chars(0x00, 0x00, 0x00, 0x00, 0x08, 0x07, 0x06, 0x05,
-						   0x04, 0x03, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00);
+	net = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+						   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF);
 	host64 = untoh64(net.ptr + 4);
 	ck_assert(host64 == 578437695752307201ULL);
 }
@@ -373,7 +373,7 @@ START_TEST(test_malloc_align)
 			if (size)
 			{
 				ck_assert(ptr[size][align]);
-				memset(ptr[size][align], 0xEF, size);
+				memset(ptr[size][align], 0xFF, size);
 			}
 		}
 	}
@@ -450,18 +450,18 @@ START_TEST(test_memxor_aligned)
 	/* 32-bit aligned source */
 	a = 0;
 	memxor(ca.ptr, cb.ptr + 4, 4);
-	ck_assert(chunk_equals(ca, chunk_from_chars(0x05, 0x06, 0x07, 0x08,
-												0x00, 0x00, 0x00, 0x00)));
+	ck_assert(chunk_equals(ca, chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF,
+												0xFF, 0xFF, 0xFF, 0xFF)));
 	/* 16-bit aligned source */
 	a = 0;
 	memxor(ca.ptr, cb.ptr + 2, 6);
-	ck_assert(chunk_equals(ca, chunk_from_chars(0x03, 0x04, 0x05, 0x06,
-												0x07, 0x08, 0x00, 0x00)));
+	ck_assert(chunk_equals(ca, chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF,
+												0xFF, 0xFF, 0xFF, 0xFF)));
 	/* 8-bit aligned source */
 	a = 0;
 	memxor(ca.ptr, cb.ptr + 1, 7);
-	ck_assert(chunk_equals(ca, chunk_from_chars(0x02, 0x03, 0x04, 0x05,
-												0x06, 0x07, 0x08, 0x00)));
+	ck_assert(chunk_equals(ca, chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF,
+												0xFF, 0xFF, 0xFF, 0xFF)));
 }
 END_TEST
 
@@ -921,62 +921,62 @@ static struct {
 	mark_t m;
 } mark_data[] = {
 	{NULL,			FALSE,	MARK_OP_NONE, { 0 }},
-	{"",			TRUE,	MARK_OP_NONE, { 0, 0xffffffff }},
+	{"",			TRUE,	MARK_OP_NONE, { 0, 0xFF }},
 	{"/",			TRUE,	MARK_OP_NONE, { 0, 0 }},
-	{"42",			TRUE,	MARK_OP_NONE, { 42, 0xffffffff }},
-	{"0x42",		TRUE,	MARK_OP_NONE, { 0x42, 0xffffffff }},
+	{"42",			TRUE,	MARK_OP_NONE, { 42, 0xFF }},
+	{"0xFF",		TRUE,	MARK_OP_NONE, { 0xFF, 0xFF }},
 	{"x",			FALSE,	MARK_OP_NONE, { 0 }},
 	{"42/",			TRUE,	MARK_OP_NONE, { 0, 0 }},
 	{"42/0",		TRUE,	MARK_OP_NONE, { 0, 0 }},
 	{"42/x",		FALSE,	MARK_OP_NONE, { 0 }},
 	{"42/42",		TRUE,	MARK_OP_NONE, { 42, 42 }},
-	{"42/0xff",		TRUE,	MARK_OP_NONE, { 42, 0xff }},
-	{"0x42/0xff",	TRUE,	MARK_OP_NONE, { 0x42, 0xff }},
-	{"/0xff",		TRUE,	MARK_OP_NONE, { 0, 0xff }},
+	{"42/0xFF",		TRUE,	MARK_OP_NONE, { 42, 0xFF }},
+	{"0xFF/0xFF",	TRUE,	MARK_OP_NONE, { 0xFF, 0xFF }},
+	{"/0xFF",		TRUE,	MARK_OP_NONE, { 0, 0xFF }},
 	{"/x",			FALSE,	MARK_OP_NONE, { 0 }},
 	{"x/x",			FALSE,	MARK_OP_NONE, { 0 }},
-	{"0xfffffff0/0x0000ffff",	TRUE,	MARK_OP_UNIQUE,
-		{ 0x0000fff0, 0x0000ffff }},
+	{"0xFF/0xFF",	TRUE,	MARK_OP_UNIQUE,
+		{ 0xFF, 0xFF }},
 	{"%unique",					TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE, 0xffffffff }},
+		{ MARK_UNIQUE, 0xFF }},
 	{"%unique/",				TRUE,	MARK_OP_UNIQUE,
 		{ MARK_UNIQUE, 0 }},
 	{"%unique",					FALSE,	MARK_OP_NONE,
 		{ 0, 0 }},
-	{"%unique/0x0000ffff",		TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE, 0x0000ffff }},
-	{"%unique/0xffffffff",		TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE, 0xffffffff }},
-	{"%unique0xffffffffff",		FALSE,	MARK_OP_UNIQUE,
+	{"%unique/0xFF",		TRUE,	MARK_OP_UNIQUE,
+		{ MARK_UNIQUE, 0xFF }},
+	{"%unique/0xFF",		TRUE,	MARK_OP_UNIQUE,
+		{ MARK_UNIQUE, 0xFF }},
+	{"%unique0xFF",		FALSE,	MARK_OP_UNIQUE,
 		{ 0, 0 }},
-	{"0xffffffff/0x0000ffff",	TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE, 0x0000ffff }},
-	{"0xffffffff/0xffffffff",	TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE, 0xffffffff }},
+	{"0xFF/0xFF",	TRUE,	MARK_OP_UNIQUE,
+		{ MARK_UNIQUE, 0xFF }},
+	{"0xFF/0xFF",	TRUE,	MARK_OP_UNIQUE,
+		{ MARK_UNIQUE, 0xFF }},
 	{"%unique-dir",				TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE_DIR, 0xffffffff }},
+		{ MARK_UNIQUE_DIR, 0xFF }},
 	{"%unique-dir/",			TRUE,	MARK_OP_UNIQUE,
 		{ MARK_UNIQUE_DIR, 0 }},
 	{"%unique-dir",				FALSE,	MARK_OP_NONE,
 		{ 0, 0 }},
-	{"%unique-dir/0x0000ffff",	TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE_DIR, 0x0000ffff }},
-	{"%unique-dir/0xffffffff",	TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE_DIR, 0xffffffff }},
-	{"%unique-dir0xffffffff",	FALSE,	MARK_OP_UNIQUE,
+	{"%unique-dir/0xFF",	TRUE,	MARK_OP_UNIQUE,
+		{ MARK_UNIQUE_DIR, 0xFF }},
+	{"%unique-dir/0xFF",	TRUE,	MARK_OP_UNIQUE,
+		{ MARK_UNIQUE_DIR, 0xFF }},
+	{"%unique-dir0xFF",	FALSE,	MARK_OP_UNIQUE,
 		{ 0, 0 }},
-	{"0xfffffffe/0x0000ffff",	TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE_DIR, 0x0000ffff }},
-	{"0xfffffffe/0xffffffff",	TRUE,	MARK_OP_UNIQUE,
-		{ MARK_UNIQUE_DIR, 0xffffffff }},
-	{"%unique-/0xffffffff",		FALSE,	MARK_OP_UNIQUE,
+	{"0xFF/0xFF",	TRUE,	MARK_OP_UNIQUE,
+		{ MARK_UNIQUE_DIR, 0xFF }},
+	{"0xFF/0xFF",	TRUE,	MARK_OP_UNIQUE,
+		{ MARK_UNIQUE_DIR, 0xFF }},
+	{"%unique-/0xFF",		FALSE,	MARK_OP_UNIQUE,
 		{ 0, 0 }},
-	{"%unique-foo/0xffffffff",	FALSE,	MARK_OP_UNIQUE,
+	{"%unique-foo/0xFF",	FALSE,	MARK_OP_UNIQUE,
 		{ 0, 0 }},
 	{"%same",					TRUE,	MARK_OP_SAME,
-		{ MARK_SAME, 0xffffffff }},
-	{"%same/0x0000ffff",		TRUE,	MARK_OP_SAME,
-		{ MARK_SAME, 0x0000ffff }},
+		{ MARK_SAME, 0xFF }},
+	{"%same/0xFF",		TRUE,	MARK_OP_SAME,
+		{ MARK_SAME, 0xFF }},
 	{"%%same",					FALSE,	MARK_OP_NONE,
 		{ 0, 0 }},
 };
@@ -1010,17 +1010,17 @@ static struct {
 	{"",			TRUE,	0 },
 	{"/",			FALSE,	0 },
 	{"42",			TRUE,	42 },
-	{"0x42",		TRUE,	0x42 },
+	{"0xFF",		TRUE,	0xFF },
 	{"x",			FALSE,	0 },
 	{"42/",			FALSE,	0 },
 	{"42/0",		FALSE,	0 },
 	{"%unique",		TRUE,	IF_ID_UNIQUE },
 	{"%unique/",	FALSE,	0},
-	{"%unique0xffffffffff",	FALSE,	0},
-	{"0xffffffff",	TRUE,	IF_ID_UNIQUE},
+	{"%unique0xFF",	FALSE,	0},
+	{"0xFF",	TRUE,	IF_ID_UNIQUE},
 	{"%unique-dir",	TRUE,	IF_ID_UNIQUE_DIR},
 	{"%unique-dir/",FALSE,	0},
-	{"0xfffffffe",	TRUE,	IF_ID_UNIQUE_DIR},
+	{"0xFF",	TRUE,	IF_ID_UNIQUE_DIR},
 	{"%unique-",	FALSE,	0},
 	{"%unique-foo",	FALSE,	0},
 };

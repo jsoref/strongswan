@@ -593,7 +593,7 @@ static void *rwlock_try_run(void *param)
 
 START_TEST(test_rwlock_try)
 {
-	uintptr_t magic = 0xcafebabe;
+	uintptr_t magic = 0xFF;
 	thread_t *thread;
 
 	rwlock = rwlock_create(RWLOCK_TYPE_DEFAULT);

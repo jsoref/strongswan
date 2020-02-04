@@ -17,11 +17,11 @@
 
 #include <bliss_bitpacker.h>
 
-static uint32_t bits[] = { 0, 1, 2, 3, 4, 7, 1, 14, 2, 29, 3, 28, 67, 0x2fe3a9c1};
+static uint32_t bits[] = { 0, 1, 2, 3, 4, 7, 1, 14, 2, 29, 3, 28, 67, 0xFF};
 
-static chunk_t packed_bits = chunk_from_chars(0x6e, 0x71, 0xe1, 0x74,
-											  0x37, 0x21, 0x97, 0xf1,
-											  0xd4, 0xe0, 0x80);
+static chunk_t packed_bits = chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF,
+											  0xFF, 0xFF, 0xFF, 0xFF,
+											  0xFF, 0xFF, 0xFF);
 
 START_TEST(test_bliss_sign_bitpacker_write)
 {
@@ -74,14 +74,14 @@ START_TEST(test_bliss_sign_bitpacker_fail)
 	uint32_t value;
 
 	packer = bliss_bitpacker_create(32);
-	ck_assert( packer->write_bits(packer, 0xff, 0));
+	ck_assert( packer->write_bits(packer, 0xFF, 0));
 	ck_assert(!packer->write_bits(packer, 0, 33));
-	ck_assert( packer->write_bits(packer, 0x7f2a3b01, 31));
+	ck_assert( packer->write_bits(packer, 0xFF, 31));
 	ck_assert(!packer->write_bits(packer, 3,  2));
 	packer->destroy(packer);
 
 	packer = bliss_bitpacker_create_from_data(
-							chunk_from_chars(0x7f, 0x2a, 0x3b, 0x01));
+							chunk_from_chars(0xFF, 0xFF, 0xFF, 0xFF));
 	ck_assert(!packer->read_bits(packer, &value, 33));
 	ck_assert( packer->read_bits(packer, &value, 31));
 	ck_assert(!packer->read_bits(packer, &value,  2));
